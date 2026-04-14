@@ -591,6 +591,17 @@ export default function AuthPage() {
     }),
   };
 
+  const signupStepStyle = (index) => ({
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    transition: "opacity 0.25s ease, transform 0.25s ease",
+    opacity: step === index ? 1 : 0,
+    transform: step === index ? "translateY(0)" : "translateY(8px)",
+    pointerEvents: step === index ? "auto" : "none",
+  });
+
   function StepDots() {
     return (
       <div style={{ display: "flex", gap: "5px", marginBottom: "1.5rem" }}>
@@ -638,7 +649,7 @@ export default function AuthPage() {
 
   function Step0() {
     return (
-      <div style={{ animation: "fadeUp 0.25s ease" }}>
+      <div>
         <StepDots />
         <div style={{ display: "flex", gap: "0.7rem", marginBottom: "1rem" }}>
           <div style={{ flex: 1 }}>
@@ -763,7 +774,7 @@ export default function AuthPage() {
       { key: "dyslexic", label: "Dyslexic", family: "'Comic Sans MS',cursive" },
     ];
     return (
-      <div style={{ animation: "fadeUp 0.25s ease" }}>
+      <div>
         <StepDots />
         <div style={{ marginBottom: "1rem" }}>
           <p style={S.sectionHead}>Skill level</p>
@@ -918,7 +929,6 @@ export default function AuthPage() {
     return (
       <div
         style={{
-          animation: "fadeUp 0.25s ease",
           textAlign: "center",
           padding: "1rem 0",
         }}
@@ -1164,14 +1174,18 @@ export default function AuthPage() {
               </button>
               <button
                 style={S.tabBtn(tab === "signup")}
-                onClick={() => setTab("signup")}
+                onClick={() => {
+                  setTab("signup");
+                  setStep(0);
+                  setLoginError("");
+                }}
               >
                 Create account
               </button>
             </div>
 
             {tab === "login" && (
-              <div style={{ animation: "fadeUp 0.25s ease" }}>
+              <div style={{ animation: "fadeUp 0.25s ease both" }}>
                 <div style={S.field}>
                   <label style={S.label}>Email</label>
                   <input
@@ -1293,11 +1307,23 @@ export default function AuthPage() {
             )}
 
             {tab === "signup" && (
-              <>
-                {step === 0 && <Step0 />}
-                {step === 1 && <Step1 />}
-                {step === 2 && <Step2 />}
-              </>
+              <div
+                style={{
+                  position: "relative",
+                  minHeight: "440px",
+                  overflow: "hidden",
+                }}
+              >
+                <div style={signupStepStyle(0)}>
+                  <Step0 />
+                </div>
+                <div style={signupStepStyle(1)}>
+                  <Step1 />
+                </div>
+                <div style={signupStepStyle(2)}>
+                  <Step2 />
+                </div>
+              </div>
             )}
           </div>
         </div>
@@ -1322,6 +1348,13 @@ export default function AuthPage() {
           whiteSpace: "nowrap",
           zIndex: 999,
         }}
+      >
+        {toast.msg}
+      </div>
+    </>
+  );
+}
+
       >
         {toast.msg}
       </div>
