@@ -34,13 +34,16 @@ export const useUserStore = create(
       version: 1,
       migrate: (persistedState, version) => {
         if (version === 0) {
-          // v0 → v1: avatar was accidentally stored as an object {emoji, name, title, description}
-          // normalize it back to just the emoji string
           const user = persistedState?.user;
           if (user && typeof user.avatar === "object" && user.avatar !== null) {
             return {
               ...persistedState,
-              user: { ...user, avatar: user.avatar.emoji ?? "🦉" },
+              // CHANGE THIS: Instead of falling back to "🦉",
+              // let it keep the object or new image path
+              user: {
+                ...user,
+                avatar: user.avatar.image ?? user.avatar.emoji ?? "🦉",
+              },
             };
           }
         }
