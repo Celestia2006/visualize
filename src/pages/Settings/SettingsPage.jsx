@@ -643,6 +643,22 @@ export default function SettingsPage() {
 
   return (
     <>
+      {avatarPickerOpen && (
+        <AvatarPickerModal
+          T={T}
+          initialIdx={Math.max(
+            0,
+            AVATARS.findIndex(
+              (a) => a.name === draft.avatar || a.emoji === draft.avatar,
+            ),
+          )}
+          onSelect={(name) => {
+            set("avatar", name);
+            setAvatarPickerOpen(false);
+          }}
+          onClose={() => setAvatarPickerOpen(false)}
+        />
+      )}
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -986,8 +1002,8 @@ export default function SettingsPage() {
                       {/* Hero circle */}
                       <div
                         style={{
-                          width: "80px",
-                          height: "80px",
+                          width: "100px",
+                          height: "100px",
                           borderRadius: "50%",
                           background: T.light,
                           border: `3px solid ${T.accent}`,
@@ -999,7 +1015,7 @@ export default function SettingsPage() {
                           transition: "all 0.25s ease",
                         }}
                       >
-                        <AvatarImage avatar={current} size={74} />
+                        <AvatarImage avatar={current} size={100} />
                       </div>
                       <p
                         style={{
@@ -1068,24 +1084,6 @@ export default function SettingsPage() {
                   );
                 })()}
               </div>
-
-              {avatarPickerOpen && (
-                <AvatarPickerModal
-                  T={T}
-                  initialIdx={Math.max(
-                    0,
-                    AVATARS.findIndex(
-                      (a) =>
-                        a.name === draft.avatar || a.emoji === draft.avatar,
-                    ),
-                  )}
-                  onSelect={(name) => {
-                    set("avatar", name);
-                    setAvatarPickerOpen(false);
-                  }}
-                  onClose={() => setAvatarPickerOpen(false)}
-                />
-              )}
 
               {/* Name + email */}
               <div
