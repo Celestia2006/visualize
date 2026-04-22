@@ -4,7 +4,7 @@ import AuthPage from "./pages/Auth/AuthPage";
 import LandingPage from "./pages/Landing/Landingpage";
 import SubjectPage from "./pages/Subject/Subjectpage";
 import Topicpage from "./pages/Topic/Topicpage";
-import BFSTopicpage from "./pages/Topic/BFSTopicPage";
+import BFSTopicpage from "./pages/Topic/BFSTopicpage";
 import FIFOTopicpage from "./pages/Topic/FIFOTopicpage";
 import OnboardingPage from "./pages/Auth/OnboardingPage";
 import SettingsPage from "./pages/Settings/SettingsPage";
