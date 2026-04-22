@@ -2,6 +2,21 @@ import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 import { themes } from "../../styles/themes";
+import laikaImg from "../../assets/Laika.png";
+import felicetteImg from "../../assets/Felicette.png";
+import snowballImg from "../../assets/Snowball.png";
+import argusImg from "../../assets/Argus.png";
+import rexyImg from "../../assets/Rexy.png";
+import hedwigImg from "../../assets/Hedwig.png";
+import morphoImg from "../../assets/Morpho.png";
+import akelaImg from "../../assets/Akela.png";
+import festusImg from "../../assets/Festus.png";
+import bluImg from "../../assets/Blu.png";
+import machliImg from "../../assets/Machli.png";
+import humphreyImg from "../../assets/Humphrey.png";
+import gortImg from "../../assets/Gort.png";
+import bambiImg from "../../assets/Bambi.png";
+import nemoImg from "../../assets/Nemo.jpg";
 
 // ─── Constants ────────────────────────────────────────────────────────────────
 
@@ -9,122 +24,122 @@ const AVATARS = [
   {
     emoji: "🐶",
     name: "Laika",
-    image: "/src/assets/Laika.png",
+    image: laikaImg,
     title: "The Pioneer",
     description:
-      "First in line, always. Laika dives into new topics headfirst, learns by doing, and keeps going even when no one else has been there before.",
+      "First in line, always. Laika dives into new topics headfirst, learns by doing, and keeps going even when no one else has been there before. A little lonely at the frontier, but she wouldn't trade it for anything.",
   },
   {
     emoji: "🐱",
     name: "Félicette",
-    image: "/src/assets/Felicette.png",
+    image: felicetteImg,
     title: "The Analyst",
     description:
-      "She observes before she acts. Félicette watches, waits, and only moves when she's mapped the whole terrain — learning by understanding the why before the what.",
+      "She observes before she acts. Félicette watches, waits, and only moves when she's mapped the whole terrain — learning by understanding the why before the what. Quiet, precise, always three steps ahead.",
   },
   {
     emoji: "🐰",
     name: "Snowball",
-    image: "/src/assets/Snowball.png",
+    image: snowballImg,
     title: "The Wonderer",
     description:
-      "Down the rabbit hole again. Snowball follows curiosity wherever it leads — one topic becomes five, one question opens ten doors.",
+      "Down the rabbit hole again. Snowball follows curiosity wherever it leads — one topic becomes five, one question opens ten doors. She doesn't study linearly; she stumbles into understanding and always arrives somewhere magical.",
   },
   {
     emoji: "🦚",
     name: "Argus",
-    image: "/src/assets/Argus.png",
+    image: argusImg,
     title: "The Observer",
     description:
-      "A hundred eyes, nothing escapes him. Argus absorbs everything at once — patterns, connections, the big picture.",
+      "A hundred eyes, nothing escapes him. Argus absorbs everything at once — patterns, connections, the big picture. He learns by seeing how everything fits together before zooming in. Detail-oriented but never loses sight of the whole.",
   },
   {
     emoji: "🦕",
     name: "Rexy",
-    image: "/src/assets/Rexy.png",
+    image: rexyImg,
     title: "The Relentless",
     description:
-      "She doesn't read the manual. She IS the manual. Rexy learns by sheer force — repetition, practice, trial and error.",
+      "She doesn't read the manual. She IS the manual. Rexy learns by sheer force — repetition, practice, trial and error. She'll attempt something a hundred times before she gets it, and she will get it. Setbacks are just warm-up laps.",
   },
   {
     emoji: "🦉",
     name: "Hedwig",
-    image: "/src/assets/Hedwig.png",
     title: "The Sage",
+    image: hedwigImg,
     description:
-      "She always delivers. Hedwig is methodical and loyal to the process — she reads everything, takes her time, and never skips steps.",
+      "She always delivers. Hedwig is methodical and loyal to the process — she reads everything, takes her time, and never skips steps. When she understands something, it stays with her forever.",
   },
   {
     emoji: "🦋",
     name: "Iris",
-    image: "/src/assets/Morpho.png",
+    image: morphoImg,
     title: "The Transformer",
     description:
-      "She's not the same student she was yesterday. Iris absorbs knowledge in bursts — periods of quiet stillness, then sudden dramatic leaps in understanding.",
+      "She's not the same student she was yesterday. Iris absorbs knowledge in bursts — periods of quiet stillness, then sudden dramatic leaps in understanding. She connects concepts across completely different subjects and emerges changed every time.",
   },
   {
     emoji: "🐺",
     name: "Akela",
-    image: "/src/assets/Akela.png",
+    image: akelaImg,
     title: "The Strategist",
     description:
-      "He leads by knowing the terrain. Akela plans before he acts — maps out what he needs to learn, sets a path, and moves with quiet precision.",
+      "He leads by knowing the terrain. Akela plans before he acts — maps out what he needs to learn, sets a path, and moves with quiet precision. He thinks in systems and structures, and never wastes a move.",
   },
   {
     emoji: "🐉",
     name: "Festus",
-    image: "/src/assets/Festus.png",
+    image: festusImg,
     title: "The Chaotic Genius",
     description:
-      "Somehow always works. Festus looks like he's flying off the rails — jumping between topics, making wild leaps in logic — but he gets there. Loudly. With fire.",
+      "Somehow always works. Festus looks like he's flying off the rails — jumping between topics, making wild leaps in logic — but underneath the chaos there's a method no one else could have designed. He gets there. Loudly. With fire.",
   },
   {
     emoji: "🦜",
     name: "Blu",
-    image: "/src/assets/Blu.png",
+    image: bluImg,
     title: "The Last of His Kind",
     description:
-      "Rare things take time. Blu learns slowly at first, then all at once — and he doesn't just absorb information, he carries it like it matters.",
+      "Rare things take time. Blue is the kind of learner who needs the right environment to thrive. He learns slowly at first, then all at once — and he doesn't just absorb information, he carries it like it matters. Because for him, it does.",
   },
   {
     emoji: "🐯",
     name: "Machli",
-    image: "/src/assets/Machli.png",
+    image: machliImg,
     title: "The Queen",
     description:
-      "Her territory is knowledge. Machli claims a subject and owns it — deep dives, no half-measures, and an almost territorial protectiveness over what she knows.",
+      "Her territory is knowledge. Machli claims a subject and owns it — deep dives, no half-measures, and an almost territorial protectiveness over what she knows. She's been through harder things than this syllabus.",
   },
   {
     emoji: "🐋",
     name: "Humphrey",
-    image: "/src/assets/Humphrey.png",
+    image: humphreyImg,
     title: "The Explorer",
     description:
-      "He keeps getting lost. He keeps finding things. Humphrey doesn't learn in straight lines — he wanders into tangents and surfaces in unexpected places.",
+      "He keeps getting lost. He keeps finding things. Humphrey doesn't learn in straight lines — he wanders into tangents, surfaces in unexpected places, and occasionally forgets what chapter he started on. But his detours are always worth it.",
   },
   {
     emoji: "🦫",
     name: "Gort",
-    image: "/src/assets/Gort.png",
+    image: gortImg,
     title: "The Unbothered",
     description:
-      "Stress? Never heard of it. Gort moves at his own pace, and somehow that pace works. He doesn't panic; he just keeps going — calmly, consistently.",
+      "Stress? Never heard of it. Gort moves at his own pace, and somehow that pace works. He doesn't panic before exams, doesn't spiral on hard topics. He just keeps going — calmly, consistently — and somehow he always gets there.",
   },
   {
     emoji: "🦌",
     name: "Bambi",
-    image: "/src/assets/Bambi.png",
+    image: bambiImg,
     title: "The Gentle Learner",
     description:
-      "He learns by watching the world. Bambi takes everything in softly — observation, reflection, slow understanding. He doesn't race; he grows.",
+      "He learns by watching the world. Bambi takes everything in softly — observation, reflection, slow understanding. He gets overwhelmed by intensity, but in quiet moments he absorbs more than anyone in the room. He doesn't race; he grows.",
   },
   {
     emoji: "🐠",
     name: "Nemo",
-    image: "/src/assets/Nemo.jpg",
+    image: nemoImg,
     title: "The Brave One",
     description:
-      "Small, a little scared, absolutely going for it. Nemo is terrified of the hard stuff but does it anyway — and reminds everyone that courage is just showing up.",
+      "Small, a little scared, absolutely going for it. Nemo is terrified of the hard stuff but does it anyway. He asks the questions others are embarrassed to ask, explores further than his comfort zone, and reminds everyone that courage is just showing up.",
   },
 ];
 
