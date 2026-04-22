@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 
@@ -636,28 +636,60 @@ function DifficultyBadge({ level, accent, light, mid }) {
   );
 }
 
+function AvatarNavBubble({ user }) {
+  const [failed, setFailed] = useState(false);
+  const hasImage = user?.avatarImage && !failed;
+  return (
+    <div
+      style={{
+        width: "32px",
+        height: "32px",
+        borderRadius: "50%",
+        background: "var(--accent-light)",
+        border: "1px solid var(--accent-mid)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+        fontSize: "1em",
+      }}
+    >
+      {hasImage ? (
+        <img
+          src={user.avatarImage}
+          alt={user.avatarName ?? "avatar"}
+          onError={() => setFailed(true)}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      ) : (
+        (user?.avatar?.emoji ?? "🦉")
+      )}
+    </div>
+  );
+}
+
 // ─── Topic row ────────────────────────────────────────────────────────────────
 
 function TopicRow({ topic, subject, index, onClick }) {
   const [expanded, setExpanded] = useState(false);
   const [hovered, setHovered] = useState(false);
-  const { accent, light, mid, darkColor } = subject;
+  const { accentColor: accent, lightColor: light, midColor: mid } = subject;
 
   const statusColor = topic.completed
     ? "#3B6D11"
     : topic.progress > 0
       ? accent
-      : "#A09C95";
+      : "var(--text-faint)";
   const statusBg = topic.completed
     ? "#EAF3DE"
     : topic.progress > 0
       ? light
-      : "#F4F2EE";
+      : "var(--surface-alt)";
   const statusBorder = topic.completed
     ? "#C0DD97"
     : topic.progress > 0
       ? mid
-      : "#E4E2DC";
+      : "var(--border)";
   const statusLabel = topic.completed
     ? "Complete"
     : topic.progress > 0
@@ -667,8 +699,8 @@ function TopicRow({ topic, subject, index, onClick }) {
   return (
     <div
       style={{
-        background: hovered && !expanded ? `${light}60` : "#fff",
-        border: `1px solid ${expanded ? mid : hovered ? mid + "80" : "#EDE9E0"}`,
+        background: "var(--surface)",
+        border: `1px solid ${expanded ? mid : hovered ? mid + "80" : "var(--border)"}`,
         borderRadius: "16px",
         overflow: "hidden",
         transition: "border-color 0.2s, background 0.2s, box-shadow 0.2s",
@@ -676,7 +708,7 @@ function TopicRow({ topic, subject, index, onClick }) {
           ? `0 4px 24px ${light}CC`
           : hovered
             ? `0 2px 12px ${light}80`
-            : "0 1px 4px rgba(0,0,0,0.04)",
+            : "0 1px 4px var(--shadow)",
         animation: `fadeUp 0.45s ease ${0.1 + index * 0.08}s both`,
       }}
     >
@@ -691,7 +723,7 @@ function TopicRow({ topic, subject, index, onClick }) {
           padding: "1.25rem 1.5rem",
         }}
       >
-        {/* Index number — clicks navigate */}
+        {/* Index / check — clicks navigate */}
         <div
           onClick={() => onClick(topic.key)}
           style={{
@@ -724,7 +756,7 @@ function TopicRow({ topic, subject, index, onClick }) {
                 fontSize: "0.8rem",
                 fontWeight: 600,
                 color: expanded ? "#fff" : accent,
-                fontFamily: "'DM Serif Display',serif",
+                fontFamily: "var(--font-body)",
               }}
             >
               {index + 1}
@@ -748,10 +780,10 @@ function TopicRow({ topic, subject, index, onClick }) {
           >
             <h3
               style={{
-                fontFamily: "'DM Serif Display',serif",
+                fontFamily: "var(--font-body)",
                 fontSize: "1.05rem",
                 fontWeight: 400,
-                color: darkColor,
+                color: "var(--text)",
                 letterSpacing: "-0.01em",
               }}
             >
@@ -767,14 +799,13 @@ function TopicRow({ topic, subject, index, onClick }) {
           <p
             style={{
               fontSize: "0.82rem",
-              color: "#6B6963",
+              color: "var(--text-muted)",
               lineHeight: 1.5,
               marginBottom: "0.4rem",
             }}
           >
             {topic.description}
           </p>
-          {/* Progress bar (always visible) */}
           {topic.progress > 0 && !topic.completed && (
             <div
               style={{
@@ -790,7 +821,7 @@ function TopicRow({ topic, subject, index, onClick }) {
                   maxWidth: "140px",
                   height: "3px",
                   borderRadius: "2px",
-                  background: "#EDE9E0",
+                  background: "var(--border)",
                   overflow: "hidden",
                 }}
               >
@@ -813,7 +844,7 @@ function TopicRow({ topic, subject, index, onClick }) {
           )}
         </div>
 
-        {/* Right side meta — clicks navigate */}
+        {/* Status pill + duration */}
         <div
           style={{
             display: "flex",
@@ -838,12 +869,12 @@ function TopicRow({ topic, subject, index, onClick }) {
           >
             {statusLabel}
           </span>
-          <span style={{ fontSize: "0.72rem", color: "#A09C95" }}>
+          <span style={{ fontSize: "0.72rem", color: "var(--text-faint)" }}>
             {topic.duration}
           </span>
         </div>
 
-        {/* Expand chevron — only this toggles the detail panel */}
+        {/* Expand chevron */}
         <div
           onClick={(e) => {
             e.stopPropagation();
@@ -851,7 +882,7 @@ function TopicRow({ topic, subject, index, onClick }) {
           }}
           title="Preview details"
           style={{
-            color: expanded ? accent : "#C8C5C0",
+            color: expanded ? accent : "var(--border)",
             transition: "color 0.2s, transform 0.25s",
             transform: expanded ? "rotate(180deg)" : "rotate(0deg)",
             flexShrink: 0,
@@ -934,7 +965,7 @@ function TopicRow({ topic, subject, index, onClick }) {
                     <span
                       style={{
                         fontSize: "0.82rem",
-                        color: "#3A3830",
+                        color: "var(--text)",
                         lineHeight: 1.55,
                       }}
                     >
@@ -956,7 +987,7 @@ function TopicRow({ topic, subject, index, onClick }) {
             >
               <div
                 style={{
-                  background: "#fff",
+                  background: "var(--surface)",
                   border: `1px solid ${light}`,
                   borderRadius: "12px",
                   padding: "0.75rem 1rem",
@@ -979,7 +1010,7 @@ function TopicRow({ topic, subject, index, onClick }) {
                     }}
                     style={{
                       padding: "0.55rem 1rem",
-                      background: "#fff",
+                      background: "var(--surface)",
                       border: `1px solid ${mid}`,
                       borderRadius: "9px",
                       fontFamily: "'DM Sans',sans-serif",
@@ -1054,16 +1085,16 @@ export default function SubjectPage() {
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
-          fontFamily: "'DM Sans',sans-serif",
-          background: "#F6F5FF",
+          fontFamily: "var(--font-body)",
+          background: "var(--surface-alt)",
         }}
       >
         <div style={{ textAlign: "center" }}>
           <p
             style={{
-              fontFamily: "'DM Serif Display',serif",
+              fontFamily: "var(--font-body)",
               fontSize: "2rem",
-              color: "#26215C",
+              color: "var(--text)",
               marginBottom: "0.5rem",
             }}
           >
@@ -1072,13 +1103,13 @@ export default function SubjectPage() {
           <button
             onClick={() => navigate("/landing")}
             style={{
-              background: "#3C3489",
+              background: "var(--accent)",
               color: "#fff",
               border: "none",
               borderRadius: "9px",
               padding: "0.6rem 1.2rem",
               cursor: "pointer",
-              fontFamily: "'DM Sans',sans-serif",
+              fontFamily: "var(--font-body)",
             }}
           >
             Back to dashboard
@@ -1105,6 +1136,25 @@ export default function SubjectPage() {
     navigate(`/subject/${subjectKey}/${topicKey}`);
   }
 
+  // ── Focus / fullscreen ────────────────────────────────────────────────────
+  const [focusMode, setFocusMode] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setFocusMode(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", handler);
+    return () => document.removeEventListener("fullscreenchange", handler);
+  }, []);
+
+  function enterFocus() {
+    document.documentElement.requestFullscreen().catch(() => {});
+    setFocusMode(true);
+  }
+
+  function exitFocus() {
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    setFocusMode(false);
+  }
+
   return (
     <>
       <style>{`
@@ -1113,14 +1163,14 @@ export default function SubjectPage() {
         @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
         @keyframes drift  { 0%,100% { transform:translateY(0) scale(1); } 50% { transform:translateY(-12px) scale(1.03); } }
         ::-webkit-scrollbar { width:6px; }
-        ::-webkit-scrollbar-thumb { background:#D3D1C7; border-radius:3px; }
+        ::-webkit-scrollbar-thumb { background:var(--accent-mid); border-radius:3px; }
       `}</style>
 
       <div
         style={{
           minHeight: "100vh",
-          fontFamily: "'DM Sans',system-ui,sans-serif",
-          background: "#FDFCFA",
+          fontFamily: "var(--font-body)",
+          background: "var(--bg)",
         }}
       >
         {/* ── Navbar ── */}
@@ -1131,7 +1181,7 @@ export default function SubjectPage() {
             justifyContent: "space-between",
             padding: "0 2.5rem",
             height: "60px",
-            background: `rgba(246,245,255,0.88)`,
+            background: "var(--nav-bg)",
             backdropFilter: "blur(14px)",
             borderBottom: `1px solid ${subject.lightColor}80`,
             position: "sticky",
@@ -1140,7 +1190,6 @@ export default function SubjectPage() {
           }}
         >
           <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
-            {/* Back */}
             <button
               onClick={() => navigate("/landing")}
               style={{
@@ -1150,9 +1199,9 @@ export default function SubjectPage() {
                 background: "none",
                 border: "none",
                 cursor: "pointer",
-                color: "#8884B8",
+                color: "var(--text-muted)",
                 fontSize: "0.82rem",
-                fontFamily: "'DM Sans',sans-serif",
+                fontFamily: "var(--font-body)",
               }}
             >
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
@@ -1166,8 +1215,7 @@ export default function SubjectPage() {
               </svg>
               Dashboard
             </button>
-            <span style={{ color: "#D3D1C7" }}>·</span>
-            {/* Breadcrumb */}
+            <span style={{ color: "var(--border)" }}>·</span>
             <div style={{ display: "flex", alignItems: "center", gap: "6px" }}>
               <div
                 style={{
@@ -1196,9 +1244,9 @@ export default function SubjectPage() {
               </div>
               <span
                 style={{
-                  fontFamily: "'DM Serif Display',serif",
+                  fontFamily: "var(--font-body)",
                   fontSize: "0.95rem",
-                  color: subject.darkColor,
+                  color: "var(--text)",
                 }}
               >
                 {subject.title}
@@ -1210,49 +1258,73 @@ export default function SubjectPage() {
             style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}
           >
             <button
+              onClick={focusMode ? exitFocus : enterFocus}
               style={{
                 display: "flex",
                 alignItems: "center",
                 gap: "5px",
-                background: `rgba(255,255,255,0.7)`,
+                background: focusMode
+                  ? subject.accentColor
+                  : "rgba(255,255,255,0.7)",
                 border: `1px solid ${subject.lightColor}`,
                 borderRadius: "100px",
                 padding: "5px 12px",
                 fontSize: "0.78rem",
-                color: subject.accentColor,
+                color: focusMode ? "#fff" : subject.accentColor,
                 cursor: "pointer",
-                fontFamily: "'DM Sans',sans-serif",
+                fontFamily: "var(--font-body)",
                 fontWeight: 500,
+                transition: "background 0.2s, color 0.2s",
               }}
             >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <circle cx="6" cy="6" r="2" fill={subject.accentColor} />
-                <circle
-                  cx="6"
-                  cy="6"
-                  r="5"
-                  stroke={subject.accentColor}
-                  strokeWidth="1"
-                  fill="none"
-                />
-              </svg>
-              Focus
+              {focusMode ? (
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path
+                    d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8"
+                    stroke="currentColor"
+                    strokeWidth="1.3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              ) : (
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <circle cx="6" cy="6" r="2" fill={subject.accentColor} />
+                  <circle
+                    cx="6"
+                    cy="6"
+                    r="5"
+                    stroke={subject.accentColor}
+                    strokeWidth="1"
+                    fill="none"
+                  />
+                </svg>
+              )}
+              {focusMode ? "Exit Focus" : "Focus"}
             </button>
-            <div
+            <button
+              onClick={() => navigate("/settings")}
               style={{
-                width: "32px",
-                height: "32px",
-                borderRadius: "50%",
-                background: subject.lightColor,
-                border: `1px solid ${subject.midColor}`,
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                fontSize: "1rem",
+                background: "none",
+                border: "none",
+                cursor: "pointer",
+                color: "var(--text-muted)",
               }}
             >
-              {user?.avatar ?? "🦉"}
-            </div>
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+              >
+                <circle cx="12" cy="12" r="3" />
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+              </svg>
+            </button>
+            <AvatarNavBubble user={user} />
             <button
               onClick={() => {
                 logout();
@@ -1263,8 +1335,8 @@ export default function SubjectPage() {
                 border: "none",
                 cursor: "pointer",
                 fontSize: "0.78rem",
-                color: "#A09C95",
-                fontFamily: "'DM Sans',sans-serif",
+                color: "var(--text-faint)",
+                fontFamily: "var(--font-body)",
               }}
             >
               Sign out
@@ -1335,7 +1407,7 @@ export default function SubjectPage() {
             style={{
               maxWidth: "960px",
               margin: "0 auto",
-              padding: "3rem 2rem 3rem",
+              padding: "3rem 2rem",
               position: "relative",
             }}
           >
@@ -1350,7 +1422,6 @@ export default function SubjectPage() {
             >
               {/* Left — subject identity */}
               <div style={{ animation: "fadeUp 0.4s ease both" }}>
-                {/* Subject icon + label */}
                 <div
                   style={{
                     display: "flex",
@@ -1366,7 +1437,7 @@ export default function SubjectPage() {
                       borderRadius: "15px",
                       background: "rgba(255,255,255,0.75)",
                       backdropFilter: "blur(8px)",
-                      border: `1px solid rgba(255,255,255,0.9)`,
+                      border: "1px solid rgba(255,255,255,0.9)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1391,7 +1462,7 @@ export default function SubjectPage() {
                     </p>
                     <h1
                       style={{
-                        fontFamily: "'DM Serif Display',serif",
+                        fontFamily: "var(--font-body)",
                         fontSize: "clamp(1.6rem,3.5vw,2.2rem)",
                         color: subject.darkColor,
                         letterSpacing: "-0.025em",
@@ -1403,10 +1474,9 @@ export default function SubjectPage() {
                   </div>
                 </div>
 
-                {/* Tagline */}
                 <p
                   style={{
-                    fontFamily: "'DM Serif Display',serif",
+                    fontFamily: "var(--font-body)",
                     fontSize: "1rem",
                     fontStyle: "italic",
                     color: subject.accentColor,
@@ -1418,11 +1488,11 @@ export default function SubjectPage() {
                   {subject.tagline}
                 </p>
 
-                {/* Description */}
                 <p
                   style={{
                     fontSize: "0.88rem",
-                    color: "#4A4740",
+                    color: subject.darkColor,
+                    opacity: 0.75,
                     lineHeight: 1.7,
                     maxWidth: "520px",
                   }}
@@ -1484,7 +1554,7 @@ export default function SubjectPage() {
                     </p>
                     <p
                       style={{
-                        fontFamily: "'DM Serif Display',serif",
+                        fontFamily: "var(--font-body)",
                         fontSize: "1.3rem",
                         color: subject.darkColor,
                         lineHeight: 1,
@@ -1495,7 +1565,8 @@ export default function SubjectPage() {
                     <p
                       style={{
                         fontSize: "0.7rem",
-                        color: "#7B7870",
+                        color: subject.darkColor,
+                        opacity: 0.55,
                         marginTop: "2px",
                       }}
                     >
@@ -1569,11 +1640,11 @@ export default function SubjectPage() {
         </div>
 
         {/* ══════════════════════════════════════════════
-            TOPICS ZONE — warm white, vertical list
+            TOPICS ZONE
         ══════════════════════════════════════════════ */}
         <div
           style={{
-            background: "#FDFCFA",
+            background: "var(--bg)",
             borderTop: `1px solid ${subject.lightColor}60`,
           }}
         >
@@ -1596,10 +1667,10 @@ export default function SubjectPage() {
               <div>
                 <h2
                   style={{
-                    fontFamily: "'DM Serif Display',serif",
+                    fontFamily: "var(--font-body)",
                     fontSize: "1.25rem",
                     fontWeight: 400,
-                    color: "#1A1917",
+                    color: "var(--text)",
                     letterSpacing: "-0.015em",
                   }}
                 >
@@ -1608,14 +1679,14 @@ export default function SubjectPage() {
                 <p
                   style={{
                     fontSize: "0.8rem",
-                    color: "#A09C95",
+                    color: "var(--text-faint)",
                     marginTop: "2px",
                   }}
                 >
                   Click any topic to expand details — then jump straight in
                 </p>
               </div>
-              <span style={{ fontSize: "0.78rem", color: "#A09C95" }}>
+              <span style={{ fontSize: "0.78rem", color: "var(--text-faint)" }}>
                 {totalTopics} {totalTopics === 1 ? "topic" : "topics"}
               </span>
             </div>

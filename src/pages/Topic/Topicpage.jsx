@@ -22,6 +22,76 @@ const T = {
   catLt: "#E1F5EE",
 };
 
+const THEME_CONFIGS = {
+  light: {
+    label: "Light",
+    bg: "#F9F8F6",
+    panel: "#FFFFFF",
+    text: "#1A1917",
+    subtext: "#6B6963",
+    accent: "#3C3489",
+    border: "#E4E2DC",
+    cardBg: "#EEEDFE",
+  },
+  dark: {
+    label: "Dark",
+    bg: "#1A1917",
+    panel: "#252321",
+    text: "#088d55",
+    subtext: "#79cfe4",
+    accent: "#c91678",
+    border: "#333333",
+    cardBg: "#2D2A3E",
+  },
+  "cb-light": {
+    label: "CB Light",
+    bg: "#FFF9E8",
+    panel: "#FFFFFF",
+    text: "#1A1400",
+    subtext: "#5A5030",
+    accent: "#C0720A",
+    border: "#E8D890",
+    cardBg: "#FFF0C0",
+  },
+  "cb-dark": {
+    label: "CB Dark",
+    bg: "#001020",
+    panel: "#0A1928",
+    text: "#cb942c",
+    subtext: "#9bb3c0",
+    accent: "#1cbabc",
+    border: "#1A3040",
+    cardBg: "#0A2840",
+  },
+};
+
+const FONT_CONFIGS = [
+  {
+    key: "neutral",
+    label: "Neutral",
+    family: "var(--font-body)",
+    desc: "Clean & modern",
+  },
+  {
+    key: "academic",
+    label: "Academic",
+    family: "var(--font-body)",
+    desc: "Scholarly & refined",
+  },
+  {
+    key: "dyslexic",
+    label: "Dyslexic-friendly",
+    family: "'Comic Sans MS', 'Chalkboard SE', cursive",
+    desc: "High readability",
+  },
+];
+
+const FONT_SIZE_CONFIGS = [
+  { key: "sm", label: "Small", size: "0.85rem", preview: "14px" },
+  { key: "md", label: "Medium", size: "1rem", preview: "16px" },
+  { key: "lg", label: "Large", size: "1.125rem", preview: "18px" },
+];
+
 // ─── Math helpers ─────────────────────────────────────────────────────────────
 
 function sigmoid(z) {
@@ -293,6 +363,38 @@ function drawHeatmap(ctx, W, H, PAD, RANGE, w1, w2, bias) {
     }
   }
   ctx.putImageData(img, 0, 0);
+}
+
+function AvatarNavBubble({ user }) {
+  const [failed, setFailed] = useState(false);
+  const hasImage = user?.avatarImage && !failed;
+  return (
+    <div
+      style={{
+        width: "32px",
+        height: "32px",
+        borderRadius: "50%",
+        background: "var(--accent-light)",
+        border: "1px solid var(--accent-mid)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+        fontSize: "1em",
+      }}
+    >
+      {hasImage ? (
+        <img
+          src={user.avatarImage}
+          alt={user.avatarName ?? "avatar"}
+          onError={() => setFailed(true)}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      ) : (
+        (user?.avatar?.emoji ?? "🦉")
+      )}
+    </div>
+  );
 }
 
 function drawBoundaryLine(
@@ -941,7 +1043,7 @@ function GradientViz() {
             flex: 1,
             height: "4px",
             borderRadius: "2px",
-            background: T.border,
+            background: "var(--border)",
             overflow: "hidden",
           }}
         >
@@ -949,7 +1051,7 @@ function GradientViz() {
             style={{
               height: "100%",
               width: `${(epoch / (trajRef.current.length - 1)) * 100}%`,
-              background: `linear-gradient(90deg,#D85A30,${T.accent})`,
+              background: `linear-gradient(90deg,#D85A30,${"var(--accent)"})`,
               borderRadius: "2px",
               transition: "width 0.1s",
             }}
@@ -960,11 +1062,11 @@ function GradientViz() {
           style={{
             padding: "3px 10px",
             borderRadius: "6px",
-            border: `1px solid ${T.border}`,
+            border: `1px solid ${"var(--border)"}`,
             background: "#fff",
-            color: T.muted,
+            color: "var(--text-muted)",
             fontSize: "0.72rem",
-            fontFamily: "'DM Sans',sans-serif",
+            fontFamily: "var(--font-body)",
             cursor: "pointer",
           }}
         >
@@ -1186,14 +1288,18 @@ function ExplanationPage({ showExplanation, userLevel }) {
               gap: "8px",
               padding: "6px 12px",
               background: "rgba(255,255,255,0.88)",
-              border: `1px solid ${T.border}`,
+              border: `1px solid ${"var(--border)"}`,
               borderRadius: "100px",
               backdropFilter: "blur(8px)",
               boxShadow: `0 2px 8px ${T.light}80`,
             }}
           >
             <span
-              style={{ fontSize: "0.72rem", color: T.muted, fontWeight: 500 }}
+              style={{
+                fontSize: "0.72rem",
+                color: "var(--text-muted)",
+                fontWeight: 500,
+              }}
             >
               Depth:
             </span>
@@ -1206,9 +1312,9 @@ function ExplanationPage({ showExplanation, userLevel }) {
                   borderRadius: "100px",
                   border: "none",
                   cursor: "pointer",
-                  background: level === lv ? T.accent : "transparent",
-                  color: level === lv ? "#fff" : T.muted,
-                  fontFamily: "'DM Sans',sans-serif",
+                  background: level === lv ? "var(--accent)" : "transparent",
+                  color: level === lv ? "#fff" : "var(--text-muted)",
+                  fontFamily: "var(--font-body)",
                   fontSize: "0.72rem",
                   fontWeight: 500,
                   transition: "background 0.18s, color 0.18s",
@@ -1233,7 +1339,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
               justifyContent: "center",
               paddingTop: "3.5rem",
               paddingBottom: "3.5rem",
-              borderTop: si > 0 ? `1px solid ${T.border}` : "none",
+              borderTop: si > 0 ? `1px solid ${"var(--border)"}` : "none",
             }}
           >
             {/* Step badge */}
@@ -1246,7 +1352,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
                 padding: "4px 12px",
                 borderRadius: "100px",
                 background: activeStep === si ? T.light : "rgba(0,0,0,0.03)",
-                border: `1px solid ${activeStep === si ? T.mid : T.border}`,
+                border: `1px solid ${activeStep === si ? T.mid : "var(--border)"}`,
                 width: "fit-content",
                 transition: "background 0.3s, border-color 0.3s",
               }}
@@ -1256,7 +1362,8 @@ function ExplanationPage({ showExplanation, userLevel }) {
                   width: "7px",
                   height: "7px",
                   borderRadius: "50%",
-                  background: activeStep === si ? T.accent : T.border,
+                  background:
+                    activeStep === si ? "var(--accent)" : "var(--border)",
                   transition: "background 0.3s",
                 }}
               />
@@ -1266,7 +1373,8 @@ function ExplanationPage({ showExplanation, userLevel }) {
                   fontWeight: 600,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
-                  color: activeStep === si ? T.accent : T.muted,
+                  color:
+                    activeStep === si ? "var(--accent)" : "var(--text-muted)",
                 }}
               >
                 Step {si + 1} · {STEPS.length} total
@@ -1276,9 +1384,9 @@ function ExplanationPage({ showExplanation, userLevel }) {
             {/* Title */}
             <h2
               style={{
-                fontFamily: "'DM Serif Display',serif",
+                fontFamily: "var(--font-body)",
                 fontSize: "clamp(1.2rem,2vw,1.5rem)",
-                color: T.dark,
+                color: "var(--text)",
                 letterSpacing: "-0.02em",
                 lineHeight: 1.15,
                 marginBottom: "0.4rem",
@@ -1291,7 +1399,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
             <p
               style={{
                 fontSize: "0.88rem",
-                color: "#6A6560",
+                color: "var(--text-muted)",
                 lineHeight: 1.7,
                 marginBottom: "1.4rem",
                 maxWidth: "530px",
@@ -1404,7 +1512,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
                       width: "20px",
                       height: "20px",
                       borderRadius: "6px",
-                      background: T.accent,
+                      background: "var(--accent)",
                       display: "flex",
                       alignItems: "center",
                       justifyContent: "center",
@@ -1436,7 +1544,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
                       fontWeight: 600,
                       letterSpacing: "0.07em",
                       textTransform: "uppercase",
-                      color: T.dark,
+                      color: "var(--text)",
                     }}
                   >
                     {level === "beginner"
@@ -1482,7 +1590,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
         <div
           style={{
             background: "#fff",
-            border: `1px solid ${T.border}`,
+            border: `1px solid ${"var(--border)"}`,
             borderRadius: "18px",
             padding: "1.1rem 1.1rem 1.1rem",
             boxShadow: `0 4px 28px ${T.light}CC`,
@@ -1505,7 +1613,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
                   fontWeight: 500,
                   letterSpacing: "0.07em",
                   textTransform: "uppercase",
-                  color: T.muted,
+                  color: "var(--text-muted)",
                   marginBottom: "2px",
                 }}
               >
@@ -1513,9 +1621,9 @@ function ExplanationPage({ showExplanation, userLevel }) {
               </p>
               <p
                 style={{
-                  fontFamily: "'DM Serif Display',serif",
+                  fontFamily: "var(--font-body)",
                   fontSize: "1rem",
-                  color: T.dark,
+                  color: "var(--text)",
                   letterSpacing: "-0.01em",
                 }}
               >
@@ -1530,7 +1638,8 @@ function ExplanationPage({ showExplanation, userLevel }) {
                     width: i === activeStep ? "18px" : "5px",
                     height: "5px",
                     borderRadius: "3px",
-                    background: i === activeStep ? T.accent : T.border,
+                    background:
+                      i === activeStep ? "var(--accent)" : "var(--border)",
                     transition: "width 0.3s, background 0.3s",
                   }}
                 />
@@ -1567,18 +1676,18 @@ function ExplanationPage({ showExplanation, userLevel }) {
                 width="3"
                 height="7"
                 rx="1.5"
-                stroke={T.muted}
+                stroke={"var(--text-muted)"}
                 strokeWidth="1.2"
               />
               <path
                 d="M2 7l3 4 3-4"
-                stroke={T.muted}
+                stroke={"var(--text-muted)"}
                 strokeWidth="1.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
             </svg>
-            <span style={{ fontSize: "0.72rem", color: T.muted }}>
+            <span style={{ fontSize: "0.72rem", color: "var(--text-muted)" }}>
               Scroll through each step — the viz updates
             </span>
           </div>
@@ -1666,11 +1775,11 @@ function TryItOutPage() {
   const fld = {
     width: "100%",
     padding: "0.5rem 0.65rem",
-    border: `1px solid ${T.border}`,
+    border: `1px solid ${"var(--border)"}`,
     borderRadius: "8px",
     fontFamily: "'JetBrains Mono','Fira Code',monospace",
     fontSize: "0.88rem",
-    color: T.dark,
+    color: "var(--text)",
     background: "#fff",
     outline: "none",
     transition: "border-color 0.2s,box-shadow 0.2s",
@@ -1681,7 +1790,7 @@ function TryItOutPage() {
     fontWeight: 500,
     letterSpacing: "0.06em",
     textTransform: "uppercase",
-    color: T.muted,
+    color: "var(--text-muted)",
     marginBottom: "5px",
   };
   const sh = {
@@ -1689,7 +1798,7 @@ function TryItOutPage() {
     fontWeight: 500,
     letterSpacing: "0.08em",
     textTransform: "uppercase",
-    color: T.muted,
+    color: "var(--text-muted)",
     marginBottom: "0.65rem",
     display: "flex",
     alignItems: "center",
@@ -1700,64 +1809,19 @@ function TryItOutPage() {
     e.target.style.boxShadow = `0 0 0 3px ${c}28`;
   };
   const bl = (e) => {
-    e.target.style.borderColor = T.border;
+    e.target.style.borderColor = "var(--border)";
     e.target.style.boxShadow = "none";
   };
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1.25rem" }}>
-      {/* ── TOP ROW: viz left, controls right ── */}
-      <div style={{ display: "flex", gap: "1.5rem", alignItems: "flex-start" }}>
-        {/* Visualization */}
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+      {/* ── MAIN ROW: 50/50 split ── */}
+      <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
+        {/* LEFT — all inputs */}
         <div
           style={{
             flex: "1 1 0",
             minWidth: 0,
-            background: "#fff",
-            border: `1px solid ${T.border}`,
-            borderRadius: "16px",
-            padding: "1rem",
-            boxShadow: `0 2px 16px ${T.light}`,
-          }}
-        >
-          <p
-            style={{
-              fontSize: "0.72rem",
-              fontWeight: 500,
-              letterSpacing: "0.07em",
-              textTransform: "uppercase",
-              color: T.muted,
-              marginBottom: "2px",
-            }}
-          >
-            Decision boundary plot
-          </p>
-          <p
-            style={{
-              fontSize: "0.8rem",
-              color: "#6B6963",
-              marginBottom: "0.75rem",
-            }}
-          >
-            {submitted
-              ? `Mystery animal (ear=${(+pX1).toFixed(1)}, fluff=${(+pX2).toFixed(1)}) shown as ❓`
-              : "Set features on the right and hit Classify"}
-          </p>
-          <canvas
-            ref={vizRef}
-            style={{
-              width: "100%",
-              aspectRatio: "3/2",
-              borderRadius: "12px",
-              display: "block",
-            }}
-          />
-        </div>
-
-        {/* Controls */}
-        <div
-          style={{
-            flex: "0 0 250px",
             display: "flex",
             flexDirection: "column",
             gap: "1rem",
@@ -1766,9 +1830,9 @@ function TryItOutPage() {
           <div
             style={{
               background: "#fff",
-              border: `1px solid ${T.border}`,
+              border: `1px solid ${"var(--border)"}`,
               borderRadius: "14px",
-              padding: "1.1rem 1.2rem",
+              padding: "1.25rem 1.4rem",
               boxShadow: `0 1px 6px ${T.light}80`,
             }}
           >
@@ -1778,7 +1842,7 @@ function TryItOutPage() {
                   width: "7px",
                   height: "7px",
                   borderRadius: "50%",
-                  background: T.accent,
+                  background: "var(--accent)",
                   display: "inline-block",
                 }}
               />
@@ -1789,7 +1853,7 @@ function TryItOutPage() {
               ["w₂  (fluff weight)", w2, setW2, "e.g. -0.8", T.mid],
               ["b   (bias)", bias, setBias, "e.g. 0.1", T.mid],
             ].map(([l, v, s, p, c]) => (
-              <div key={l} style={{ marginBottom: "0.7rem" }}>
+              <div key={l} style={{ marginBottom: "0.75rem" }}>
                 <label style={lbl}>{l}</label>
                 <input
                   style={fld}
@@ -1804,12 +1868,13 @@ function TryItOutPage() {
               </div>
             ))}
           </div>
+
           <div
             style={{
               background: "#fff",
-              border: `1px solid ${T.border}`,
+              border: `1px solid ${"var(--border)"}`,
               borderRadius: "14px",
-              padding: "1.1rem 1.2rem",
+              padding: "1.25rem 1.4rem",
               boxShadow: `0 1px 6px ${T.light}80`,
             }}
           >
@@ -1827,19 +1892,20 @@ function TryItOutPage() {
             </p>
             <p
               style={{
-                fontSize: "0.75rem",
-                color: T.muted,
-                marginBottom: "0.75rem",
-                lineHeight: 1.5,
+                fontSize: "0.78rem",
+                color: "var(--text-muted)",
+                marginBottom: "0.85rem",
+                lineHeight: 1.6,
               }}
             >
-              Place a ❓ on the chart. Does it land in the dog zone or cat zone?
+              Enter two feature values. The ❓ will appear on the plot — which
+              zone does it land in?
             </p>
             {[
               ["x₁  (ear pointiness)", x1, setX1, "e.g. 1.5", "#D85A30"],
               ["x₂  (fur fluffiness)", x2, setX2, "e.g. 2.0", "#D85A30"],
             ].map(([l, v, s, p, c]) => (
-              <div key={l} style={{ marginBottom: "0.7rem" }}>
+              <div key={l} style={{ marginBottom: "0.75rem" }}>
                 <label style={lbl}>{l}</label>
                 <input
                   style={fld}
@@ -1854,16 +1920,17 @@ function TryItOutPage() {
               </div>
             ))}
           </div>
+
           <button
             onClick={handleRun}
             style={{
               width: "100%",
-              padding: "0.75rem",
-              background: `linear-gradient(135deg,${T.accent},#534AB7)`,
+              padding: "0.8rem",
+              background: `linear-gradient(135deg,${"var(--accent)"},#534AB7)`,
               color: "#fff",
               border: "none",
               borderRadius: "10px",
-              fontFamily: "'DM Sans',sans-serif",
+              fontFamily: "var(--font-body)",
               fontSize: "0.9rem",
               fontWeight: 500,
               cursor: "pointer",
@@ -1871,7 +1938,7 @@ function TryItOutPage() {
               alignItems: "center",
               justifyContent: "center",
               gap: "6px",
-              boxShadow: `0 4px 16px ${T.accent}40`,
+              boxShadow: `0 4px 16px ${"var(--accent)"}40`,
               transition: "transform 0.1s",
             }}
             onMouseDown={(e) =>
@@ -1885,10 +1952,52 @@ function TryItOutPage() {
             Classify this animal
           </button>
         </div>
-      </div>
-      {/* end top row */}
 
-      {/* ── BOTTOM ROW: results ── */}
+        {/* RIGHT — visualization */}
+        <div
+          style={{
+            flex: "1 1 0",
+            minWidth: 0,
+            background: "#fff",
+            border: `1px solid ${"var(--border)"}`,
+            borderRadius: "16px",
+            padding: "1.25rem",
+            boxShadow: `0 2px 16px ${T.light}`,
+          }}
+        >
+          <p
+            style={{
+              fontSize: "0.72rem",
+              fontWeight: 500,
+              letterSpacing: "0.07em",
+              textTransform: "uppercase",
+              color: "var(--text-muted)",
+              marginBottom: "2px",
+            }}
+          >
+            Decision boundary plot
+          </p>
+          <p
+            style={{
+              fontSize: "0.8rem",
+              color: "var(--text-muted)",
+              marginBottom: "0.85rem",
+            }}
+          >
+            {submitted
+              ? `Mystery animal (ear=${(+pX1).toFixed(1)}, fluff=${(+pX2).toFixed(1)}) shown as ❓`
+              : "Set features on the left and hit Classify"}
+          </p>
+          <canvas
+            ref={vizRef}
+            width={W}
+            height={H}
+            style={{ width: "100%", borderRadius: "12px", display: "block" }}
+          />
+        </div>
+      </div>
+
+      {/* ── RESULTS — full width below ── */}
       {submitted && (
         <div
           style={{
@@ -1912,7 +2021,7 @@ function TryItOutPage() {
                 fontWeight: 500,
                 letterSpacing: "0.07em",
                 textTransform: "uppercase",
-                color: prediction === 1 ? T.muted : "#0F6E56",
+                color: prediction === 1 ? "var(--text-muted)" : "#0F6E56",
                 marginBottom: "0.35rem",
               }}
             >
@@ -1920,7 +2029,7 @@ function TryItOutPage() {
             </p>
             <p
               style={{
-                fontFamily: "'DM Serif Display',serif",
+                fontFamily: "var(--font-body)",
                 fontSize: "2.2rem",
                 lineHeight: 1,
               }}
@@ -1930,7 +2039,7 @@ function TryItOutPage() {
             <p
               style={{
                 fontSize: "0.82rem",
-                color: prediction === 1 ? T.dark : "#04342C",
+                color: prediction === 1 ? "var(--text)" : "#04342C",
                 marginTop: "5px",
                 fontWeight: 500,
               }}
@@ -1941,7 +2050,7 @@ function TryItOutPage() {
           <div
             style={{
               background: "#fff",
-              border: `1px solid ${T.border}`,
+              border: `1px solid ${"var(--border)"}`,
               borderRadius: "12px",
               padding: "0.9rem 1rem",
             }}
@@ -1952,7 +2061,7 @@ function TryItOutPage() {
                 fontWeight: 500,
                 letterSpacing: "0.07em",
                 textTransform: "uppercase",
-                color: T.muted,
+                color: "var(--text-muted)",
                 marginBottom: "0.35rem",
               }}
             >
@@ -1960,9 +2069,9 @@ function TryItOutPage() {
             </p>
             <p
               style={{
-                fontFamily: "'DM Serif Display',serif",
+                fontFamily: "var(--font-body)",
                 fontSize: "1.6rem",
-                color: T.dark,
+                color: "var(--text)",
                 lineHeight: 1,
               }}
             >
@@ -1974,7 +2083,7 @@ function TryItOutPage() {
                 marginTop: "6px",
                 height: "4px",
                 borderRadius: "2px",
-                background: T.border,
+                background: "var(--border)",
                 overflow: "hidden",
               }}
             >
@@ -1982,20 +2091,26 @@ function TryItOutPage() {
                 style={{
                   height: "100%",
                   width: `${prob * 100}%`,
-                  background: `linear-gradient(90deg,${T.green},${T.accent})`,
+                  background: `linear-gradient(90deg,${T.green},${"var(--accent)"})`,
                   borderRadius: "2px",
                   transition: "width 0.4s ease",
                 }}
               />
             </div>
-            <p style={{ fontSize: "0.7rem", color: T.muted, marginTop: "4px" }}>
+            <p
+              style={{
+                fontSize: "0.7rem",
+                color: "var(--text-muted)",
+                marginTop: "4px",
+              }}
+            >
               {prediction === 1 ? "dog" : "cat"} probability
             </p>
           </div>
           <div
             style={{
               background: "#fff",
-              border: `1px solid ${T.border}`,
+              border: `1px solid ${"var(--border)"}`,
               borderRadius: "12px",
               padding: "0.9rem 1rem",
             }}
@@ -2006,7 +2121,7 @@ function TryItOutPage() {
                 fontWeight: 500,
                 letterSpacing: "0.07em",
                 textTransform: "uppercase",
-                color: T.muted,
+                color: "var(--text-muted)",
                 marginBottom: "0.35rem",
               }}
             >
@@ -2014,15 +2129,21 @@ function TryItOutPage() {
             </p>
             <p
               style={{
-                fontFamily: "'DM Serif Display',serif",
+                fontFamily: "var(--font-body)",
                 fontSize: "1.6rem",
-                color: T.dark,
+                color: "var(--text)",
                 lineHeight: 1,
               }}
             >
               {z.toFixed(3)}
             </p>
-            <p style={{ fontSize: "0.7rem", color: T.muted, marginTop: "4px" }}>
+            <p
+              style={{
+                fontSize: "0.7rem",
+                color: "var(--text-muted)",
+                marginTop: "4px",
+              }}
+            >
               {z >= 0 ? "→ dog side of boundary" : "→ cat side of boundary"}
             </p>
           </div>
@@ -2065,37 +2186,629 @@ function TryItOutPage() {
           </div>
         </div>
       )}
+    </div>
+  );
+}
 
-      {!submitted && (
+// ─── AI Assistant sub-page ────────────────────────────────────────────────────
+
+const AI_QA = {
+  beginner: [
+    {
+      q: "What is binary classification?",
+      a: "Binary classification is when a model has to sort things into exactly two groups — like deciding whether an animal is a dog or a cat. You give it some numbers that describe the thing (like ear pointiness and fur fluffiness), and it learns to draw a line between the two groups.",
+    },
+    {
+      q: "What does the sigmoid function do?",
+      a: "Think of sigmoid like a dial that always stays between 0 and 1. You feed it any number and it squishes it into that range. A very positive number comes out near 1 (meaning: almost certainly a dog), a very negative number comes out near 0 (almost certainly a cat), and 0 comes out as 0.5 — totally unsure.",
+    },
+    {
+      q: "What is a decision boundary?",
+      a: "The decision boundary is the line that separates the dog zone from the cat zone on our chart. Any animal whose numbers land on the purple side gets labelled dog, and anything on the green side gets labelled cat. The model's whole job is to find the best position for that line.",
+    },
+    {
+      q: "What are weights and bias?",
+      a: "Weights tell the model how much to care about each feature. A high weight for ear pointiness means the model thinks pointy ears are a strong sign of being a dog. The bias is like a nudge — it shifts the decision boundary away from the centre so the model doesn't have to start from zero.",
+    },
+    {
+      q: "What is gradient descent?",
+      a: "Imagine you're blindfolded on a hilly landscape and you want to find the lowest valley. You feel which direction is downhill and take a small step that way, then repeat. That's gradient descent — the model keeps making tiny adjustments to its weights to reduce its mistakes, one step at a time.",
+    },
+    {
+      q: "Why do we use log-loss?",
+      a: "Log-loss is a score that punishes confident wrong answers very harshly. If you say '99% sure it's a dog' and it's actually a cat, you get a huge penalty. But if you say '51% sure it's a dog' and it's a cat, the penalty is much smaller. This forces the model to be careful when it's confident.",
+    },
+    {
+      q: "What does overfitting mean?",
+      a: "Overfitting is when a model learns the training data too well — it memorises every quirk instead of learning the general pattern. It scores perfectly on data it has already seen but fails badly on new data. It's like a student who memorises past exam answers instead of understanding the subject.",
+    },
+    {
+      q: "What is a feature?",
+      a: "A feature is any measurable property you use to describe something. In our classifier, ear pointiness and fur fluffiness are the two features. The model never sees the actual animal — it only ever sees these two numbers.",
+    },
+  ],
+  experienced: [
+    {
+      q: "What is the mathematical form of logistic regression?",
+      a: "The model computes z = wᵀx + b (a linear score), then applies σ(z) = 1/(1+e⁻ᶻ) to get p ∈ (0,1). The decision rule is: predict class 1 if p > 0.5, equivalently if z > 0. The decision boundary is the affine hyperplane {x : wᵀx + b = 0}.",
+    },
+    {
+      q: "Why is cross-entropy the natural loss for classification?",
+      a: "Binary cross-entropy L = −(1/n)Σ[yᵢlog(pᵢ) + (1−yᵢ)log(1−pᵢ)] is the negative log-likelihood under a Bernoulli model. Minimising it is equivalent to maximum likelihood estimation of (w, b). Its convexity in the parameters guarantees a unique global minimum with no local traps.",
+    },
+    {
+      q: "What is the gradient of the log-loss with respect to the weights?",
+      a: "∂L/∂w = (1/n)Xᵀ(p−y) and ∂L/∂b = mean(p−y). The strikingly clean form (p−y) arises because the sigmoid derivative σ(1−σ) cancels exactly with the cross-entropy derivative 1/p, leaving only the residual error. This is why logistic regression and sigmoid pair so naturally.",
+    },
+    {
+      q: "What is the curse of dimensionality?",
+      a: "In high-dimensional spaces, data becomes exponentially sparse. The volume of a hypersphere relative to its bounding hypercube vanishes as d→∞, meaning nearest-neighbour methods lose resolution. For classifiers like KNN, this means you need exponentially more data to maintain the same density — and distances become less meaningful as all points appear roughly equidistant.",
+    },
+    {
+      q: "How does the decision boundary change with weights?",
+      a: "The boundary is {x ∈ ℝ² : w₁x₁ + w₂x₂ + b = 0} — a line with slope −w₁/w₂ and intercept −b/w₂. Increasing w₁ steepens the slope (ear pointiness becomes more discriminative); changing b translates the line. The weight vector w is always perpendicular to the boundary and points toward the positive class.",
+    },
+    {
+      q: "What is regularisation and why does it help?",
+      a: "Regularisation adds a penalty term to the loss — L2 adds λ‖w‖² (ridge), L1 adds λ‖w‖₁ (lasso). This constrains weight magnitude, discouraging the model from fitting noise. L2 shrinks all weights proportionally; L1 drives sparse solutions by pushing small weights to exactly zero, implicitly performing feature selection.",
+    },
+    {
+      q: "What is the bias-variance tradeoff?",
+      a: "Expected test error decomposes as Bias² + Variance + irreducible noise. High bias (underfitting) means the model is too simple to capture the true boundary. High variance (overfitting) means it fits training noise and doesn't generalise. Regularisation, early stopping, and ensembling are techniques to navigate this tradeoff.",
+    },
+    {
+      q: "When does gradient descent fail to converge?",
+      a: "For logistic regression with separable data, the weights diverge to infinity — the loss decreases but never reaches zero, and the boundary continues sharpening indefinitely. In practice: learning rate too large causes oscillation or divergence; vanishing gradients stall deep networks; saddle points (not local minima) are the main failure mode in non-convex loss landscapes.",
+    },
+  ],
+};
+
+const SUGGESTED_QUESTIONS = {
+  beginner: [
+    "What is binary classification?",
+    "What does the sigmoid function do?",
+    "What is a decision boundary?",
+    "What are weights and bias?",
+    "What is gradient descent?",
+  ],
+  experienced: [
+    "What is the mathematical form of logistic regression?",
+    "Why is cross-entropy the natural loss for classification?",
+    "What is the gradient of the log-loss with respect to the weights?",
+    "How does the decision boundary change with weights?",
+    "What is the bias-variance tradeoff?",
+  ],
+};
+
+function AIPage({ userLevel }) {
+  const [level, setLevel] = useState(
+    userLevel === "experienced" ? "experienced" : "beginner",
+  );
+  const [messages, setMessages] = useState([
+    {
+      role: "assistant",
+      text:
+        level === "beginner"
+          ? "Hi! I'm your AI assistant for this topic. Ask me anything about binary classification — in plain English, no jargon required."
+          : "Hello. I can answer technical questions about binary classification, logistic regression, loss functions, and gradient-based optimisation. What would you like to dig into?",
+    },
+  ]);
+  const [input, setInput] = useState("");
+  const [thinking, setThinking] = useState(false);
+  const bottomRef = useRef(null);
+
+  function switchLevel(newLevel) {
+    if (newLevel === level) return;
+    setLevel(newLevel);
+    setMessages([
+      {
+        role: "assistant",
+        text:
+          newLevel === "beginner"
+            ? "Switched to plain English mode. Ask me anything about binary classification — no jargon required."
+            : "Switched to technical mode. I'll use mathematical notation and precise terminology. What would you like to explore?",
+      },
+    ]);
+  }
+
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth" });
+  }, [messages, thinking]);
+
+  function findAnswer(question) {
+    const q = question.toLowerCase().trim();
+    const bank = AI_QA[level];
+    // Exact match first
+    const exact = bank.find((item) => item.q.toLowerCase() === q);
+    if (exact) return exact.a;
+    // Keyword match
+    const scored = bank
+      .map((item) => {
+        const words = q.split(/\s+/).filter((w) => w.length > 3);
+        const hits = words.filter(
+          (w) =>
+            item.q.toLowerCase().includes(w) ||
+            item.a.toLowerCase().includes(w),
+        );
+        return { item, score: hits.length };
+      })
+      .sort((a, b) => b.score - a.score);
+    if (scored[0].score > 0) return scored[0].item.a;
+    return level === "beginner"
+      ? "That's a great question! It's a bit outside what I have covered right now. Try asking about the sigmoid function, decision boundaries, weights, gradient descent, or log-loss."
+      : "That falls outside my current knowledge for this topic. Try asking about the loss function gradient, decision boundary geometry, regularisation, or the bias-variance tradeoff.";
+  }
+
+  function handleSend(text) {
+    const question = (text ?? input).trim();
+    if (!question) return;
+    setInput("");
+    setMessages((m) => [...m, { role: "user", text: question }]);
+    setThinking(true);
+    setTimeout(() => {
+      setMessages((m) => [
+        ...m,
+        { role: "assistant", text: findAnswer(question) },
+      ]);
+      setThinking(false);
+    }, 650);
+  }
+
+  const suggestions = SUGGESTED_QUESTIONS[level];
+
+  return (
+    <div
+      style={{
+        display: "flex",
+        gap: "1.5rem",
+        alignItems: "flex-start",
+        width: "100%",
+        height: "calc(100vh - 260px)",
+        minHeight: "520px",
+      }}
+    >
+      {/* ── Chat panel (~55% width) ── */}
+      <div
+        style={{
+          flex: "0 0 57%",
+          minWidth: 0,
+          display: "flex",
+          flexDirection: "column",
+          background: "#fff",
+          border: `1px solid ${"var(--border)"}`,
+          borderRadius: "18px",
+          overflow: "hidden",
+          boxShadow: `0 4px 24px ${T.light}CC`,
+          height: "100%",
+        }}
+      >
+        {/* Header */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.75rem",
+            padding: "1rem 1.25rem",
+            borderBottom: `1px solid ${"var(--border)"}`,
+            background: "var(--bg)",
+            flexShrink: 0,
+          }}
+        >
+          <div
+            style={{
+              width: "34px",
+              height: "34px",
+              borderRadius: "10px",
+              background: `linear-gradient(135deg, ${"var(--accent)"}, #534AB7)`,
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+              flexShrink: 0,
+            }}
+          >
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+              <circle cx="8" cy="6" r="2.5" fill="#fff" opacity="0.9" />
+              <path
+                d="M3 13c0-2.76 2.24-5 5-5s5 2.24 5 5"
+                stroke="#fff"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                fill="none"
+                opacity="0.7"
+              />
+              <circle cx="13" cy="4" r="2" fill="#AFA9EC" />
+              <path
+                d="M13 2.5v1M13 5.5v1M11.5 4h1M14.5 4h1"
+                stroke="#fff"
+                strokeWidth="1"
+                strokeLinecap="round"
+                opacity="0.6"
+              />
+            </svg>
+          </div>
+          <div>
+            <p
+              style={{
+                fontSize: "0.85rem",
+                fontWeight: 500,
+                color: "var(--text)",
+                lineHeight: 1.2,
+              }}
+            >
+              AI Assistant
+            </p>
+            <p style={{ fontSize: "0.7rem", color: "var(--text-muted)" }}>
+              Binary Classification ·{" "}
+              {level === "beginner" ? "🌱 Beginner" : "⚡ Technical"}
+            </p>
+          </div>
+          <div
+            style={{
+              marginLeft: "auto",
+              display: "flex",
+              alignItems: "center",
+              gap: "5px",
+            }}
+          >
+            <div
+              style={{
+                width: "6px",
+                height: "6px",
+                borderRadius: "50%",
+                background: "#3B6D11",
+              }}
+            />
+            <span style={{ fontSize: "0.7rem", color: "var(--text-muted)" }}>
+              Online
+            </span>
+          </div>
+        </div>
+
+        {/* Messages */}
+        <div
+          style={{
+            flex: 1,
+            overflowY: "auto",
+            padding: "1.25rem",
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
+          }}
+        >
+          {messages.map((msg, i) => (
+            <div
+              key={i}
+              style={{
+                display: "flex",
+                justifyContent: msg.role === "user" ? "flex-end" : "flex-start",
+                gap: "0.6rem",
+                alignItems: "flex-end",
+                animation: "fadeUp 0.22s ease",
+              }}
+            >
+              {msg.role === "assistant" && (
+                <div
+                  style={{
+                    width: "26px",
+                    height: "26px",
+                    borderRadius: "8px",
+                    background: `linear-gradient(135deg, ${"var(--accent)"}, #534AB7)`,
+                    display: "flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    flexShrink: 0,
+                    marginBottom: "2px",
+                  }}
+                >
+                  <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                    <circle cx="8" cy="6" r="2.5" fill="#fff" opacity="0.9" />
+                    <path
+                      d="M3 13c0-2.76 2.24-5 5-5s5 2.24 5 5"
+                      stroke="#fff"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      fill="none"
+                      opacity="0.7"
+                    />
+                  </svg>
+                </div>
+              )}
+              <div
+                style={{
+                  maxWidth: "75%",
+                  padding: "0.7rem 0.95rem",
+                  borderRadius:
+                    msg.role === "user"
+                      ? "14px 14px 4px 14px"
+                      : "14px 14px 14px 4px",
+                  background:
+                    msg.role === "user"
+                      ? `linear-gradient(135deg, ${"var(--accent)"}, #534AB7)`
+                      : T.light,
+                  border: msg.role === "user" ? "none" : `1px solid ${T.mid}40`,
+                  color: msg.role === "user" ? "#fff" : "var(--text)",
+                  fontSize: "0.88rem",
+                  lineHeight: 1.68,
+                }}
+              >
+                {msg.text}
+              </div>
+            </div>
+          ))}
+
+          {thinking && (
+            <div
+              style={{
+                display: "flex",
+                alignItems: "flex-end",
+                gap: "0.6rem",
+                animation: "fadeUp 0.2s ease",
+              }}
+            >
+              <div
+                style={{
+                  width: "26px",
+                  height: "26px",
+                  borderRadius: "8px",
+                  background: `linear-gradient(135deg, ${"var(--accent)"}, #534AB7)`,
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  flexShrink: 0,
+                }}
+              >
+                <svg width="12" height="12" viewBox="0 0 16 16" fill="none">
+                  <circle cx="8" cy="6" r="2.5" fill="#fff" opacity="0.9" />
+                  <path
+                    d="M3 13c0-2.76 2.24-5 5-5s5 2.24 5 5"
+                    stroke="#fff"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    fill="none"
+                    opacity="0.7"
+                  />
+                </svg>
+              </div>
+              <div
+                style={{
+                  padding: "0.7rem 1rem",
+                  borderRadius: "14px 14px 14px 4px",
+                  background: T.light,
+                  border: `1px solid ${T.mid}40`,
+                  display: "flex",
+                  gap: "4px",
+                  alignItems: "center",
+                }}
+              >
+                {[0, 1, 2].map((i) => (
+                  <div
+                    key={i}
+                    style={{
+                      width: "6px",
+                      height: "6px",
+                      borderRadius: "50%",
+                      background: T.mid,
+                      animation: `bounce 1.2s ease ${i * 0.2}s infinite`,
+                    }}
+                  />
+                ))}
+              </div>
+            </div>
+          )}
+          <div ref={bottomRef} />
+        </div>
+
+        {/* Input */}
+        <div
+          style={{
+            padding: "0.85rem 1.1rem",
+            borderTop: `1px solid ${"var(--border)"}`,
+            background: "var(--bg)",
+            flexShrink: 0,
+          }}
+        >
+          <div
+            style={{
+              display: "flex",
+              gap: "0.6rem",
+              alignItems: "flex-end",
+              background: "#fff",
+              border: `1px solid ${"var(--border)"}`,
+              borderRadius: "12px",
+              padding: "0.5rem 0.5rem 0.5rem 0.9rem",
+              transition: "border-color 0.2s, box-shadow 0.2s",
+            }}
+            onFocus={() => {}}
+          >
+            <input
+              value={input}
+              onChange={(e) => setInput(e.target.value)}
+              onKeyDown={(e) =>
+                e.key === "Enter" && !e.shiftKey && handleSend()
+              }
+              placeholder="Ask anything about binary classification…"
+              style={{
+                flex: 1,
+                border: "none",
+                outline: "none",
+                fontFamily: "var(--font-body)",
+                fontSize: "0.88rem",
+                color: "var(--text)",
+                background: "transparent",
+                resize: "none",
+                lineHeight: 1.5,
+              }}
+            />
+            <button
+              onClick={() => handleSend()}
+              disabled={!input.trim()}
+              style={{
+                width: "32px",
+                height: "32px",
+                borderRadius: "9px",
+                background: input.trim() ? "var(--accent)" : T.light,
+                border: "none",
+                cursor: input.trim() ? "pointer" : "default",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+                transition: "background 0.18s",
+              }}
+            >
+              <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
+                <path
+                  d="M12 7H2M8 3l4 4-4 4"
+                  stroke={input.trim() ? "#fff" : "var(--text-muted)"}
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Sidebar (remaining ~43%) ── */}
+      <div
+        style={{
+          flex: 1,
+          minWidth: 0,
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.75rem",
+          height: "100%",
+        }}
+      >
+        {/* ── Depth toggle pill ── */}
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "0.6rem",
+            background: "#fff",
+            border: `1px solid ${"var(--border)"}`,
+            borderRadius: "100px",
+            padding: "5px 6px 5px 14px",
+            boxShadow: `0 2px 10px ${T.light}80`,
+            alignSelf: "flex-start",
+            width: "100%",
+            boxSizing: "border-box",
+          }}
+        >
+          <span
+            style={{
+              fontSize: "0.78rem",
+              fontWeight: 500,
+              color: "var(--text-muted)",
+              whiteSpace: "nowrap",
+              flexShrink: 0,
+            }}
+          >
+            Depth:
+          </span>
+          {[
+            { key: "beginner", icon: "🌱", label: "Beginner" },
+            { key: "experienced", icon: "⚡", label: "Advanced" },
+          ].map((opt) => (
+            <button
+              key={opt.key}
+              onClick={() => switchLevel(opt.key)}
+              style={{
+                flex: 1,
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                gap: "6px",
+                padding: "0.4rem 0.75rem",
+                borderRadius: "100px",
+                border: "none",
+                background: level === opt.key ? "var(--accent)" : "transparent",
+                color: level === opt.key ? "#fff" : "var(--text-muted)",
+                fontFamily: "var(--font-body)",
+                fontSize: "0.82rem",
+                fontWeight: level === opt.key ? 500 : 400,
+                cursor: "pointer",
+                transition: "background 0.18s, color 0.18s",
+                whiteSpace: "nowrap",
+              }}
+            >
+              <span style={{ fontSize: "0.9rem" }}>{opt.icon}</span>
+              {opt.label}
+            </button>
+          ))}
+        </div>
+
+        {/* ── Suggested questions (fills remaining height) ── */}
         <div
           style={{
             background: "#fff",
-            border: `1px dashed ${T.border}`,
+            border: `1px solid ${"var(--border)"}`,
             borderRadius: "14px",
-            padding: "1.5rem 2rem",
-            textAlign: "center",
+            overflow: "hidden",
+            boxShadow: `0 2px 12px ${T.light}80`,
+            display: "flex",
+            flexDirection: "column",
+            flex: 1,
+            minHeight: 0,
           }}
         >
-          <div style={{ fontSize: "2.5rem", marginBottom: "0.65rem" }}>
-            🐶🐱
-          </div>
-          <p
+          <div
             style={{
-              fontFamily: "'DM Serif Display',serif",
-              fontSize: "1.05rem",
-              color: T.dark,
-              marginBottom: "0.3rem",
+              padding: "0.85rem 1rem",
+              borderBottom: `1px solid ${"var(--border)"}`,
+              background: "var(--bg)",
+              flexShrink: 0,
             }}
           >
-            Is it a dog or a cat?
-          </p>
-          <p style={{ fontSize: "0.82rem", color: "#A09C95", lineHeight: 1.6 }}>
-            Set ear pointiness and fur fluffiness values, then hit{" "}
-            <strong style={{ color: T.accent }}>Classify this animal</strong> to
-            find out.
-          </p>
+            <p
+              style={{
+                fontSize: "0.7rem",
+                fontWeight: 500,
+                letterSpacing: "0.07em",
+                textTransform: "uppercase",
+                color: "var(--text-muted)",
+              }}
+            >
+              Suggested questions
+            </p>
+          </div>
+          <div style={{ padding: "0.6rem", flex: 1, overflowY: "auto" }}>
+            {suggestions.map((q) => (
+              <button
+                key={q}
+                onClick={() => handleSend(q)}
+                style={{
+                  width: "100%",
+                  textAlign: "left",
+                  padding: "0.65rem 0.75rem",
+                  background: "transparent",
+                  border: "none",
+                  borderRadius: "8px",
+                  fontFamily: "var(--font-body)",
+                  fontSize: "0.8rem",
+                  color: "var(--text)",
+                  cursor: "pointer",
+                  lineHeight: 1.5,
+                  transition: "background 0.15s, color 0.15s",
+                  display: "block",
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = T.light;
+                  e.currentTarget.style.color = "var(--accent)";
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = "transparent";
+                  e.currentTarget.style.color = "var(--text)";
+                }}
+              >
+                {q}
+              </button>
+            ))}
+          </div>
         </div>
-      )}
+      </div>
     </div>
   );
 }
@@ -2109,9 +2822,35 @@ export default function TopicPage() {
   const navigate = useNavigate();
   const { user } = useUserStore();
 
+  const theme = user?.theme ?? "light";
+  const font = user?.font ?? "neutral";
+  const fontSize = user?.fontSize ?? "md";
+
+  const themeCfg = THEME_CONFIGS[theme] ?? THEME_CONFIGS.light;
+  const fontCfg = FONT_CONFIGS.find((f) => f.key === font) ?? FONT_CONFIGS[0];
+  const fontSizeCfg =
+    FONT_SIZE_CONFIGS.find((f) => f.key === fontSize) ?? FONT_SIZE_CONFIGS[1];
+
   const [subPage, setSubPage] = useState("explanation");
   const [showExplanation, setShowExp] = useState(true);
   const [focusMode, setFocusMode] = useState(false);
+
+  // Sync focusMode with the real fullscreen state so Esc works automatically
+  useEffect(() => {
+    const handler = () => setFocusMode(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", handler);
+    return () => document.removeEventListener("fullscreenchange", handler);
+  }, []);
+
+  function enterFocus() {
+    document.documentElement.requestFullscreen().catch(() => {});
+    setFocusMode(true);
+  }
+
+  function exitFocus() {
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    setFocusMode(false);
+  }
 
   const meta = {
     subject: "Machine Learning",
@@ -2125,8 +2864,9 @@ export default function TopicPage() {
         @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&family=JetBrains+Mono:wght@400;500&display=swap');
         *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
         @keyframes fadeUp { from{opacity:0;transform:translateY(8px)} to{opacity:1;transform:translateY(0)} }
-        @keyframes pulse  { 0%,100%{box-shadow:0 0 0 0 ${T.accent}60} 50%{box-shadow:0 0 0 8px ${T.accent}00} }
+        @keyframes pulse  { 0%,100%{box-shadow:0 0 0 0 ${"var(--accent)"}60} 50%{box-shadow:0 0 0 8px ${"var(--accent)"}00} }
         @keyframes drift  { 0%,100%{transform:translate(0,0)scale(1)} 50%{transform:translate(6px,-10px)scale(1.04)} }
+        @keyframes bounce { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-5px)} }
         ::-webkit-scrollbar{width:5px}
         ::-webkit-scrollbar-thumb{background:rgba(175,169,236,0.4);border-radius:3px}
       `}</style>
@@ -2134,8 +2874,20 @@ export default function TopicPage() {
       <div
         style={{
           minHeight: "100vh",
-          fontFamily: "'DM Sans',system-ui,sans-serif",
-          background: focusMode ? "#fff" : T.warm,
+          fontFamily: "var(--font-body)",
+          fontSize: "var(--font-size-base)",
+          background: focusMode ? "var(--surface)" : "var(--bg)",
+          // ── Theme CSS variables ──
+          "--bg": themeCfg.bg,
+          "--surface": themeCfg.panel,
+          "--text": themeCfg.text,
+          "--text-muted": themeCfg.subtext,
+          "--accent": themeCfg.accent,
+          "--border": themeCfg.border,
+          "--accent-light": themeCfg.cardBg,
+          // ── Font CSS variables ──
+          "--font-body": fontCfg.family,
+          "--font-size-base": fontSizeCfg.size,
         }}
       >
         {/* Navbar */}
@@ -2169,29 +2921,29 @@ export default function TopicPage() {
                   background: "none",
                   border: "none",
                   cursor: "pointer",
-                  color: T.muted,
-                  fontFamily: "'DM Sans',sans-serif",
+                  color: "var(--text-muted)",
+                  fontFamily: "var(--font-body)",
                   fontSize: "0.82rem",
                 }}
               >
                 Dashboard
               </button>
-              <span style={{ color: T.border }}>›</span>
+              <span style={{ color: "var(--border)" }}>›</span>
               <button
                 onClick={() => navigate(`/subject/${meta.subjectKey}`)}
                 style={{
                   background: "none",
                   border: "none",
                   cursor: "pointer",
-                  color: T.muted,
-                  fontFamily: "'DM Sans',sans-serif",
+                  color: "var(--text-muted)",
+                  fontFamily: "var(--font-body)",
                   fontSize: "0.82rem",
                 }}
               >
                 {meta.subject}
               </button>
-              <span style={{ color: T.border }}>›</span>
-              <span style={{ color: T.dark, fontWeight: 500 }}>
+              <span style={{ color: "var(--border)" }}>›</span>
+              <span style={{ color: "var(--text)", fontWeight: 500 }}>
                 {meta.title}
               </span>
             </div>
@@ -2206,7 +2958,9 @@ export default function TopicPage() {
                     gap: "0.5rem",
                   }}
                 >
-                  <span style={{ fontSize: "0.75rem", color: T.muted }}>
+                  <span
+                    style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}
+                  >
                     Explanation
                   </span>
                   <button
@@ -2215,7 +2969,9 @@ export default function TopicPage() {
                       width: "36px",
                       height: "20px",
                       borderRadius: "10px",
-                      background: showExplanation ? T.accent : T.border,
+                      background: showExplanation
+                        ? "var(--accent)"
+                        : "var(--border)",
                       border: "none",
                       cursor: "pointer",
                       position: "relative",
@@ -2239,90 +2995,67 @@ export default function TopicPage() {
                 </div>
               )}
               <button
-                onClick={() => setFocusMode(true)}
+                onClick={enterFocus}
                 style={{
                   display: "flex",
                   alignItems: "center",
                   gap: "5px",
                   background: "rgba(255,255,255,0.7)",
-                  border: `1px solid ${T.border}`,
+                  border: `1px solid ${"var(--border)"}`,
                   borderRadius: "100px",
                   padding: "4px 12px",
                   fontSize: "0.75rem",
-                  color: T.accent,
+                  color: "var(--accent)",
                   cursor: "pointer",
-                  fontFamily: "'DM Sans',sans-serif",
+                  fontFamily: "var(--font-body)",
                   fontWeight: 500,
                 }}
               >
                 <svg width="11" height="11" viewBox="0 0 11 11" fill="none">
-                  <circle cx="5.5" cy="5.5" r="2" fill={T.accent} />
+                  <circle cx="5.5" cy="5.5" r="2" fill={"var(--accent)"} />
                   <circle
                     cx="5.5"
                     cy="5.5"
                     r="4.5"
-                    stroke={T.accent}
+                    stroke={"var(--accent)"}
                     strokeWidth="1"
                     fill="none"
                   />
                 </svg>
                 Focus
               </button>
-              <div
+              <button
+                onClick={() => navigate("/settings")}
                 style={{
-                  width: "28px",
-                  height: "28px",
-                  borderRadius: "50%",
-                  background: T.light,
-                  border: `1px solid ${T.mid}`,
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "0.95rem",
+                  background: "none",
+                  border: "none",
+                  cursor: "pointer",
+                  color: "var(--text-muted)",
                 }}
               >
-                {user?.avatar ?? "🦉"}
-              </div>
+                <svg
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.8"
+                  strokeLinecap="round"
+                >
+                  <circle cx="12" cy="12" r="3" />
+                  <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
+                </svg>
+              </button>
+              <AvatarNavBubble user={user} />
             </div>
           </nav>
-        )}
-
-        {focusMode && (
-          <div
-            style={{
-              background: T.accent,
-              padding: "0.4rem 2rem",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
-            }}
-          >
-            <span
-              style={{ fontSize: "0.75rem", color: "rgba(255,255,255,0.7)" }}
-            >
-              Focus mode — distractions hidden
-            </span>
-            <button
-              onClick={() => setFocusMode(false)}
-              style={{
-                background: "none",
-                border: "none",
-                cursor: "pointer",
-                color: "rgba(255,255,255,0.8)",
-                fontSize: "0.75rem",
-                fontFamily: "'DM Sans',sans-serif",
-              }}
-            >
-              Exit focus ×
-            </button>
-          </div>
         )}
 
         {/* Page header */}
         <div
           style={{
-            background: `linear-gradient(150deg,${T.light} 0%,#EAF3DE 100%)`,
-            borderBottom: `1px solid ${T.mid}40`,
+            background: `linear-gradient(150deg, var(--accent-light) 0%, var(--green-light) 100%)`,
+            borderBottom: `1px solid var(--border)`,
             padding: focusMode ? "1.5rem 2rem 1.25rem" : "2rem 2rem 1.5rem",
             position: "relative",
             overflow: "hidden",
@@ -2334,7 +3067,7 @@ export default function TopicPage() {
               h: 200,
               top: "-60px",
               right: "5%",
-              bg: "rgba(127,119,221,0.15)",
+              bg: "color-mix(in srgb, var(--accent) 15%, transparent)",
               dur: "14s",
             },
             {
@@ -2342,7 +3075,7 @@ export default function TopicPage() {
               h: 140,
               bottom: "-40px",
               left: "60%",
-              bg: "rgba(93,202,165,0.12)",
+              bg: "color-mix(in srgb, var(--green) 12%, transparent)",
               dur: "10s",
             },
           ].map((orb, i) => (
@@ -2386,7 +3119,7 @@ export default function TopicPage() {
                     fontWeight: 500,
                     letterSpacing: "0.09em",
                     textTransform: "uppercase",
-                    color: T.muted,
+                    color: "var(--text-muted)",
                     marginBottom: "4px",
                   }}
                 >
@@ -2394,9 +3127,9 @@ export default function TopicPage() {
                 </p>
                 <h1
                   style={{
-                    fontFamily: "'DM Serif Display',serif",
+                    fontFamily: "var(--font-body)",
                     fontSize: "clamp(1.4rem,3vw,1.9rem)",
-                    color: T.dark,
+                    color: "var(--text)",
                     letterSpacing: "-0.02em",
                     lineHeight: 1.1,
                     marginBottom: "0.65rem",
@@ -2408,7 +3141,7 @@ export default function TopicPage() {
                 <p
                   style={{
                     fontSize: "0.87rem",
-                    color: "#5A5650",
+                    color: "var(--text-muted)",
                     lineHeight: 1.7,
                   }}
                 >
@@ -2418,7 +3151,7 @@ export default function TopicPage() {
               <div
                 style={{
                   display: "flex",
-                  background: "rgba(255,255,255,0.65)",
+                  background: "#fff",
                   backdropFilter: "blur(8px)",
                   border: "1px solid rgba(255,255,255,0.9)",
                   borderRadius: "12px",
@@ -2429,6 +3162,7 @@ export default function TopicPage() {
                 {[
                   ["explanation", "Explanation"],
                   ["tryout", "Try it out"],
+                  ["ai", "✦ Ask AI"],
                 ].map(([key, label]) => (
                   <button
                     key={key}
@@ -2437,9 +3171,9 @@ export default function TopicPage() {
                       padding: "0.45rem 1.1rem",
                       borderRadius: "9px",
                       border: "none",
-                      background: subPage === key ? T.accent : "transparent",
-                      color: subPage === key ? "#fff" : T.muted,
-                      fontFamily: "'DM Sans',sans-serif",
+                      background: subPage === key ? "var(--accent)" : "#fff",
+                      color: subPage === key ? "#fff" : "var(--text-muted)",
+                      fontFamily: "var(--font-body)",
                       fontSize: "0.85rem",
                       fontWeight: 500,
                       cursor: "pointer",
@@ -2458,7 +3192,7 @@ export default function TopicPage() {
         <div
           style={{
             width: "100%",
-            padding: "2rem 0 4rem 2rem",
+            padding: "2rem 2rem 4rem 2rem",
             boxSizing: "border-box",
           }}
         >
@@ -2468,8 +3202,10 @@ export default function TopicPage() {
                 showExplanation={showExplanation}
                 userLevel={user?.skill ?? "beginner"}
               />
-            ) : (
+            ) : subPage === "tryout" ? (
               <TryItOutPage />
+            ) : (
+              <AIPage userLevel={user?.skill ?? "beginner"} />
             )}
           </div>
         </div>

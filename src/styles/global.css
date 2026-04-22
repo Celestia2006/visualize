@@ -1,0 +1,43 @@
+/* ── Visualize — global CSS variables + base reset ───────────────────────── */
+
+/* Defaults (light theme) — overwritten at runtime by ThemeProvider */
+:root {
+  --bg:           #FDFCFA;
+  --surface:      #FFFFFF;
+  --surface-alt:  #F6F5FF;
+  --border:       #E8E6F5;
+  --text:         #26215C;
+  --text-muted:   #7B78A8;
+  --text-faint:   #A09C95;
+  --accent:       #3C3489;
+  --accent-light: #EEEDFE;
+  --accent-mid:   #AFA9EC;
+  --green:        #1D9E75;
+  --green-light:  #E1F5EE;
+  --nav-bg:       rgba(246,245,255,0.92);
+  --code-bg:      #1E1B2E;
+  --shadow:       rgba(60,52,137,0.08);
+  --card-bg:      rgba(255,255,255,0.72);
+  --card-bg-hover: rgba(255,255,255,0.92);
+  --font-body:    'DM Sans', system-ui, sans-serif;
+}
+
+/* Base reset */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background:  var(--bg);
+  color:       var(--text);
+  font-family: var(--font-body);
+  transition:  background 0.25s ease, color 0.25s ease;
+}
+
+/* Scrollbar */
+::-webkit-scrollbar       { width: 5px; }
+::-webkit-scrollbar-thumb { background: var(--accent-mid); border-radius: 3px; opacity: 0.4; }
+
+/* Shared animations */
+@keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
+@keyframes growUp { from { transform:scaleY(0); } to { transform:scaleY(1); } }
+@keyframes pulse  { 0%,100% { opacity:1; } 50% { opacity:0.45; } }
+@keyframes drift  { 0%,100% { transform:translateY(0) scale(1); } 50% { transform:translateY(-14px) scale(1.03); } }

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
 
@@ -232,7 +232,8 @@ function ActivitySparkline() {
           style={{
             width: "6px",
             height: `${(v / max) * 100}%`,
-            background: i === bars.length - 1 ? "#3C3489" : "#C8C5E8",
+            background:
+              i === bars.length - 1 ? "var(--accent)" : "var(--accent-mid)",
             borderRadius: "2px",
             animation: `growUp 0.5s ease ${i * 0.07}s both`,
           }}
@@ -326,7 +327,7 @@ function SubjectCard({ subject, index, onClick }) {
         </div>
         <div
           style={{
-            fontSize: "0.67rem",
+            fontSize: "0.67em",
             fontWeight: 500,
             letterSpacing: "0.07em",
             textTransform: "uppercase",
@@ -344,9 +345,9 @@ function SubjectCard({ subject, index, onClick }) {
 
       <h3
         style={{
-          fontFamily: "'DM Serif Display',serif",
-          fontSize: "1.2rem",
-          fontWeight: 400,
+          fontFamily: "var(--font-body)",
+          fontSize: "1.2em",
+          fontWeight: 700,
           color: subject.darkColor,
           marginBottom: "0.4rem",
           letterSpacing: "-0.01em",
@@ -357,7 +358,7 @@ function SubjectCard({ subject, index, onClick }) {
       </h3>
       <p
         style={{
-          fontSize: "0.82rem",
+          fontSize: "0.82em",
           color: "#6B6963",
           lineHeight: 1.6,
           marginBottom: "1.1rem",
@@ -380,7 +381,7 @@ function SubjectCard({ subject, index, onClick }) {
           <span
             key={t}
             style={{
-              fontSize: "0.7rem",
+              fontSize: "0.7em",
               color: subject.accentColor,
               background: "#fff",
               padding: "3px 9px",
@@ -400,7 +401,7 @@ function SubjectCard({ subject, index, onClick }) {
           display: "flex",
           alignItems: "center",
           gap: "4px",
-          fontSize: "0.8rem",
+          fontSize: "0.8em",
           fontWeight: 500,
           color: hovered ? subject.accentColor : subject.midColor,
           transition: "color 0.2s",
@@ -434,21 +435,29 @@ function SubjectCard({ subject, index, onClick }) {
 // ─── Stat card ────────────────────────────────────────────────────────────────
 
 function StatCard({ label, value, unit, sub, children }) {
+  const [hovered, setHovered] = useState(false);
   return (
     <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
       style={{
-        background: "rgba(255,255,255,0.72)",
-        backdropFilter: "blur(8px)",
-        border: "1px solid rgba(255,255,255,0.9)",
+        background: hovered ? "var(--card-bg-hover)" : "var(--card-bg)",
+        backdropFilter: "blur(10px)",
+        border: `1px solid ${hovered ? "var(--accent-mid)" : "var(--border)"}`,
         borderRadius: "14px",
         padding: "1.1rem 1.2rem",
-        boxShadow: "0 2px 12px rgba(60,52,137,0.06)",
+        boxShadow: hovered
+          ? "0 6px 20px var(--shadow)"
+          : "0 2px 12px var(--shadow)",
+        transform: hovered ? "translateY(-2px)" : "translateY(0)",
+        transition:
+          "background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s",
       }}
     >
       <p
         style={{
-          fontSize: "0.7rem",
-          color: "#7B78A8",
+          fontSize: "0.7em",
+          color: "var(--text-muted)",
           fontWeight: 500,
           letterSpacing: "0.06em",
           textTransform: "uppercase",
@@ -460,15 +469,19 @@ function StatCard({ label, value, unit, sub, children }) {
       {children ?? (
         <p
           style={{
-            fontFamily: "'DM Serif Display',serif",
-            fontSize: "1.8rem",
-            color: "#1A1917",
+            fontFamily: "var(--font-body)",
+            fontSize: "1.8em",
+            color: "var(--text)",
             lineHeight: 1,
           }}
         >
           {value}
           <span
-            style={{ fontSize: "1rem", color: "#C8C5E8", marginLeft: "2px" }}
+            style={{
+              fontSize: "1em",
+              color: "var(--text-muted)",
+              marginLeft: "2px",
+            }}
           >
             {unit}
           </span>
@@ -476,7 +489,11 @@ function StatCard({ label, value, unit, sub, children }) {
       )}
       {sub && (
         <p
-          style={{ fontSize: "0.72rem", color: "#A09C95", marginTop: "0.3rem" }}
+          style={{
+            fontSize: "0.72em",
+            color: "var(--text-faint)",
+            marginTop: "0.3rem",
+          }}
         >
           {sub}
         </p>
@@ -485,12 +502,110 @@ function StatCard({ label, value, unit, sub, children }) {
   );
 }
 
+// ─── Quote card ───────────────────────────────────────────────────────────────
+
+function QuoteCard({ quote }) {
+  const [hovered, setHovered] = useState(false);
+  return (
+    <div
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      style={{
+        background: hovered ? "var(--card-bg-hover)" : "var(--card-bg)",
+        backdropFilter: "blur(10px)",
+        border: `1px solid ${hovered ? "var(--accent-mid)" : "var(--border)"}`,
+        borderRadius: "14px",
+        padding: "0.85rem 1.1rem",
+        maxWidth: "280px",
+        flexShrink: 0,
+        boxShadow: hovered
+          ? "0 6px 20px var(--shadow)"
+          : "0 2px 16px var(--shadow)",
+        transform: hovered ? "translateY(-2px)" : "translateY(0)",
+        transition:
+          "background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s",
+      }}
+    >
+      <p
+        style={{
+          fontSize: "0.78em",
+          color: "var(--text-muted)",
+          lineHeight: 1.65,
+          fontStyle: "italic",
+          marginBottom: "0.35rem",
+          opacity: 0.9,
+        }}
+      >
+        "{quote.text}"
+      </p>
+      <p
+        style={{
+          fontSize: "0.7em",
+          color: "var(--text-faint)",
+          fontWeight: 500,
+        }}
+      >
+        — {quote.author}
+      </p>
+    </div>
+  );
+}
+
+function AvatarNavBubble({ user }) {
+  const [failed, setFailed] = useState(false);
+  const hasImage = user?.avatarImage && !failed;
+  return (
+    <div
+      style={{
+        width: "32px",
+        height: "32px",
+        borderRadius: "50%",
+        background: "var(--accent-light)",
+        border: "1px solid var(--accent-mid)",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        overflow: "hidden",
+        fontSize: "1em",
+      }}
+    >
+      {hasImage ? (
+        <img
+          src={user.avatarImage}
+          alt={user.avatarName ?? "avatar"}
+          onError={() => setFailed(true)}
+          style={{ width: "100%", height: "100%", objectFit: "cover" }}
+        />
+      ) : (
+        (user?.avatar?.emoji ?? "🦉")
+      )}
+    </div>
+  );
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 export default function LandingPage() {
-  const navigate = useNavigate();
   const { user, logout } = useUserStore();
+  const navigate = useNavigate();
   const [bookmarkHovered, setBookmarkHovered] = useState(false);
+  const [focusMode, setFocusMode] = useState(false);
+
+  useEffect(() => {
+    const handler = () => setFocusMode(!!document.fullscreenElement);
+    document.addEventListener("fullscreenchange", handler);
+    return () => document.removeEventListener("fullscreenchange", handler);
+  }, []);
+
+  function enterFocus() {
+    document.documentElement.requestFullscreen().catch(() => {});
+    setFocusMode(true);
+  }
+
+  function exitFocus() {
+    if (document.fullscreenElement) document.exitFullscreen().catch(() => {});
+    setFocusMode(false);
+  }
 
   const displayName = user?.firstName ?? "there";
   const greeting = getGreeting(displayName);
@@ -509,7 +624,6 @@ export default function LandingPage() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
         *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
         @keyframes fadeUp  { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
         @keyframes growUp  { from { transform:scaleY(0); }                  to { transform:scaleY(1); } }
@@ -522,8 +636,9 @@ export default function LandingPage() {
       <div
         style={{
           minHeight: "100vh",
-          fontFamily: "'DM Sans',system-ui,sans-serif",
-          background: "#F6F5FF",
+          fontFamily: "var(--font-body)",
+          fontSize: "var(--font-size-base)",
+          background: "var(--bg)",
         }}
       >
         {/* ── Navbar ── */}
@@ -534,9 +649,9 @@ export default function LandingPage() {
             justifyContent: "space-between",
             padding: "0 2.5rem",
             height: "60px",
-            background: "rgba(246,245,255,0.88)",
+            background: "var(--nav-bg)",
             backdropFilter: "blur(14px)",
-            borderBottom: "1px solid rgba(174,169,236,0.25)",
+            borderBottom: "1px solid var(--border)",
             position: "sticky",
             top: 0,
             zIndex: 100,
@@ -548,7 +663,7 @@ export default function LandingPage() {
                 width: "28px",
                 height: "28px",
                 borderRadius: "7px",
-                background: "#3C3489",
+                background: "var(--accent)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "center",
@@ -570,9 +685,9 @@ export default function LandingPage() {
             </div>
             <span
               style={{
-                fontFamily: "'DM Serif Display',serif",
-                fontSize: "1.05rem",
-                color: "#1A1917",
+                fontFamily: "var(--font-body)",
+                fontSize: "1.05em",
+                color: "var(--text)",
                 letterSpacing: "-0.01em",
               }}
             >
@@ -583,40 +698,55 @@ export default function LandingPage() {
             style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}
           >
             <button
+              onClick={focusMode ? exitFocus : enterFocus}
               style={{
                 display: "flex",
                 alignItems: "center",
                 gap: "5px",
-                background: "rgba(255,255,255,0.7)",
-                border: "1px solid rgba(174,169,236,0.35)",
+                background: focusMode ? "var(--accent)" : "var(--surface)",
+                border: "1px solid var(--border)",
                 borderRadius: "100px",
                 padding: "5px 12px",
-                fontSize: "0.78rem",
-                color: "#534AB7",
+                fontSize: "0.78em",
+                color: focusMode ? "#fff" : "var(--accent)",
                 cursor: "pointer",
-                fontFamily: "'DM Sans',sans-serif",
+                fontFamily: "var(--font-body)",
                 fontWeight: 500,
+                transition: "background 0.2s, color 0.2s",
               }}
             >
-              <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
-                <circle cx="6" cy="6" r="2" fill="#534AB7" />
-                <circle
-                  cx="6"
-                  cy="6"
-                  r="5"
-                  stroke="#534AB7"
-                  strokeWidth="1"
-                  fill="none"
-                />
-              </svg>
-              Focus
+              {focusMode ? (
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <path
+                    d="M1 4V1h3M8 1h3v3M11 8v3H8M4 11H1V8"
+                    stroke="currentColor"
+                    strokeWidth="1.3"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              ) : (
+                <svg width="12" height="12" viewBox="0 0 12 12" fill="none">
+                  <circle cx="6" cy="6" r="2" fill="var(--accent)" />
+                  <circle
+                    cx="6"
+                    cy="6"
+                    r="5"
+                    stroke="var(--accent)"
+                    strokeWidth="1"
+                    fill="none"
+                  />
+                </svg>
+              )}
+              {focusMode ? "Exit Focus" : "Focus"}
             </button>
             <button
+              onClick={() => navigate("/settings")}
               style={{
                 background: "none",
                 border: "none",
                 cursor: "pointer",
-                color: "#8884B8",
+                color: "var(--text-muted)",
               }}
             >
               <svg
@@ -632,31 +762,18 @@ export default function LandingPage() {
                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
               </svg>
             </button>
+
             <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-              <div
-                style={{
-                  width: "32px",
-                  height: "32px",
-                  borderRadius: "50%",
-                  background: "#EEEDFE",
-                  border: "1px solid #AFA9EC",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontSize: "1rem",
-                }}
-              >
-                {user?.avatar ?? "🦉"}
-              </div>
+              <AvatarNavBubble user={user} />
               <button
                 onClick={handleLogout}
                 style={{
                   background: "none",
                   border: "none",
                   cursor: "pointer",
-                  fontSize: "0.78rem",
-                  color: "#A09C95",
-                  fontFamily: "'DM Sans',sans-serif",
+                  fontSize: "0.78em",
+                  color: "var(--text-faint)",
+                  fontFamily: "var(--font-body)",
                 }}
               >
                 Sign out
@@ -672,7 +789,7 @@ export default function LandingPage() {
           style={{
             position: "relative",
             background:
-              "linear-gradient(160deg, #EEEDFE 0%, #F0EFFE 40%, #E8F4FD 100%)",
+              "linear-gradient(160deg, var(--accent-light) 0%, var(--surface-alt) 55%, var(--surface-alt) 100%)",
             overflow: "hidden",
           }}
         >
@@ -752,9 +869,10 @@ export default function LandingPage() {
                 <div>
                   <h1
                     style={{
-                      fontFamily: "'DM Serif Display',Georgia,serif",
-                      fontSize: "clamp(1.9rem,4vw,2.6rem)",
-                      color: "#26215C",
+                      fontFamily: "var(--font-body)",
+                      fontSize: "clamp(1.9em,4vw,2.6em)",
+                      fontWeight: 700,
+                      color: "var(--text)",
                       letterSpacing: "-0.025em",
                       lineHeight: 1.1,
                       marginBottom: "0.45rem",
@@ -764,8 +882,8 @@ export default function LandingPage() {
                   </h1>
                   <p
                     style={{
-                      fontSize: "0.95rem",
-                      color: "#534AB7",
+                      fontSize: "0.95em",
+                      color: "var(--accent)",
                       lineHeight: 1.5,
                       opacity: 0.8,
                     }}
@@ -774,40 +892,7 @@ export default function LandingPage() {
                   </p>
                 </div>
                 {/* Quote card */}
-                <div
-                  style={{
-                    background: "rgba(255,255,255,0.65)",
-                    backdropFilter: "blur(10px)",
-                    border: "1px solid rgba(255,255,255,0.9)",
-                    borderRadius: "14px",
-                    padding: "0.85rem 1.1rem",
-                    maxWidth: "280px",
-                    flexShrink: 0,
-                    boxShadow: "0 2px 16px rgba(60,52,137,0.08)",
-                  }}
-                >
-                  <p
-                    style={{
-                      fontSize: "0.78rem",
-                      color: "#534AB7",
-                      lineHeight: 1.65,
-                      fontStyle: "italic",
-                      marginBottom: "0.35rem",
-                      opacity: 0.85,
-                    }}
-                  >
-                    "{quote.text}"
-                  </p>
-                  <p
-                    style={{
-                      fontSize: "0.7rem",
-                      color: "#8884B8",
-                      fontWeight: 500,
-                    }}
-                  >
-                    — {quote.author}
-                  </p>
-                </div>
+                <QuoteCard quote={quote} />
               </div>
             </section>
 
@@ -846,10 +931,10 @@ export default function LandingPage() {
                   onClick={() => navigate(lastTopic.path)}
                   style={{
                     background: bookmarkHovered
-                      ? "rgba(255,255,255,0.9)"
-                      : "rgba(255,255,255,0.72)",
+                      ? "var(--card-bg-hover)"
+                      : "var(--card-bg)",
                     backdropFilter: "blur(8px)",
-                    border: `1px solid ${bookmarkHovered ? "#AFA9EC" : "rgba(255,255,255,0.9)"}`,
+                    border: `1px solid ${bookmarkHovered ? "var(--accent-mid)" : "var(--border)"}`,
                     borderRadius: "14px",
                     padding: "1.1rem 1.2rem",
                     cursor: "pointer",
@@ -857,8 +942,8 @@ export default function LandingPage() {
                       "background 0.2s, border-color 0.2s, transform 0.2s, box-shadow 0.2s",
                     transform: bookmarkHovered ? "translateY(-2px)" : "none",
                     boxShadow: bookmarkHovered
-                      ? "0 8px 24px rgba(60,52,137,0.13)"
-                      : "0 2px 12px rgba(60,52,137,0.06)",
+                      ? "0 8px 24px var(--shadow)"
+                      : "0 2px 12px var(--shadow)",
                     position: "relative",
                     overflow: "hidden",
                   }}
@@ -888,14 +973,14 @@ export default function LandingPage() {
                         width: "6px",
                         height: "6px",
                         borderRadius: "50%",
-                        background: "#534AB7",
+                        background: "var(--accent)",
                         animation: "pulse 2s ease infinite",
                       }}
                     />
                     <p
                       style={{
-                        fontSize: "0.7rem",
-                        color: "#534AB7",
+                        fontSize: "0.7em",
+                        color: "var(--accent)",
                         fontWeight: 500,
                         letterSpacing: "0.06em",
                         textTransform: "uppercase",
@@ -906,16 +991,17 @@ export default function LandingPage() {
                   </div>
                   <p
                     style={{
-                      fontFamily: "'DM Serif Display',serif",
-                      fontSize: "1rem",
-                      color: "#26215C",
+                      fontFamily: "var(--font-body)",
+                      fontSize: "1em",
+                      fontWeight: 700,
+                      color: "var(--text)",
                       marginBottom: "0.25rem",
                       lineHeight: 1.3,
                     }}
                   >
                     {lastTopic.subject} — {lastTopic.topic}
                   </p>
-                  <p style={{ fontSize: "0.72rem", color: "#8884B8" }}>
+                  <p style={{ fontSize: "0.72em", color: "var(--text-muted)" }}>
                     {lastTopic.progress}% through
                   </p>
                   <div
@@ -924,9 +1010,11 @@ export default function LandingPage() {
                       alignItems: "center",
                       gap: "4px",
                       marginTop: "0.65rem",
-                      fontSize: "0.78rem",
+                      fontSize: "0.78em",
                       fontWeight: 500,
-                      color: bookmarkHovered ? "#3C3489" : "#AFA9EC",
+                      color: bookmarkHovered
+                        ? "var(--accent)"
+                        : "var(--accent-mid)",
                       transition: "color 0.2s",
                     }}
                   >
@@ -963,8 +1051,8 @@ export default function LandingPage() {
         ══════════════════════════════════════════════════ */}
         <div
           style={{
-            background: "#FDFCFA",
-            borderTop: "1px solid rgba(174,169,236,0.18)",
+            background: "var(--surface)",
+            borderTop: "1px solid var(--border)",
           }}
         >
           <div
@@ -987,10 +1075,10 @@ export default function LandingPage() {
               <div>
                 <h2
                   style={{
-                    fontFamily: "'DM Serif Display',serif",
-                    fontSize: "1.35rem",
-                    fontWeight: 400,
-                    color: "#1A1917",
+                    fontFamily: "var(--font-body)",
+                    fontSize: "1.35em",
+                    fontWeight: 700,
+                    color: "var(--text)",
                     letterSpacing: "-0.015em",
                   }}
                 >
@@ -998,15 +1086,15 @@ export default function LandingPage() {
                 </h2>
                 <p
                   style={{
-                    fontSize: "0.8rem",
-                    color: "#A09C95",
+                    fontSize: "0.8em",
+                    color: "var(--text-faint)",
                     marginTop: "2px",
                   }}
                 >
                   Three topics, each with interactive visualizations
                 </p>
               </div>
-              <span style={{ fontSize: "0.78rem", color: "#A09C95" }}>
+              <span style={{ fontSize: "0.78em", color: "var(--text-faint)" }}>
                 {stats.completed} of {stats.total} complete
               </span>
             </div>
@@ -1034,46 +1122,24 @@ export default function LandingPage() {
               style={{
                 marginTop: "3rem",
                 paddingTop: "1.5rem",
-                borderTop: "1px solid #EDE9E0",
+                borderTop: "1px solid var(--border)",
                 display: "flex",
                 alignItems: "center",
                 justifyContent: "space-between",
                 animation: "fadeUp 0.5s ease 0.4s both",
               }}
             >
-              <p style={{ fontSize: "0.75rem", color: "#B4B2A9" }}>
+              <p style={{ fontSize: "0.75em", color: "var(--text-faint)" }}>
                 Your preferences —{" "}
-                <span style={{ color: "#534AB7", textTransform: "capitalize" }}>
+                <span
+                  style={{
+                    color: "var(--accent)",
+                    textTransform: "capitalize",
+                  }}
+                >
                   {theme} theme · {font} font · {skill} mode
                 </span>
               </p>
-              <button
-                style={{
-                  background: "none",
-                  border: "none",
-                  cursor: "pointer",
-                  fontSize: "0.75rem",
-                  color: "#B4B2A9",
-                  fontFamily: "'DM Sans',sans-serif",
-                  display: "flex",
-                  alignItems: "center",
-                  gap: "4px",
-                }}
-              >
-                <svg
-                  width="12"
-                  height="12"
-                  viewBox="0 0 12 12"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.3"
-                  strokeLinecap="round"
-                >
-                  <circle cx="6" cy="6" r="2.5" />
-                  <path d="M6 1v1.5M6 9.5V11M1 6h1.5M9.5 6H11" />
-                </svg>
-                Settings
-              </button>
             </div>
           </div>
         </div>

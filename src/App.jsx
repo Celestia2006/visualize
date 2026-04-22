@@ -4,6 +4,13 @@ import AuthPage from "./pages/Auth/AuthPage";
 import LandingPage from "./pages/Landing/Landingpage";
 import SubjectPage from "./pages/Subject/Subjectpage";
 import TopicPage from "./pages/Topic/Topicpage";
+import BFSTopicPage from "./pages/Topic/BFSTopicPage";
+import FIFOTopicPage from "./pages/Topic/FIFOTopicpage";
+import OnboardingPage from "./pages/Auth/OnboardingPage";
+import SettingsPage from "./pages/Settings/SettingsPage";
+import "./styles/global.css";
+
+
 
 // Redirects to /auth if not logged in
 function PrivateRoute({ children }) {
@@ -22,7 +29,6 @@ export default function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Navigate to="/auth" replace />} />
-
         <Route
           path="/auth"
           element={
@@ -31,7 +37,6 @@ export default function App() {
             </PublicRoute>
           }
         />
-
         <Route
           path="/landing"
           element={
@@ -40,7 +45,6 @@ export default function App() {
             </PrivateRoute>
           }
         />
-
         <Route
           path="/subject/:subjectKey"
           element={
@@ -49,7 +53,8 @@ export default function App() {
             </PrivateRoute>
           }
         />
-
+        <Route path="/subject/dsa/bfs" element={<BFSTopicPage />} />
+        <Route path="/subject/os/fifo" element={<FIFOTopicPage />} />
         <Route
           path="/subject/:subjectKey/:topicKey"
           element={
@@ -58,7 +63,15 @@ export default function App() {
             </PrivateRoute>
           }
         />
-
+        <Route path="/onboarding" element={<OnboardingPage />} />;
+        <Route
+          path="/settings"
+          element={
+            <PrivateRoute>
+              <SettingsPage />
+            </PrivateRoute>
+          }
+        />
         {/* Catch-all */}
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>

@@ -54,11 +54,115 @@ const BG_PANELS = [
   },
 ];
 
-const AVATARS = ["🦉", "🦊", "🐼", "🤖", "🧑‍🚀"];
+const AVATARS = [
+  {
+    emoji: "🐶",
+    name: "Laika",
+    title: "The Pioneer",
+    description:
+      "First in line, always. Laika dives into new topics headfirst, learns by doing, and keeps going even when no one else has been there before. A little lonely at the frontier, but she wouldn't trade it for anything.",
+  },
+  {
+    emoji: "🐱",
+    name: "Félicette",
+    title: "The Analyst",
+    description:
+      "She observes before she acts. Félicette watches, waits, and only moves when she's mapped the whole terrain — learning by understanding the why before the what. Quiet, precise, always three steps ahead.",
+  },
+  {
+    emoji: "🐰",
+    name: "Snowball",
+    title: "The Wonderer",
+    description:
+      "Down the rabbit hole again. Snowball follows curiosity wherever it leads — one topic becomes five, one question opens ten doors. She doesn't study linearly; she stumbles into understanding and always arrives somewhere magical.",
+  },
+  {
+    emoji: "🦚",
+    name: "Argus",
+    title: "The Observer",
+    description:
+      "A hundred eyes, nothing escapes him. Argus absorbs everything at once — patterns, connections, the big picture. He learns by seeing how everything fits together before zooming in. Detail-oriented but never loses sight of the whole.",
+  },
+  {
+    emoji: "🦕",
+    name: "Rexy",
+    title: "The Relentless",
+    description:
+      "She doesn't read the manual. She IS the manual. Rexy learns by sheer force — repetition, practice, trial and error. She'll attempt something a hundred times before she gets it, and she will get it. Setbacks are just warm-up laps.",
+  },
+  {
+    emoji: "🦉",
+    name: "Hedwig",
+    title: "The Sage",
+    description:
+      "She always delivers. Hedwig is methodical and loyal to the process — she reads everything, takes her time, and never skips steps. When she understands something, it stays with her forever.",
+  },
+  {
+    emoji: "🦋",
+    name: "Iris",
+    title: "The Transformer",
+    description:
+      "She's not the same student she was yesterday. Iris absorbs knowledge in bursts — periods of quiet stillness, then sudden dramatic leaps in understanding. She connects concepts across completely different subjects and emerges changed every time.",
+  },
+  {
+    emoji: "🐺",
+    name: "Akela",
+    title: "The Strategist",
+    description:
+      "He leads by knowing the terrain. Akela plans before he acts — maps out what he needs to learn, sets a path, and moves with quiet precision. He thinks in systems and structures, and never wastes a move.",
+  },
+  {
+    emoji: "🐉",
+    name: "Festus",
+    title: "The Chaotic Genius",
+    description:
+      "Somehow always works. Festus looks like he's flying off the rails — jumping between topics, making wild leaps in logic — but underneath the chaos there's a method no one else could have designed. He gets there. Loudly. With fire.",
+  },
+  {
+    emoji: "🦜",
+    name: "Blue",
+    title: "The Last of His Kind",
+    description:
+      "Rare things take time. Blue is the kind of learner who needs the right environment to thrive. He learns slowly at first, then all at once — and he doesn't just absorb information, he carries it like it matters. Because for him, it does.",
+  },
+  {
+    emoji: "🐯",
+    name: "Machli",
+    title: "The Queen",
+    description:
+      "Her territory is knowledge. Machli claims a subject and owns it — deep dives, no half-measures, and an almost territorial protectiveness over what she knows. She's been through harder things than this syllabus.",
+  },
+  {
+    emoji: "🐋",
+    name: "Humphrey",
+    title: "The Explorer",
+    description:
+      "He keeps getting lost. He keeps finding things. Humphrey doesn't learn in straight lines — he wanders into tangents, surfaces in unexpected places, and occasionally forgets what chapter he started on. But his detours are always worth it.",
+  },
+  {
+    emoji: "🦫",
+    name: "Gort",
+    title: "The Unbothered",
+    description:
+      "Stress? Never heard of it. Gort moves at his own pace, and somehow that pace works. He doesn't panic before exams, doesn't spiral on hard topics. He just keeps going — calmly, consistently — and somehow he always gets there.",
+  },
+  {
+    emoji: "🦌",
+    name: "Bambi",
+    title: "The Gentle Learner",
+    description:
+      "He learns by watching the world. Bambi takes everything in softly — observation, reflection, slow understanding. He gets overwhelmed by intensity, but in quiet moments he absorbs more than anyone in the room. He doesn't race; he grows.",
+  },
+  {
+    emoji: "🐠",
+    name: "Nemo",
+    title: "The Brave One",
+    description:
+      "Small, a little scared, absolutely going for it. Nemo is terrified of the hard stuff but does it anyway. He asks the questions others are embarrassed to ask, explores further than his comfort zone, and reminds everyone that courage is just showing up.",
+  },
+];
 const STRENGTH_LABELS = ["", "Weak", "Fair", "Strong", "Very strong"];
 const STRENGTH_COLORS = ["#E4E2DC", "#EF9F27", "#EF9F27", "#3B6D11", "#3B6D11"];
-
-// ─── Mock existing users (for login simulation) ───────────────────────────────
 
 const MOCK_EXISTING_USERS = {
   "alex@uni.edu": {
@@ -78,12 +182,82 @@ const MOCK_EXISTING_USERS = {
   },
 };
 
+// ─── Theme preview configs ────────────────────────────────────────────────────
+const THEME_CONFIGS = {
+  light: {
+    label: "Light",
+    bg: "#F9F8F6",
+    panel: "#FFFFFF",
+    text: "#1A1917",
+    subtext: "#6B6963",
+    accent: "#3C3489",
+    border: "#E4E2DC",
+    cardBg: "#EEEDFE",
+  },
+  dark: {
+    label: "Dark",
+    bg: "#1A1917",
+    panel: "#252321",
+    text: "#F0EDE8",
+    subtext: "#8A8680",
+    accent: "#AFA9EC",
+    border: "#333333",
+    cardBg: "#2D2A3E",
+  },
+  "cb-light": {
+    label: "CB Light",
+    bg: "#FFF9E8",
+    panel: "#FFFFFF",
+    text: "#1A1400",
+    subtext: "#5A5030",
+    accent: "#C0720A",
+    border: "#E8D890",
+    cardBg: "#FFF0C0",
+  },
+  "cb-dark": {
+    label: "CB Dark",
+    bg: "#001020",
+    panel: "#0A1928",
+    text: "#E0F0FF",
+    subtext: "#7090A0",
+    accent: "#40B0FF",
+    border: "#1A3040",
+    cardBg: "#0A2840",
+  },
+};
+
+const FONT_CONFIGS = [
+  {
+    key: "neutral",
+    label: "Neutral",
+    family: "'DM Sans', sans-serif",
+    desc: "Clean & modern",
+  },
+  {
+    key: "academic",
+    label: "Academic",
+    family: "'DM Serif Display', serif",
+    desc: "Scholarly & refined",
+  },
+  {
+    key: "dyslexic",
+    label: "Dyslexic-friendly",
+    family: "'Comic Sans MS', 'Chalkboard SE', cursive",
+    desc: "High readability",
+  },
+];
+
+const FONT_SIZE_CONFIGS = [
+  { key: "sm", label: "Small", size: "0.85rem", preview: "14px" },
+  { key: "md", label: "Medium", size: "1rem", preview: "16px" },
+  { key: "lg", label: "Large", size: "1.125rem", preview: "18px" },
+];
+
 // ─── Animated BG panels ───────────────────────────────────────────────────────
 
 function BFSPanel({ active }) {
   const [visited, setVisited] = useState([]);
   const topic = BG_PANELS[0];
-
   useEffect(() => {
     if (!active) {
       setVisited([]);
@@ -101,9 +275,7 @@ function BFSPanel({ active }) {
     }, 420);
     return () => clearInterval(interval);
   }, [active]);
-
   const nodeMap = Object.fromEntries(topic.nodes.map((n) => [n.id, n]));
-
   return (
     <div style={{ width: "100%", height: "100%", padding: "1.5rem" }}>
       <p
@@ -177,7 +349,6 @@ function BFSPanel({ active }) {
 function ClassificationPanel({ active }) {
   const topic = BG_PANELS[1];
   const [highlight, setHighlight] = useState(null);
-
   useEffect(() => {
     if (!active) {
       setHighlight(null);
@@ -190,7 +361,6 @@ function ClassificationPanel({ active }) {
     }, 180);
     return () => clearInterval(interval);
   }, [active]);
-
   return (
     <div style={{ width: "100%", height: "100%", padding: "1.5rem" }}>
       <p
@@ -236,7 +406,6 @@ function ClassificationPanel({ active }) {
 function FIFOPanel({ active }) {
   const topic = BG_PANELS[2];
   const [progress, setProgress] = useState(0);
-
   useEffect(() => {
     if (!active) {
       setProgress(0);
@@ -250,10 +419,8 @@ function FIFOPanel({ active }) {
     }, 60);
     return () => clearInterval(interval);
   }, [active]);
-
   const total = topic.processes.reduce((s, p) => s + p.burst, 0);
   let cursor = 0;
-
   return (
     <div style={{ width: "100%", height: "100%", padding: "1.5rem" }}>
       <p
@@ -387,6 +554,1030 @@ function getStrength(val) {
   return s;
 }
 
+// ─── Theme Preview Mini-Card ──────────────────────────────────────────────────
+
+function ThemePreviewCard({ themeKey, isSelected, onClick }) {
+  const cfg = THEME_CONFIGS[themeKey];
+  return (
+    <div
+      onClick={onClick}
+      role="button"
+      tabIndex={0}
+      onKeyDown={(e) => e.key === "Enter" && onClick()}
+      style={{
+        cursor: "pointer",
+        borderRadius: "12px",
+        border: `2px solid ${isSelected ? "#3C3489" : "#E4E2DC"}`,
+        overflow: "hidden",
+        transition: "border-color 0.2s, transform 0.15s, box-shadow 0.2s",
+        transform: isSelected ? "scale(1.03)" : "scale(1)",
+        boxShadow: isSelected
+          ? "0 0 0 4px rgba(60,52,137,0.12)"
+          : "0 2px 8px rgba(0,0,0,0.08)",
+      }}
+    >
+      <div style={{ background: cfg.bg, padding: "10px", minHeight: "88px" }}>
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            gap: "5px",
+            marginBottom: "7px",
+          }}
+        >
+          <div
+            style={{
+              width: "12px",
+              height: "12px",
+              borderRadius: "3px",
+              background: cfg.accent,
+            }}
+          />
+          <div
+            style={{
+              flex: 1,
+              height: "3px",
+              borderRadius: "2px",
+              background: cfg.border,
+            }}
+          />
+          <div
+            style={{
+              width: "16px",
+              height: "3px",
+              borderRadius: "2px",
+              background: cfg.border,
+            }}
+          />
+        </div>
+        <div
+          style={{
+            background: cfg.panel,
+            borderRadius: "5px",
+            padding: "6px",
+            border: `0.5px solid ${cfg.border}`,
+          }}
+        >
+          <div
+            style={{
+              width: "55%",
+              height: "4px",
+              borderRadius: "2px",
+              background: cfg.text,
+              opacity: 0.7,
+              marginBottom: "4px",
+            }}
+          />
+          <div
+            style={{
+              width: "85%",
+              height: "3px",
+              borderRadius: "2px",
+              background: cfg.subtext,
+              opacity: 0.4,
+              marginBottom: "3px",
+            }}
+          />
+          <div
+            style={{
+              width: "70%",
+              height: "3px",
+              borderRadius: "2px",
+              background: cfg.subtext,
+              opacity: 0.3,
+              marginBottom: "6px",
+            }}
+          />
+          <div
+            style={{
+              width: "36px",
+              height: "12px",
+              borderRadius: "3px",
+              background: cfg.accent,
+            }}
+          />
+        </div>
+      </div>
+      <div
+        style={{
+          background: cfg.panel,
+          borderTop: `1px solid ${cfg.border}`,
+          padding: "5px 10px",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <span
+          style={{
+            fontSize: "0.68rem",
+            fontWeight: 600,
+            color: cfg.text,
+            letterSpacing: "0.04em",
+          }}
+        >
+          {cfg.label}
+        </span>
+        {isSelected && (
+          <div
+            style={{
+              width: "13px",
+              height: "13px",
+              borderRadius: "50%",
+              background: "#3C3489",
+              display: "flex",
+              alignItems: "center",
+              justifyContent: "center",
+            }}
+          >
+            <svg width="7" height="5" viewBox="0 0 7 5">
+              <polyline
+                points="1,2.5 2.8,4 6,1"
+                fill="none"
+                stroke="#fff"
+                strokeWidth="1.4"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Shared styles (module-level so object identity is stable) ───────────────
+
+const S = {
+  label: {
+    display: "block",
+    fontSize: "0.72rem",
+    fontWeight: 500,
+    letterSpacing: "0.06em",
+    textTransform: "uppercase",
+    color: "#6B6963",
+    marginBottom: "0.35rem",
+  },
+  input: {
+    width: "100%",
+    padding: "0.58rem 0.8rem",
+    border: "0.5px solid #E4E2DC",
+    borderRadius: "9px",
+    fontFamily: "'DM Sans',system-ui,sans-serif",
+    fontSize: "0.9rem",
+    color: "#1A1917",
+    background: "#F9F8F6",
+    outline: "none",
+    boxSizing: "border-box",
+    transition: "border-color 0.2s, box-shadow 0.2s",
+  },
+  field: { marginBottom: "1rem" },
+  btnPrimary: {
+    width: "100%",
+    padding: "0.68rem",
+    background: "#3C3489",
+    color: "#fff",
+    border: "none",
+    borderRadius: "9px",
+    fontFamily: "'DM Sans',system-ui,sans-serif",
+    fontSize: "0.9rem",
+    fontWeight: 500,
+    cursor: "pointer",
+    transition: "opacity 0.2s",
+  },
+  btnGhost: {
+    flex: 1,
+    padding: "0.65rem",
+    background: "transparent",
+    color: "#6B6963",
+    border: "0.5px solid #E4E2DC",
+    borderRadius: "9px",
+    fontFamily: "'DM Sans',system-ui,sans-serif",
+    fontSize: "0.9rem",
+    cursor: "pointer",
+  },
+  tabBtn: (active) => ({
+    flex: 1,
+    background: "none",
+    border: "none",
+    borderBottom: `2px solid ${active ? "#3C3489" : "transparent"}`,
+    marginBottom: "-0.5px",
+    padding: "0.6rem 0",
+    fontFamily: "'DM Sans',system-ui,sans-serif",
+    fontSize: "0.9rem",
+    fontWeight: active ? 500 : 400,
+    color: active ? "#1A1917" : "#A09C95",
+    cursor: "pointer",
+    transition: "color 0.2s, border-color 0.2s",
+  }),
+  optCard: (sel) => ({
+    border: `0.5px solid ${sel ? "#3C3489" : "#E4E2DC"}`,
+    background: sel ? "#EEEDFE" : "#fff",
+    borderRadius: "10px",
+    padding: "0.8rem 1rem",
+    cursor: "pointer",
+    position: "relative",
+    transition: "border-color 0.2s, background 0.2s, transform 0.15s",
+    transform: sel ? "scale(1.015)" : "scale(1)",
+  }),
+  avatarBtn: (sel) => ({
+    width: "56px",
+    height: "56px",
+    borderRadius: "50%",
+    border: `2px solid ${sel ? "#3C3489" : "transparent"}`,
+    background: sel ? "#EEEDFE" : "#F9F8F6",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    fontSize: "1.5rem",
+    cursor: "pointer",
+    transition: "border-color 0.2s, background 0.2s, transform 0.15s",
+    transform: sel ? "scale(1.18)" : "scale(1)",
+    boxShadow: sel ? "0 0 0 4px rgba(60,52,137,0.12)" : "none",
+  }),
+  sectionHead: {
+    fontSize: "0.68rem",
+    fontWeight: 500,
+    letterSpacing: "0.08em",
+    textTransform: "uppercase",
+    color: "#A09C95",
+    marginBottom: "0.6rem",
+  },
+};
+
+// ─── Shared primitives ────────────────────────────────────────────────────────
+
+function StepDots({ total, current }) {
+  return (
+    <div style={{ display: "flex", gap: "5px", marginBottom: "1.4rem" }}>
+      {Array.from({ length: total }).map((_, i) => (
+        <div
+          key={i}
+          style={{
+            height: "5px",
+            width: i === current ? "22px" : "5px",
+            borderRadius: "3px",
+            background:
+              i === current ? "#3C3489" : i < current ? "#AFA9EC" : "#E4E2DC",
+            transition: "all 0.35s ease",
+          }}
+        />
+      ))}
+    </div>
+  );
+}
+
+function CheckBadge() {
+  return (
+    <div
+      style={{
+        position: "absolute",
+        top: "8px",
+        right: "8px",
+        width: "15px",
+        height: "15px",
+        borderRadius: "50%",
+        background: "#3C3489",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+      }}
+    >
+      <svg width="7" height="5" viewBox="0 0 7 5">
+        <polyline
+          points="1,2.5 2.8,4 6,1"
+          fill="none"
+          stroke="#fff"
+          strokeWidth="1.4"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </div>
+  );
+}
+
+function StepHeader({ title, subtitle }) {
+  return (
+    <div style={{ marginBottom: "1.25rem" }}>
+      <h2
+        style={{
+          fontFamily: "'DM Serif Display',Georgia,serif",
+          fontSize: "1.3rem",
+          color: "#1A1917",
+          marginBottom: "0.25rem",
+        }}
+      >
+        {title}
+      </h2>
+      {subtitle && (
+        <p style={{ fontSize: "0.82rem", color: "#A09C95", lineHeight: 1.55 }}>
+          {subtitle}
+        </p>
+      )}
+    </div>
+  );
+}
+
+// ─── Step 0 — Credentials ────────────────────────────────────────────────────
+
+function StepCredentials({
+  animKey,
+  firstName,
+  setFirstName,
+  lastName,
+  setLastName,
+  signupEmail,
+  setSignupEmail,
+  password,
+  setPassword,
+  strength,
+  goToStep,
+}) {
+  const canContinue =
+    firstName.trim() &&
+    lastName.trim() &&
+    signupEmail.includes("@") &&
+    password.length >= 8;
+  return (
+    <div key={animKey} style={{ animation: "slideIn 0.28s ease" }}>
+      <StepDots total={6} current={0} />
+      <StepHeader
+        title="Create your account"
+        subtitle="Enter your details to get started"
+      />
+      <div style={{ display: "flex", gap: "0.65rem", marginBottom: "1rem" }}>
+        <div style={{ flex: 1 }}>
+          <label style={S.label}>First name</label>
+          <input
+            style={S.input}
+            placeholder="Alex"
+            value={firstName}
+            onChange={(e) => setFirstName(e.target.value)}
+          />
+        </div>
+        <div style={{ flex: 1 }}>
+          <label style={S.label}>Last name</label>
+          <input
+            style={S.input}
+            placeholder="Chen"
+            value={lastName}
+            onChange={(e) => setLastName(e.target.value)}
+          />
+        </div>
+      </div>
+      <div style={S.field}>
+        <label style={S.label}>Email</label>
+        <input
+          style={S.input}
+          type="email"
+          placeholder="you@university.edu"
+          value={signupEmail}
+          onChange={(e) => setSignupEmail(e.target.value)}
+        />
+      </div>
+      <div style={S.field}>
+        <label style={S.label}>Password</label>
+        <input
+          style={S.input}
+          type="password"
+          placeholder="Minimum 8 characters"
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
+        />
+        <div
+          style={{
+            height: "3px",
+            borderRadius: "2px",
+            background: "#E4E2DC",
+            marginTop: "0.4rem",
+            overflow: "hidden",
+          }}
+        >
+          <div
+            style={{
+              height: "100%",
+              borderRadius: "2px",
+              width: `${(strength / 4) * 100}%`,
+              background: STRENGTH_COLORS[strength],
+              transition: "width 0.3s ease, background 0.3s ease",
+            }}
+          />
+        </div>
+        <p
+          style={{ fontSize: "0.75rem", color: "#A09C95", marginTop: "0.3rem" }}
+        >
+          {STRENGTH_LABELS[strength] || "Use at least 8 characters"}
+        </p>
+      </div>
+      <button
+        style={{
+          ...S.btnPrimary,
+          opacity: canContinue ? 1 : 0.45,
+          cursor: canContinue ? "pointer" : "not-allowed",
+        }}
+        onClick={() => canContinue && goToStep("onboarding")}
+      >
+        Continue →
+      </button>
+    </div>
+  );
+}
+
+// ─── Step 1 — Skill Level ────────────────────────────────────────────────────
+
+function StepSkill({ animKey, selectedSkill, setSelectedSkill, goToStep }) {
+  const skills = [
+    {
+      key: "beginner",
+      icon: "🌱",
+      label: "Beginner",
+      tagline: "New to this — let's build from scratch",
+      effects: [
+        "Simple, jargon-free explanations",
+        "Step-by-step walkthroughs",
+        "More hints & tooltips",
+        "AI assistant uses everyday language",
+      ],
+    },
+    {
+      key: "experienced",
+      icon: "⚡",
+      label: "Experienced",
+      tagline: "I know the basics — skip the fluff",
+      effects: [
+        "Technical terminology used freely",
+        "Concise, dense explanations",
+        "Focus on edge cases & nuances",
+        "AI assistant uses expert language",
+      ],
+    },
+  ];
+  return (
+    <div key={animKey} style={{ animation: "slideIn 0.28s ease" }}>
+      <StepDots total={6} current={1} />
+      <StepHeader
+        title="What's your level?"
+        subtitle="This shapes how the AI assistant explains concepts and how we present content."
+      />
+      <div
+        style={{
+          display: "flex",
+          flexDirection: "column",
+          gap: "0.75rem",
+          marginBottom: "1.5rem",
+        }}
+      >
+        {skills.map((s) => (
+          <div
+            key={s.key}
+            style={{
+              ...S.optCard(selectedSkill === s.key),
+              padding: "1rem 1.1rem",
+            }}
+            onClick={() => {
+              setSelectedSkill(s.key);
+              goToStep(2);
+            }}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) =>
+              e.key === "Enter" && (setSelectedSkill(s.key), goToStep(2))
+            }
+          >
+            {selectedSkill === s.key && <CheckBadge />}
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                gap: "0.65rem",
+                marginBottom: "0.5rem",
+              }}
+            >
+              <span style={{ fontSize: "1.4rem" }}>{s.icon}</span>
+              <div>
+                <div
+                  style={{
+                    fontSize: "0.95rem",
+                    fontWeight: 600,
+                    color: "#1A1917",
+                  }}
+                >
+                  {s.label}
+                </div>
+                <div
+                  style={{
+                    fontSize: "0.78rem",
+                    color: "#6B6963",
+                    fontStyle: "italic",
+                  }}
+                >
+                  {s.tagline}
+                </div>
+              </div>
+            </div>
+            <ul style={{ margin: 0, paddingLeft: "1.1rem" }}>
+              {s.effects.map((effect, i) => (
+                <li
+                  key={i}
+                  style={{
+                    fontSize: "0.77rem",
+                    color: selectedSkill === s.key ? "#3C3489" : "#8A8680",
+                    lineHeight: 1.6,
+                  }}
+                >
+                  {effect}
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+      <div style={{ display: "flex", gap: "0.6rem" }}>
+        <button style={S.btnGhost} onClick={() => goToStep(0)}>
+          ← Back
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ─── Step 2 — Theme ──────────────────────────────────────────────────────────
+
+function StepTheme({ animKey, selectedTheme, setSelectedTheme, goToStep }) {
+  return (
+    <div key={animKey} style={{ animation: "slideIn 0.28s ease" }}>
+      <StepDots total={6} current={2} />
+      <StepHeader
+        title="Pick your theme"
+        subtitle="Each preview shows how your learning environment will look."
+      />
+      <div
+        style={{
+          display: "grid",
+          gridTemplateColumns: "1fr 1fr",
+          gap: "0.7rem",
+          marginBottom: "0.75rem",
+        }}
+      >
+        {Object.keys(THEME_CONFIGS).map((k) => (
+          <ThemePreviewCard
+            key={k}
+            themeKey={k}
+            isSelected={selectedTheme === k}
+            onClick={() => {
+              setSelectedTheme(k);
+              goToStep(3);
+            }}
+          />
+        ))}
+      </div>
+      <p
+        style={{
+          fontSize: "0.75rem",
+          color: "#A09C95",
+          marginBottom: "1.25rem",
+          textAlign: "center",
+        }}
+      >
+        Changeable anytime in Settings
+      </p>
+      <div style={{ display: "flex", gap: "0.6rem" }}>
+        <button style={S.btnGhost} onClick={() => goToStep(1)}>
+          ← Back
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ─── Step 3 — Font + Font Size ───────────────────────────────────────────────
+
+function StepFont({
+  animKey,
+  selectedFont,
+  setSelectedFont,
+  selectedFontSize,
+  setSelectedFontSize,
+  goToStep,
+}) {
+  const activeFontCfg =
+    FONT_CONFIGS.find((f) => f.key === selectedFont) || null;
+  const activeSizeCfg =
+    FONT_SIZE_CONFIGS.find((f) => f.key === selectedFontSize) || null;
+
+  const handleFontSizeSelect = (key) => {
+    setSelectedFontSize(key);
+    if (selectedFont) {
+      setTimeout(() => goToStep(4), 220);
+    }
+  };
+
+  return (
+    <div key={animKey} style={{ animation: "slideIn 0.28s ease" }}>
+      <StepDots total={6} current={3} />
+      <StepHeader
+        title="Typography"
+        subtitle="Choose what feels most comfortable to read."
+      />
+      <div style={{ marginBottom: "1.15rem" }}>
+        <p style={S.sectionHead}>Font style</p>
+        <div
+          style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}
+        >
+          {FONT_CONFIGS.map((f) => (
+            <div
+              key={f.key}
+              style={{
+                ...S.optCard(selectedFont === f.key),
+                display: "flex",
+                alignItems: "center",
+                gap: "1rem",
+                padding: "0.7rem 1rem",
+              }}
+              onClick={() => setSelectedFont(f.key)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) => e.key === "Enter" && setSelectedFont(f.key)}
+            >
+              {selectedFont === f.key && <CheckBadge />}
+              <div
+                style={{
+                  fontFamily: f.family,
+                  fontSize: "1.6rem",
+                  color: "#1A1917",
+                  minWidth: "36px",
+                  lineHeight: 1,
+                }}
+              >
+                Aa
+              </div>
+              <div style={{ flex: 1 }}>
+                <div
+                  style={{
+                    fontSize: "0.88rem",
+                    fontWeight: 600,
+                    color: "#1A1917",
+                    fontFamily: f.family,
+                  }}
+                >
+                  {f.label}
+                </div>
+                <div style={{ fontSize: "0.73rem", color: "#8A8680" }}>
+                  {f.desc}
+                </div>
+              </div>
+              <div
+                style={{
+                  fontFamily: f.family,
+                  fontSize: "0.75rem",
+                  color: selectedFont === f.key ? "#3C3489" : "#C0BAB4",
+                }}
+              >
+                The quick brown fox
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+      <div style={{ marginBottom: "1rem" }}>
+        <p style={S.sectionHead}>Text size</p>
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: "repeat(3,1fr)",
+            gap: "0.5rem",
+          }}
+        >
+          {FONT_SIZE_CONFIGS.map((fs) => (
+            <div
+              key={fs.key}
+              style={{
+                ...S.optCard(selectedFontSize === fs.key),
+                textAlign: "center",
+                padding: "0.75rem 0.4rem",
+              }}
+              onClick={() => handleFontSizeSelect(fs.key)}
+              role="button"
+              tabIndex={0}
+              onKeyDown={(e) =>
+                e.key === "Enter" && handleFontSizeSelect(fs.key)
+              }
+            >
+              {selectedFontSize === fs.key && <CheckBadge />}
+              <div
+                style={{
+                  fontSize: fs.size,
+                  color: "#1A1917",
+                  fontWeight: 500,
+                  marginBottom: "3px",
+                }}
+              >
+                Aa
+              </div>
+              <div style={{ fontSize: "0.7rem", color: "#6B6963" }}>
+                {fs.label}
+              </div>
+              <div style={{ fontSize: "0.65rem", color: "#C0BAB4" }}>
+                {fs.preview}
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Live text sample */}
+      {(activeFontCfg || activeSizeCfg) && (
+        <div
+          style={{
+            background: "#F9F8F6",
+            border: "0.5px solid #E4E2DC",
+            borderRadius: "10px",
+            padding: "0.9rem 1rem",
+            marginBottom: "1.25rem",
+            transition: "all 0.25s ease",
+          }}
+        >
+          <p
+            style={{
+              fontSize: "0.65rem",
+              fontWeight: 500,
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              color: "#A09C95",
+              marginBottom: "0.5rem",
+            }}
+          >
+            Preview
+          </p>
+          <p
+            style={{
+              fontFamily: activeFontCfg ? activeFontCfg.family : "inherit",
+              fontSize: activeSizeCfg ? activeSizeCfg.size : "1rem",
+              color: "#1A1917",
+              lineHeight: 1.6,
+              margin: 0,
+              transition: "font-family 0.2s ease, font-size 0.2s ease",
+            }}
+          >
+            A decision tree splits data by asking yes/no questions about
+            features — each branch narrows the classification until a leaf node
+            gives the answer.
+          </p>
+          {activeFontCfg && (
+            <p
+              style={{
+                marginTop: "0.5rem",
+                fontSize: "0.72rem",
+                color: "#AFA9EC",
+                fontFamily: activeFontCfg.family,
+              }}
+            >
+              {activeFontCfg.label}
+              {activeSizeCfg ? ` · ${activeSizeCfg.label}` : ""}
+            </p>
+          )}
+        </div>
+      )}
+
+      <div style={{ display: "flex", gap: "0.6rem" }}>
+        <button style={S.btnGhost} onClick={() => goToStep(2)}>
+          ← Back
+        </button>
+        {!(selectedFont && selectedFontSize) && (
+          <button
+            style={{
+              ...S.btnPrimary,
+              flex: 1,
+              opacity: selectedFont && selectedFontSize ? 1 : 0.45,
+              cursor:
+                selectedFont && selectedFontSize ? "pointer" : "not-allowed",
+            }}
+            onClick={() => selectedFont && selectedFontSize && goToStep(4)}
+          >
+            Continue →
+          </button>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Step 4 — Avatar ─────────────────────────────────────────────────────────
+
+function StepAvatar({
+  animKey,
+  firstName,
+  selectedAvatar,
+  setSelectedAvatar,
+  goToStep,
+}) {
+  return (
+    <div key={animKey} style={{ animation: "slideIn 0.28s ease" }}>
+      <StepDots total={6} current={4} />
+      <StepHeader
+        title="Choose your avatar"
+        subtitle="This is who you'll be on Visualize."
+      />
+      <div style={{ textAlign: "center", marginBottom: "1.5rem" }}>
+        <div
+          style={{
+            width: "80px",
+            height: "80px",
+            borderRadius: "50%",
+            background: "#EEEDFE",
+            border: "3px solid #3C3489",
+            display: "inline-flex",
+            alignItems: "center",
+            justifyContent: "center",
+            fontSize: "2.5rem",
+            margin: "0 auto 0.55rem",
+            boxShadow: "0 0 0 6px rgba(60,52,137,0.1)",
+            transition: "all 0.25s ease",
+          }}
+        >
+          {AVATARS[selectedAvatar]}
+        </div>
+        <p style={{ fontSize: "0.9rem", fontWeight: 600, color: "#3C3489" }}>
+          {AVATAR_NAMES[selectedAvatar]}
+        </p>
+        <p style={{ fontSize: "0.78rem", color: "#A09C95", marginTop: "2px" }}>
+          Hi, {firstName || "there"}! 👋
+        </p>
+      </div>
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          gap: "0.8rem",
+          marginBottom: "2rem",
+          flexWrap: "wrap",
+        }}
+      >
+        {AVATARS.map((emoji, i) => (
+          <div
+            key={i}
+            style={S.avatarBtn(selectedAvatar === i)}
+            onClick={() => setSelectedAvatar(i)}
+            role="button"
+            tabIndex={0}
+            onKeyDown={(e) => e.key === "Enter" && setSelectedAvatar(i)}
+          >
+            {emoji}
+          </div>
+        ))}
+      </div>
+      <div style={{ display: "flex", gap: "0.6rem" }}>
+        <button style={S.btnGhost} onClick={() => goToStep(3)}>
+          ← Back
+        </button>
+        <button
+          style={{ ...S.btnPrimary, flex: 1 }}
+          onClick={() => goToStep(5)}
+        >
+          Continue →
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ─── Step 5 — All set! ───────────────────────────────────────────────────────
+
+function StepDone({
+  animKey,
+  firstName,
+  selectedAvatar,
+  selectedSkill,
+  selectedTheme,
+  selectedFont,
+  selectedFontSize,
+  handleSignupComplete,
+}) {
+  const cfg = selectedTheme
+    ? THEME_CONFIGS[selectedTheme]
+    : THEME_CONFIGS.light;
+  const fontCfg =
+    FONT_CONFIGS.find((f) => f.key === selectedFont) || FONT_CONFIGS[0];
+  const sizeCfg =
+    FONT_SIZE_CONFIGS.find((f) => f.key === selectedFontSize) ||
+    FONT_SIZE_CONFIGS[1];
+  return (
+    <div
+      key={animKey}
+      style={{
+        animation: "slideIn 0.28s ease",
+        textAlign: "center",
+        padding: "0.25rem 0",
+      }}
+    >
+      <StepDots total={6} current={5} />
+      <div
+        style={{
+          width: "58px",
+          height: "58px",
+          borderRadius: "50%",
+          background: "#EAF3DE",
+          border: "0.5px solid #C0DD97",
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          margin: "0 auto 1.1rem",
+        }}
+      >
+        <svg
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          fill="none"
+          stroke="#3B6D11"
+          strokeWidth="2.5"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <polyline points="20 6 9 17 4 12" />
+        </svg>
+      </div>
+      <p
+        style={{
+          fontFamily: "'DM Serif Display',serif",
+          fontSize: "1.5rem",
+          color: "#1A1917",
+          marginBottom: "0.35rem",
+        }}
+      >
+        You're all set, {firstName || "there"}!
+      </p>
+      <p
+        style={{
+          fontSize: "0.85rem",
+          color: "#6B6963",
+          lineHeight: 1.65,
+          margin: "0 auto 1.4rem",
+          maxWidth: "240px",
+        }}
+      >
+        Your preferences are saved. Start exploring at your own pace.
+      </p>
+      <div
+        style={{
+          background: "#F9F8F6",
+          border: "0.5px solid #E4E2DC",
+          borderRadius: "12px",
+          padding: "0.9rem 1rem",
+          marginBottom: "1.4rem",
+          textAlign: "left",
+        }}
+      >
+        <p style={S.sectionHead}>Your setup</p>
+        <div
+          style={{ display: "flex", flexDirection: "column", gap: "0.45rem" }}
+        >
+          {[
+            [
+              "Avatar",
+              AVATARS[selectedAvatar] + " " + AVATAR_NAMES[selectedAvatar],
+            ],
+            [
+              "Level",
+              selectedSkill === "beginner" ? "🌱 Beginner" : "⚡ Experienced",
+            ],
+            ["Theme", cfg.label],
+            ["Font", fontCfg.label + " · " + sizeCfg.label],
+          ].map(([k, v]) => (
+            <div
+              key={k}
+              style={{
+                display: "flex",
+                justifyContent: "space-between",
+                alignItems: "center",
+              }}
+            >
+              <span style={{ fontSize: "0.78rem", color: "#8A8680" }}>{k}</span>
+              <span
+                style={{
+                  fontSize: "0.82rem",
+                  fontWeight: 500,
+                  color: "#1A1917",
+                }}
+              >
+                {v}
+              </span>
+            </div>
+          ))}
+        </div>
+      </div>
+      <button
+        style={{ ...S.btnPrimary, maxWidth: "220px", margin: "0 auto" }}
+        onClick={handleSignupComplete}
+      >
+        Go to dashboard →
+      </button>
+    </div>
+  );
+}
+
 // ─── Main ─────────────────────────────────────────────────────────────────────
 
 export default function AuthPage() {
@@ -394,7 +1585,10 @@ export default function AuthPage() {
   const { login, setUser } = useUserStore();
 
   const [tab, setTab] = useState("login");
+  // steps: 0=credentials, 1=skill, 2=theme, 3=font, 4=avatar, 5=done
   const [step, setStep] = useState(0);
+  const [animKey, setAnimKey] = useState(0);
+
   const [panelIndex, setPanelIndex] = useState(0);
   const [phraseIndex, setPhraseIndex] = useState(0);
   const [phraseVisible, setPhraseVisible] = useState(true);
@@ -403,17 +1597,20 @@ export default function AuthPage() {
   const [loginPassword, setLoginPassword] = useState("");
   const [loginError, setLoginError] = useState("");
 
+  // Signup state
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [signupEmail, setSignupEmail] = useState("");
   const [password, setPassword] = useState("");
   const [selectedAvatar, setSelectedAvatar] = useState(0);
-  const [selectedSkill, setSelectedSkill] = useState("beginner");
-  const [selectedTheme, setSelectedTheme] = useState("light");
-  const [selectedFont, setSelectedFont] = useState("neutral");
+  const [selectedSkill, setSelectedSkill] = useState(null);
+  const [selectedTheme, setSelectedTheme] = useState(null);
+  const [selectedFont, setSelectedFont] = useState(null);
+  const [selectedFontSize, setSelectedFontSize] = useState(null);
 
   const [toast, setToast] = useState({ show: false, msg: "" });
 
+  // Panel auto-rotate — stable, never re-mounts
   useEffect(() => {
     const t = setInterval(
       () => setPanelIndex((i) => (i + 1) % BG_PANELS.length),
@@ -422,6 +1619,7 @@ export default function AuthPage() {
     return () => clearInterval(t);
   }, []);
 
+  // Phrase rotation
   useEffect(() => {
     const cycle = setInterval(() => {
       setPhraseVisible(false);
@@ -436,6 +1634,17 @@ export default function AuthPage() {
   function showToast(msg) {
     setToast({ show: true, msg });
     setTimeout(() => setToast({ show: false, msg: "" }), 2400);
+  }
+
+  function goToStep(next) {
+    if (next === "onboarding") {
+      navigate("/onboarding", {
+        state: { firstName, lastName, signupEmail, password },
+      });
+      return;
+    }
+    setStep(next);
+    setAnimKey((k) => k + 1);
   }
 
   function handleLogin() {
@@ -465,9 +1674,10 @@ export default function AuthPage() {
       firstName: firstName || "Friend",
       lastName,
       avatar: AVATARS[selectedAvatar],
-      skill: selectedSkill,
-      theme: selectedTheme,
-      font: selectedFont,
+      skill: selectedSkill || "beginner",
+      theme: selectedTheme || "light",
+      font: selectedFont || "neutral",
+      fontSize: selectedFontSize || "md",
       stats: { completed: 0, total: 6, minutesSpent: 0 },
       lastTopic: null,
     });
@@ -477,509 +1687,7 @@ export default function AuthPage() {
 
   const strength = getStrength(password);
 
-  const S = {
-    label: {
-      display: "block",
-      fontSize: "0.72rem",
-      fontWeight: 500,
-      letterSpacing: "0.06em",
-      textTransform: "uppercase",
-      color: "#6B6963",
-      marginBottom: "0.35rem",
-    },
-    input: {
-      width: "100%",
-      padding: "0.58rem 0.8rem",
-      border: "0.5px solid #E4E2DC",
-      borderRadius: "9px",
-      fontFamily: "'DM Sans',system-ui,sans-serif",
-      fontSize: "0.9rem",
-      color: "#1A1917",
-      background: "#F9F8F6",
-      outline: "none",
-      boxSizing: "border-box",
-      transition: "border-color 0.2s, box-shadow 0.2s",
-    },
-    field: { marginBottom: "1rem" },
-    btnPrimary: {
-      width: "100%",
-      padding: "0.68rem",
-      background: "#3C3489",
-      color: "#fff",
-      border: "none",
-      borderRadius: "9px",
-      fontFamily: "'DM Sans',system-ui,sans-serif",
-      fontSize: "0.9rem",
-      fontWeight: 500,
-      cursor: "pointer",
-    },
-    btnGhost: {
-      flex: 1,
-      padding: "0.65rem",
-      background: "transparent",
-      color: "#6B6963",
-      border: "0.5px solid #E4E2DC",
-      borderRadius: "9px",
-      fontFamily: "'DM Sans',system-ui,sans-serif",
-      fontSize: "0.9rem",
-      cursor: "pointer",
-    },
-    sectionHead: {
-      fontSize: "0.68rem",
-      fontWeight: 500,
-      letterSpacing: "0.08em",
-      textTransform: "uppercase",
-      color: "#A09C95",
-      marginBottom: "0.5rem",
-    },
-    optCard: (sel) => ({
-      border: `0.5px solid ${sel ? "#3C3489" : "#E4E2DC"}`,
-      background: sel ? "#EEEDFE" : "#fff",
-      borderRadius: "9px",
-      padding: "0.65rem 0.8rem",
-      cursor: "pointer",
-      position: "relative",
-      transition: "border-color 0.2s, background 0.2s",
-    }),
-    fontSwatch: (sel) => ({
-      border: `0.5px solid ${sel ? "#3C3489" : "#E4E2DC"}`,
-      background: sel ? "#EEEDFE" : "#fff",
-      borderRadius: "8px",
-      padding: "0.6rem 0.5rem",
-      cursor: "pointer",
-      textAlign: "center",
-      transition: "border-color 0.2s, background 0.2s",
-    }),
-    avatarOpt: (sel) => ({
-      width: "40px",
-      height: "40px",
-      borderRadius: "50%",
-      border: `2px solid ${sel ? "#3C3489" : "transparent"}`,
-      background: "#F9F8F6",
-      display: "flex",
-      alignItems: "center",
-      justifyContent: "center",
-      fontSize: "1.1rem",
-      cursor: "pointer",
-      transition: "border-color 0.2s",
-    }),
-    stepDot: (state) => ({
-      height: "6px",
-      width: state === "active" ? "18px" : "6px",
-      borderRadius: "4px",
-      background:
-        state === "active"
-          ? "#3C3489"
-          : state === "done"
-            ? "#AFA9EC"
-            : "#E4E2DC",
-      transition: "all 0.3s ease",
-    }),
-    tabBtn: (active) => ({
-      flex: 1,
-      background: "none",
-      border: "none",
-      borderBottom: `2px solid ${active ? "#3C3489" : "transparent"}`,
-      marginBottom: "-0.5px",
-      padding: "0.6rem 0",
-      fontFamily: "'DM Sans',system-ui,sans-serif",
-      fontSize: "0.9rem",
-      fontWeight: active ? 500 : 400,
-      color: active ? "#1A1917" : "#A09C95",
-      cursor: "pointer",
-      transition: "color 0.2s, border-color 0.2s",
-    }),
-  };
-
-  function StepDots() {
-    return (
-      <div style={{ display: "flex", gap: "5px", marginBottom: "1.5rem" }}>
-        {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            style={S.stepDot(
-              i === step ? "active" : i < step ? "done" : "idle",
-            )}
-          />
-        ))}
-      </div>
-    );
-  }
-
-  function CheckIcon() {
-    return (
-      <div
-        style={{
-          position: "absolute",
-          top: "7px",
-          right: "7px",
-          width: "13px",
-          height: "13px",
-          borderRadius: "50%",
-          background: "#3C3489",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-        }}
-      >
-        <svg width="7" height="5" viewBox="0 0 7 5">
-          <polyline
-            points="1,2.5 2.8,4 6,1"
-            fill="none"
-            stroke="#fff"
-            strokeWidth="1.4"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          />
-        </svg>
-      </div>
-    );
-  }
-
-  function Step0() {
-    return (
-      <div style={{ animation: "fadeUp 0.25s ease" }}>
-        <StepDots />
-        <div style={{ display: "flex", gap: "0.7rem", marginBottom: "1rem" }}>
-          <div style={{ flex: 1 }}>
-            <label style={S.label}>First name</label>
-            <input
-              style={S.input}
-              placeholder="Alex"
-              value={firstName}
-              onChange={(e) => setFirstName(e.target.value)}
-            />
-          </div>
-          <div style={{ flex: 1 }}>
-            <label style={S.label}>Last name</label>
-            <input
-              style={S.input}
-              placeholder="Chen"
-              value={lastName}
-              onChange={(e) => setLastName(e.target.value)}
-            />
-          </div>
-        </div>
-        <div style={S.field}>
-          <label style={S.label}>Email</label>
-          <input
-            style={S.input}
-            type="email"
-            placeholder="you@university.edu"
-            value={signupEmail}
-            onChange={(e) => setSignupEmail(e.target.value)}
-          />
-        </div>
-        <div style={S.field}>
-          <label style={S.label}>Password</label>
-          <input
-            style={S.input}
-            type="password"
-            placeholder="Minimum 8 characters"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-          <div
-            style={{
-              height: "3px",
-              borderRadius: "2px",
-              background: "#E4E2DC",
-              marginTop: "0.4rem",
-              overflow: "hidden",
-            }}
-          >
-            <div
-              style={{
-                height: "100%",
-                borderRadius: "2px",
-                width: `${(strength / 4) * 100}%`,
-                background: STRENGTH_COLORS[strength],
-                transition: "width 0.3s ease, background 0.3s ease",
-              }}
-            />
-          </div>
-          <p
-            style={{
-              fontSize: "0.75rem",
-              color: "#A09C95",
-              marginTop: "0.3rem",
-            }}
-          >
-            {STRENGTH_LABELS[strength] || "Use at least 8 characters"}
-          </p>
-        </div>
-        <div style={S.field}>
-          <label style={S.label}>Profile picture</label>
-          <div
-            style={{
-              display: "flex",
-              gap: "0.55rem",
-              flexWrap: "wrap",
-              marginTop: "0.35rem",
-            }}
-          >
-            {AVATARS.map((emoji, i) => (
-              <div
-                key={i}
-                style={S.avatarOpt(selectedAvatar === i)}
-                onClick={() => setSelectedAvatar(i)}
-                role="button"
-                tabIndex={0}
-              >
-                {emoji}
-              </div>
-            ))}
-          </div>
-        </div>
-        <button style={S.btnPrimary} onClick={() => setStep(1)}>
-          Continue →
-        </button>
-      </div>
-    );
-  }
-
-  function Step1() {
-    const themes = [
-      { key: "light", label: "Light", bg: "#F9F8F6", border: "#E4E2DC" },
-      { key: "dark", label: "Dark", bg: "#1A1917", border: "transparent" },
-      {
-        key: "cb-light",
-        label: "CB Light",
-        bg: "linear-gradient(135deg,#FFF9DB 50%,#E8F4FD 50%)",
-      },
-      {
-        key: "cb-dark",
-        label: "CB Dark",
-        bg: "linear-gradient(135deg,#1A1400 50%,#001A2C 50%)",
-      },
-    ];
-    const fonts = [
-      { key: "neutral", label: "Neutral", family: "'DM Sans',sans-serif" },
-      {
-        key: "academic",
-        label: "Academic",
-        family: "'DM Serif Display',serif",
-      },
-      { key: "dyslexic", label: "Dyslexic", family: "'Comic Sans MS',cursive" },
-    ];
-    return (
-      <div style={{ animation: "fadeUp 0.25s ease" }}>
-        <StepDots />
-        <div style={{ marginBottom: "1rem" }}>
-          <p style={S.sectionHead}>Skill level</p>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "1fr 1fr",
-              gap: "0.55rem",
-            }}
-          >
-            {[
-              {
-                key: "beginner",
-                label: "Beginner",
-                desc: "New to these topics",
-              },
-              {
-                key: "experienced",
-                label: "Experienced",
-                desc: "Some prior knowledge",
-              },
-            ].map((opt) => (
-              <div
-                key={opt.key}
-                style={S.optCard(selectedSkill === opt.key)}
-                onClick={() => setSelectedSkill(opt.key)}
-                role="button"
-                tabIndex={0}
-              >
-                {selectedSkill === opt.key && <CheckIcon />}
-                <div
-                  style={{
-                    fontSize: "0.85rem",
-                    fontWeight: 500,
-                    color: "#1A1917",
-                    marginBottom: "2px",
-                  }}
-                >
-                  {opt.label}
-                </div>
-                <div style={{ fontSize: "0.75rem", color: "#6B6963" }}>
-                  {opt.desc}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div style={{ marginBottom: "1rem" }}>
-          <p style={S.sectionHead}>Theme</p>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(4,1fr)",
-              gap: "0.5rem",
-            }}
-          >
-            {themes.map((t) => (
-              <div
-                key={t.key}
-                onClick={() => setSelectedTheme(t.key)}
-                title={t.label}
-                role="button"
-                tabIndex={0}
-                style={{
-                  height: "36px",
-                  borderRadius: "8px",
-                  background: t.bg,
-                  border: `2px solid ${selectedTheme === t.key ? "#3C3489" : t.border || "transparent"}`,
-                  cursor: "pointer",
-                  position: "relative",
-                  overflow: "hidden",
-                  transition: "border-color 0.2s",
-                }}
-              >
-                <span
-                  style={{
-                    position: "absolute",
-                    bottom: "3px",
-                    left: 0,
-                    right: 0,
-                    textAlign: "center",
-                    fontSize: "0.55rem",
-                    fontWeight: 500,
-                    color: t.key.includes("dark") ? "#ccc" : "#444",
-                  }}
-                >
-                  {t.label}
-                </span>
-              </div>
-            ))}
-          </div>
-          <p
-            style={{
-              fontSize: "0.75rem",
-              color: "#A09C95",
-              marginTop: "0.3rem",
-            }}
-          >
-            Changeable anytime in settings
-          </p>
-        </div>
-        <div style={{ marginBottom: "1.25rem" }}>
-          <p style={S.sectionHead}>Font</p>
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(3,1fr)",
-              gap: "0.5rem",
-            }}
-          >
-            {fonts.map((f) => (
-              <div
-                key={f.key}
-                style={S.fontSwatch(selectedFont === f.key)}
-                onClick={() => setSelectedFont(f.key)}
-                role="button"
-                tabIndex={0}
-              >
-                <div
-                  style={{
-                    fontFamily: f.family,
-                    fontSize: "1.15rem",
-                    color: "#1A1917",
-                    marginBottom: "2px",
-                  }}
-                >
-                  Aa
-                </div>
-                <div style={{ fontSize: "0.68rem", color: "#6B6963" }}>
-                  {f.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div style={{ display: "flex", gap: "0.6rem" }}>
-          <button style={S.btnGhost} onClick={() => setStep(0)}>
-            ← Back
-          </button>
-          <button
-            style={{ ...S.btnPrimary, flex: 1 }}
-            onClick={() => setStep(2)}
-          >
-            Continue →
-          </button>
-        </div>
-      </div>
-    );
-  }
-
-  function Step2() {
-    return (
-      <div
-        style={{
-          animation: "fadeUp 0.25s ease",
-          textAlign: "center",
-          padding: "1rem 0",
-        }}
-      >
-        <div
-          style={{
-            width: "52px",
-            height: "52px",
-            borderRadius: "50%",
-            background: "#EAF3DE",
-            border: "0.5px solid #C0DD97",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            margin: "0 auto 1.25rem",
-          }}
-        >
-          <svg
-            width="22"
-            height="22"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="#3B6D11"
-            strokeWidth="2.5"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-          >
-            <polyline points="20 6 9 17 4 12" />
-          </svg>
-        </div>
-        <p
-          style={{
-            fontFamily: "'DM Serif Display',serif",
-            fontSize: "1.5rem",
-            color: "#1A1917",
-            marginBottom: "0.5rem",
-          }}
-        >
-          You're all set
-        </p>
-        <p
-          style={{
-            fontSize: "0.88rem",
-            color: "#6B6963",
-            lineHeight: 1.65,
-            margin: "0 auto 1.75rem",
-            maxWidth: "240px",
-          }}
-        >
-          Your preferences are saved. Start exploring concepts at your own pace.
-        </p>
-        <button
-          style={{ ...S.btnPrimary, maxWidth: "200px", margin: "0 auto" }}
-          onClick={handleSignupComplete}
-        >
-          Go to dashboard
-        </button>
-      </div>
-    );
-  }
-
+  // ─── Render ───────────────────────────────────────────────────────────────────
   return (
     <>
       <style>{`
@@ -987,7 +1695,8 @@ export default function AuthPage() {
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         @keyframes fadeUp { from { opacity:0; transform:translateY(8px); } to { opacity:1; transform:translateY(0); } }
         @keyframes orbFloat { from { transform:translateY(0px) scale(1); } to { transform:translateY(-20px) scale(1.04); } }
-        button:active { transform: scale(0.98); }
+        @keyframes slideIn { from { opacity:0; transform:translateX(16px); } to { opacity:1; transform:translateX(0); } }
+        button:active { transform: scale(0.97); }
         input:focus { border-color: #AFA9EC !important; box-shadow: 0 0 0 3px #EEEDFE !important; }
         @media (max-width: 720px) { .left-panel { display:none !important; } .right-panel { width:100% !important; min-height:100vh; } }
       `}</style>
@@ -1000,7 +1709,7 @@ export default function AuthPage() {
           background: "#F9F8F6",
         }}
       >
-        {/* Left panel */}
+        {/* ── Left panel ── */}
         <div
           className="left-panel"
           style={{
@@ -1123,21 +1832,22 @@ export default function AuthPage() {
           </div>
         </div>
 
-        {/* Right panel */}
+        {/* ── Right panel ── */}
         <div
           className="right-panel"
           style={{
-            width: "480px",
+            width: "500px",
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
             padding: "2rem",
+            overflowY: "auto",
           }}
         >
           <div
             style={{
               width: "100%",
-              maxWidth: "400px",
+              maxWidth: "420px",
               background: "#fff",
               border: "0.5px solid #E4E2DC",
               borderRadius: "18px",
@@ -1145,6 +1855,7 @@ export default function AuthPage() {
               boxShadow: "0 4px 40px rgba(0,0,0,0.06)",
             }}
           >
+            {/* Tabs */}
             <div
               style={{
                 display: "flex",
@@ -1156,7 +1867,6 @@ export default function AuthPage() {
                 style={S.tabBtn(tab === "login")}
                 onClick={() => {
                   setTab("login");
-                  setStep(0);
                   setLoginError("");
                 }}
               >
@@ -1164,12 +1874,16 @@ export default function AuthPage() {
               </button>
               <button
                 style={S.tabBtn(tab === "signup")}
-                onClick={() => setTab("signup")}
+                onClick={() => {
+                  setTab("signup");
+                  setStep(0);
+                }}
               >
                 Create account
               </button>
             </div>
 
+            {/* ─── Login ─── */}
             {tab === "login" && (
               <div style={{ animation: "fadeUp 0.25s ease" }}>
                 <div style={S.field}>
@@ -1292,17 +2006,27 @@ export default function AuthPage() {
               </div>
             )}
 
+            {/* ─── Signup ─── */}
             {tab === "signup" && (
-              <>
-                {step === 0 && <Step0 />}
-                {step === 1 && <Step1 />}
-                {step === 2 && <Step2 />}
-              </>
+              <StepCredentials
+                animKey={animKey}
+                firstName={firstName}
+                setFirstName={setFirstName}
+                lastName={lastName}
+                setLastName={setLastName}
+                signupEmail={signupEmail}
+                setSignupEmail={setSignupEmail}
+                password={password}
+                setPassword={setPassword}
+                strength={strength}
+                goToStep={goToStep}
+              />
             )}
           </div>
         </div>
       </div>
 
+      {/* Toast */}
       <div
         style={{
           position: "fixed",
