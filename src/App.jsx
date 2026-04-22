@@ -3,9 +3,9 @@ import { useUserStore } from "./store/userStore";
 import AuthPage from "./pages/Auth/AuthPage";
 import LandingPage from "./pages/Landing/Landingpage";
 import SubjectPage from "./pages/Subject/Subjectpage";
-import TopicPage from "./pages/Topic/Topicpage";
-import BFSTopicPage from "./pages/Topic/BFSTopicPage";
-import FIFOTopicPage from "./pages/Topic/FIFOTopicpage";
+import Topicpage from "./pages/Topic/Topicpage";
+import BFSTopicpage from "./pages/Topic/BFSTopicPage";
+import FIFOTopicpage from "./pages/Topic/FIFOTopicpage";
 import OnboardingPage from "./pages/Auth/OnboardingPage";
 import SettingsPage from "./pages/Settings/SettingsPage";
 import "./styles/global.css";
@@ -53,13 +53,13 @@ export default function App() {
             </PrivateRoute>
           }
         />
-        <Route path="/subject/dsa/bfs" element={<BFSTopicPage />} />
-        <Route path="/subject/os/fifo" element={<FIFOTopicPage />} />
+        <Route path="/subject/dsa/bfs" element={<BFSTopicpage />} />
+        <Route path="/subject/os/fifo" element={<FIFOTopicpage />} />
         <Route
           path="/subject/:subjectKey/:topicKey"
           element={
             <PrivateRoute>
-              <TopicPage />
+              <Topicpage />
             </PrivateRoute>
           }
         />
