@@ -190,19 +190,19 @@ const THEME_CONFIGS = {
     panel: "#FFFFFF",
     text: "#1A1917",
     subtext: "#6B6963",
-    accent: "#3C3489",
+    accent: "#3C3489", // Deep Purple
     border: "#E4E2DC",
     cardBg: "#EEEDFE",
   },
   dark: {
     label: "Dark",
-    bg: "#1A1917",
-    panel: "#252321",
-    text: "#F0EDE8",
-    subtext: "#8A8680",
-    accent: "#AFA9EC",
-    border: "#333333",
-    cardBg: "#2D2A3E",
+    bg: "#121211", // Slightly deeper black
+    panel: "#1E1E1C", // Subtle elevation
+    text: "#E4E4E1", // Soft off-white for readability
+    subtext: "#A09F98", // Muted grey-gold
+    accent: "#AFA9EC", // Lavender (easier on eyes than hot pink)
+    border: "#33322E",
+    cardBg: "#252429",
   },
   "cb-light": {
     label: "CB Light",
@@ -210,19 +210,19 @@ const THEME_CONFIGS = {
     panel: "#FFFFFF",
     text: "#1A1400",
     subtext: "#5A5030",
-    accent: "#C0720A",
-    border: "#E8D890",
+    accent: "#005AB5", // Changed to "Blue" (Safe for most colorblindness)
+    border: "#DBCBA0",
     cardBg: "#FFF0C0",
   },
   "cb-dark": {
     label: "CB Dark",
-    bg: "#001020",
-    panel: "#0A1928",
-    text: "#E0F0FF",
-    subtext: "#7090A0",
-    accent: "#40B0FF",
+    bg: "#00121F",
+    panel: "#001E33",
+    text: "#FFFFFF", // Pure white for max contrast
+    subtext: "#B8C9D6",
+    accent: "#FFC20A", // High-contrast Yellow
     border: "#1A3040",
-    cardBg: "#0A2840",
+    cardBg: "#002A47",
   },
 };
 
@@ -230,27 +230,36 @@ const FONT_CONFIGS = [
   {
     key: "neutral",
     label: "Neutral",
+    desc: "Clean, modern, easy to read",
+    sample: "The quick brown fox",
     family: "'DM Sans', sans-serif",
-    desc: "Clean & modern",
   },
   {
     key: "academic",
     label: "Academic",
-    family: "'DM Serif Display', serif",
-    desc: "Scholarly & refined",
+    desc: "Scholarly serif — classic feel",
+    sample: "The quick brown fox",
+    family: "'Lora', serif",
   },
   {
     key: "dyslexic",
-    label: "Dyslexic-friendly",
-    family: "'Comic Sans MS', 'Chalkboard SE', cursive",
-    desc: "High readability",
+    label: "Accessible",
+    desc: "High-legibility typeface",
+    sample: "The quick brown fox",
+    family: "'Atkinson Hyperlegible', sans-serif",
   },
 ];
 
 const FONT_SIZE_CONFIGS = [
-  { key: "sm", label: "Small", size: "0.85rem", preview: "14px" },
-  { key: "md", label: "Medium", size: "1rem", preview: "16px" },
-  { key: "lg", label: "Large", size: "1.125rem", preview: "18px" },
+  { key: "sm", label: "Small", size: "0.82rem", desc: "More content visible" },
+  { key: "md", label: "Default", size: "0.95rem", desc: "Balanced" },
+  { key: "lg", label: "Large", size: "1.08rem", desc: "Easier to read" },
+  {
+    key: "xl",
+    label: "Extra large",
+    size: "1.2rem",
+    desc: "Maximum readability",
+  },
 ];
 
 // ─── Animated BG panels ───────────────────────────────────────────────────────

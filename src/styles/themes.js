@@ -1,79 +1,43 @@
 export const themes = {
   light: {
-    bg: "#FDFCFA",
-    surface: "#FFFFFF",
-    surfaceAlt: "#F6F5FF",
-    border: "#E8E6F5",
-    text: "#26215C",
-    textMuted: "#7B78A8",
-    textFaint: "#A09C95",
-    accent: "#3C3489",
-    accentLight: "#EEEDFE",
-    accentMid: "#AFA9EC",
-    green: "#1D9E75",
-    greenLight: "#E1F5EE",
-    navBg: "rgba(246,245,255,0.92)",
-    codeBg: "#1E1B2E",
-    shadow: "rgba(60,52,137,0.08)",
-    cardBg: "rgba(255,255,255,0.72)",
-    cardBgHover: "rgba(255,255,255,0.92)",
+    label: "Light",
+    bg: "#F9F8F6",
+    panel: "#FFFFFF",
+    text: "#1A1917",
+    subtext: "#6B6963",
+    accent: "#3a2f9f", // Deep Purple
+    border: "#E4E2DC",
+    cardBg: "#EEEDFE",
   },
   dark: {
-    bg: "#0F0E1A",
-    surface: "#1A1826",
-    surfaceAlt: "#1E1C2E",
-    border: "#2E2B45",
-    text: "#E8E6FF",
-    textMuted: "#8A87B8",
-    textFaint: "#5A5780",
-    accent: "#7F77DD",
-    accentLight: "#2A2650",
-    accentMid: "#4A4690",
-    green: "#2DC98F",
-    greenLight: "#0D2E22",
-    navBg: "rgba(15,14,26,0.92)",
-    codeBg: "#0D0C18",
-    shadow: "rgba(0,0,0,0.35)",
-    cardBg: "#2C2940", // soft lifted purple-grey, clearly above bg
-    cardBgHover: "#353155", // a little brighter on hover
+    label: "Dark",
+    bg: "#121211", // Slightly deeper black
+    panel: "#1E1E1C", // Subtle elevation
+    text: "#E4E4E1", // Soft off-white for readability
+    subtext: "#A09F98", // Muted grey-gold
+    accent: "#3a2bdc", // Lavender (easier on eyes than hot pink)
+    border: "#33322E",
+    cardBg: "#252429",
   },
   "cb-light": {
-    // colorblind-safe light — uses amber/blue instead of purple/green
-    bg: "#FDFBF5",
-    surface: "#FFFFFF",
-    surfaceAlt: "#FFF8E8",
-    border: "#E8D890",
+    label: "CB Light",
+    bg: "#FFF9E8",
+    panel: "#FFFFFF",
     text: "#1A1400",
-    textMuted: "#5A5030",
-    textFaint: "#A09060",
-    accent: "#C0720A",
-    accentLight: "#FFF0C0",
-    accentMid: "#E8A840",
-    green: "#1A70C8",
-    greenLight: "#E0F0FF",
-    navBg: "rgba(253,251,245,0.92)",
-    codeBg: "#1A1200",
-    shadow: "rgba(192,114,10,0.10)",
-    cardBg: "rgba(255,255,255,0.72)",
-    cardBgHover: "rgba(255,255,255,0.92)",
+    subtext: "#5A5030",
+    accent: "#005AB5", // Changed to "Blue" (Safe for most colorblindness)
+    border: "#DBCBA0",
+    cardBg: "#FFF0C0",
   },
   "cb-dark": {
-    bg: "#001020",
-    surface: "#0A1928",
-    surfaceAlt: "#0D2035",
+    label: "CB Dark",
+    bg: "#00121F",
+    panel: "#001E33",
+    text: "#FFFFFF", // Pure white for max contrast
+    subtext: "#B8C9D6",
+    accent: "#FFC20A", // High-contrast Yellow
     border: "#1A3040",
-    text: "#E0F0FF",
-    textMuted: "#7090A0",
-    textFaint: "#405060",
-    accent: "#40B0FF",
-    accentLight: "#0A2840",
-    accentMid: "#1A6090",
-    green: "#FFB830",
-    greenLight: "#2A1A00",
-    navBg: "rgba(0,16,32,0.92)",
-    codeBg: "#000810",
-    shadow: "rgba(0,0,0,0.5)",
-    cardBg: "#0E2A3D", // soft teal-navy, clearly above bg (#001020)
-    cardBgHover: "#163650", // visibly brighter on hover
+    cardBg: "#002A47",
   },
 };
+  

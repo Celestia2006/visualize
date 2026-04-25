@@ -28,19 +28,19 @@ const THEME_CONFIGS = {
     panel: "#FFFFFF",
     text: "#1A1917",
     subtext: "#6B6963",
-    accent: "#0F6E56",
-    border: "#C8EAD9",
-    cardBg: "#E1F5EE",
+    accent: "#3C3489", // Deep Purple
+    border: "#E4E2DC",
+    cardBg: "#EEEDFE",
   },
   dark: {
     label: "Dark",
-    bg: "#0D1F1A",
-    panel: "#122018",
-    text: "#5DCAA5",
-    subtext: "#4BA88A",
-    accent: "#1D9E75",
-    border: "#1A3D30",
-    cardBg: "#1A3D30",
+    bg: "#121211", // Slightly deeper black
+    panel: "#1E1E1C", // Subtle elevation
+    text: "#777777", // Soft off-white for readability
+    subtext: "#aba156", // Muted grey-gold
+    accent: "#5d50ed", // Lavender (easier on eyes than hot pink)
+    border: "#33322E",
+    cardBg: "#252429",
   },
   "cb-light": {
     label: "CB Light",
@@ -48,19 +48,19 @@ const THEME_CONFIGS = {
     panel: "#FFFFFF",
     text: "#1A1400",
     subtext: "#5A5030",
-    accent: "#C0720A",
-    border: "#E8D890",
+    accent: "#005AB5", // Changed to "Blue" (Safe for most colorblindness)
+    border: "#DBCBA0",
     cardBg: "#FFF0C0",
   },
   "cb-dark": {
     label: "CB Dark",
-    bg: "#001020",
-    panel: "#0A1928",
-    text: "#cb942c",
-    subtext: "#9bb3c0",
-    accent: "#1cbabc",
+    bg: "#00121F",
+    panel: "#001E33",
+    text: "#FFFFFF", // Pure white for max contrast
+    subtext: "#B8C9D6",
+    accent: "#FFC20A", // High-contrast Yellow
     border: "#1A3040",
-    cardBg: "#0A2840",
+    cardBg: "#002A47",
   },
 };
 
@@ -68,27 +68,36 @@ const FONT_CONFIGS = [
   {
     key: "neutral",
     label: "Neutral",
-    family: "var(--font-body)",
-    desc: "Clean & modern",
+    desc: "Clean, modern, easy to read",
+    sample: "The quick brown fox",
+    family: "'DM Sans', sans-serif",
   },
   {
     key: "academic",
     label: "Academic",
-    family: "var(--font-body)",
-    desc: "Scholarly & refined",
+    desc: "Scholarly serif — classic feel",
+    sample: "The quick brown fox",
+    family: "'Lora', serif",
   },
   {
     key: "dyslexic",
-    label: "Dyslexic-friendly",
-    family: "'Comic Sans MS','Chalkboard SE',cursive",
-    desc: "High readability",
+    label: "Accessible",
+    desc: "High-legibility typeface",
+    sample: "The quick brown fox",
+    family: "'Atkinson Hyperlegible', sans-serif",
   },
 ];
 
 const FONT_SIZE_CONFIGS = [
-  { key: "sm", label: "Small", size: "0.85rem", preview: "14px" },
-  { key: "md", label: "Medium", size: "1rem", preview: "16px" },
-  { key: "lg", label: "Large", size: "1.125rem", preview: "18px" },
+  { key: "sm", label: "Small", size: "0.82em", desc: "More content visible" },
+  { key: "md", label: "Default", size: "0.95em", desc: "Balanced" },
+  { key: "lg", label: "Large", size: "1.08em", desc: "Easier to read" },
+  {
+    key: "xl",
+    label: "Extra large",
+    size: "1.2em",
+    desc: "Maximum readability",
+  },
 ];
 
 // ─── Graph data ───────────────────────────────────────────────────────────────
@@ -516,7 +525,7 @@ function QueueViz() {
       />
       <div
         style={{
-          marginTop: "0.6rem",
+          marginTop: "0.6em",
           display: "flex",
           alignItems: "center",
           gap: "8px",
@@ -549,7 +558,7 @@ function QueueViz() {
             border: `1px solid ${"var(--border)"}`,
             background: "#fff",
             color: "var(--text-muted)",
-            fontSize: "0.72rem",
+            fontSize: "0.72em",
             fontFamily: "var(--font-body)",
             cursor: "pointer",
           }}
@@ -640,7 +649,7 @@ function LevelOrderViz() {
       />
       <div
         style={{
-          marginTop: "0.6rem",
+          marginTop: "0.6em",
           display: "flex",
           alignItems: "center",
           gap: "8px",
@@ -673,7 +682,7 @@ function LevelOrderViz() {
             border: `1px solid ${"var(--border)"}`,
             background: "#fff",
             color: "var(--text-muted)",
-            fontSize: "0.72rem",
+            fontSize: "0.72em",
             fontFamily: "var(--font-body)",
             cursor: "pointer",
           }}
@@ -843,7 +852,7 @@ function ShortestPathViz() {
       />
       <div
         style={{
-          marginTop: "0.6rem",
+          marginTop: "0.6em",
           display: "flex",
           alignItems: "center",
           gap: "8px",
@@ -876,7 +885,7 @@ function ShortestPathViz() {
             border: `1px solid ${"var(--border)"}`,
             background: "#fff",
             color: "var(--text-muted)",
-            fontSize: "0.72rem",
+            fontSize: "0.72em",
             fontFamily: "var(--font-body)",
             cursor: "pointer",
           }}
@@ -1023,7 +1032,7 @@ function FullBFSViz() {
       />
       <div
         style={{
-          marginTop: "0.6rem",
+          marginTop: "0.6em",
           display: "flex",
           alignItems: "center",
           gap: "8px",
@@ -1056,7 +1065,7 @@ function FullBFSViz() {
             border: `1px solid ${"var(--border)"}`,
             background: "#fff",
             color: "var(--text-muted)",
-            fontSize: "0.72rem",
+            fontSize: "0.72em",
             fontFamily: "var(--font-body)",
             cursor: "pointer",
           }}
@@ -1072,6 +1081,7 @@ function FullBFSViz() {
 
 const STEPS = [
   {
+
     id: 0,
     viz: "intro",
     title: "What is a Graph?",
@@ -1297,9 +1307,9 @@ function ExplanationPage({ showExplanation, userLevel }) {
       style={{ display: "flex", alignItems: "flex-start", minHeight: "100vh" }}
     >
       {/* ── LEFT: scrolling narrative ── */}
-      <div style={{ flex: "0 0 52%", minWidth: 0, paddingRight: "1.5rem" }}>
+      <div style={{ flex: "0 0 52%", minWidth: 0, paddingRight: "1.5em" }}>
         {/* Level toggle */}
-        <div style={{ paddingBottom: "0.75rem", marginBottom: "0.5rem" }}>
+        <div style={{ paddingBottom: "0.75em", marginBottom: "0.5em" }}>
           <div
             style={{
               display: "inline-flex",
@@ -1315,7 +1325,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
           >
             <span
               style={{
-                fontSize: "0.72rem",
+                fontSize: "0.72em",
                 color: "var(--text-muted)",
                 fontWeight: 500,
               }}
@@ -1332,9 +1342,9 @@ function ExplanationPage({ showExplanation, userLevel }) {
                   border: "none",
                   cursor: "pointer",
                   background: level === lv ? "var(--accent)" : "transparent",
-                  color: level === lv ? "#fff" : "var(--text-muted)",
+                  color: level === lv ? "#fff" : "black",
                   fontFamily: "var(--font-body)",
-                  fontSize: "0.72rem",
+                  fontSize: "0.72em",
                   fontWeight: 500,
                   transition: "background 0.18s, color 0.18s",
                 }}
@@ -1356,8 +1366,8 @@ function ExplanationPage({ showExplanation, userLevel }) {
               display: "flex",
               flexDirection: "column",
               justifyContent: "center",
-              paddingTop: "3.5rem",
-              paddingBottom: "3.5rem",
+              paddingTop: "3.5em",
+              paddingBottom: "3.5em",
               borderTop: si > 0 ? `1px solid ${"var(--border)"}` : "none",
             }}
           >
@@ -1367,7 +1377,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
                 display: "inline-flex",
                 alignItems: "center",
                 gap: "7px",
-                marginBottom: "0.8rem",
+                marginBottom: "0.8em",
                 padding: "4px 12px",
                 borderRadius: "100px",
                 background: activeStep === si ? T.light : "rgba(0,0,0,0.03)",
@@ -1388,7 +1398,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
               />
               <span
                 style={{
-                  fontSize: "0.68rem",
+                  fontSize: "0.68em",
                   fontWeight: 600,
                   letterSpacing: "0.08em",
                   textTransform: "uppercase",
@@ -1404,11 +1414,11 @@ function ExplanationPage({ showExplanation, userLevel }) {
             <h2
               style={{
                 fontFamily: "var(--font-body)",
-                fontSize: "clamp(1.2rem,2vw,1.5rem)",
+                fontSize: "clamp(1.2em,2vw,1.5em)",
                 color: "var(--text)",
                 letterSpacing: "-0.02em",
                 lineHeight: 1.15,
-                marginBottom: "0.4rem",
+                marginBottom: "0.4em",
               }}
             >
               {step.title}
@@ -1417,10 +1427,10 @@ function ExplanationPage({ showExplanation, userLevel }) {
             {/* Context */}
             <p
               style={{
-                fontSize: "0.88rem",
+                fontSize: "0.88em",
                 color: "var(--text-muted)",
                 lineHeight: 1.7,
-                marginBottom: "1.4rem",
+                marginBottom: "1.4em",
                 maxWidth: "530px",
               }}
             >
@@ -1434,7 +1444,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
                 borderRadius: "14px",
                 border: "1px solid rgba(255,255,255,0.07)",
                 overflow: "hidden",
-                marginBottom: showExplanation ? "1rem" : "0",
+                marginBottom: showExplanation ? "1em" : "0",
               }}
             >
               <div
@@ -1442,7 +1452,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
                   display: "flex",
                   alignItems: "center",
                   gap: "6px",
-                  padding: "0.6rem 0.9rem",
+                  padding: "0.6em 0.9em",
                   borderBottom: "1px solid rgba(255,255,255,0.06)",
                 }}
               >
@@ -1459,7 +1469,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
                 ))}
                 <span
                   style={{
-                    fontSize: "0.7rem",
+                    fontSize: "0.7em",
                     color: "rgba(200,240,220,0.28)",
                     marginLeft: "6px",
                     fontFamily: "monospace",
@@ -1469,7 +1479,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
                 </span>
                 <span
                   style={{
-                    fontSize: "0.65rem",
+                    fontSize: "0.65em",
                     color: "rgba(200,240,220,0.18)",
                     marginLeft: "auto",
                   }}
@@ -1480,10 +1490,10 @@ function ExplanationPage({ showExplanation, userLevel }) {
               <pre
                 style={{
                   margin: 0,
-                  padding: "0.9rem 1rem",
+                  padding: "0.9em 1em",
                   fontFamily:
                     "'JetBrains Mono','Fira Code','Courier New',monospace",
-                  fontSize: "0.775rem",
+                  fontSize: "0.775em",
                   lineHeight: 1.82,
                   overflowX: "auto",
                 }}
@@ -1495,7 +1505,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
                         color: "rgba(200,240,220,0.13)",
                         userSelect: "none",
                         marginRight: "14px",
-                        fontSize: "0.67rem",
+                        fontSize: "0.67em",
                       }}
                     >
                       {String(li + 1).padStart(2, "0")}
@@ -1514,7 +1524,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
                   background: `linear-gradient(135deg,${T.light} 0%,#D8F5ED 100%)`,
                   border: `1px solid ${T.mid}50`,
                   borderRadius: "13px",
-                  padding: "1rem 1.2rem",
+                  padding: "1em 1.2em",
                   animation: "fadeUp 0.22s ease",
                 }}
               >
@@ -1522,8 +1532,8 @@ function ExplanationPage({ showExplanation, userLevel }) {
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "0.5rem",
-                    marginBottom: "0.55rem",
+                    gap: "0.5em",
+                    marginBottom: "0.55em",
                   }}
                 >
                   <div
@@ -1559,11 +1569,11 @@ function ExplanationPage({ showExplanation, userLevel }) {
                   </div>
                   <span
                     style={{
-                      fontSize: "0.68rem",
+                      fontSize: "0.68em",
                       fontWeight: 600,
                       letterSpacing: "0.07em",
                       textTransform: "uppercase",
-                      color: "var(--text)",
+                      color: "black",
                     }}
                   >
                     {level === "beginner"
@@ -1573,7 +1583,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
                 </div>
                 <p
                   style={{
-                    fontSize: "0.875rem",
+                    fontSize: "0.875em",
                     color: "#1A3830",
                     lineHeight: 1.78,
                   }}
@@ -1592,7 +1602,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
       <div
         style={{
           position: "fixed",
-          top: `${Math.max(56, 410 - scrollY)}px`,
+          top: `${Math.max(56, 600 - scrollY)}px`,
           right: 0,
           width: "48%",
           bottom: 0,
@@ -1600,7 +1610,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
           flexDirection: "column",
           justifyContent: "center",
           alignItems: "stretch",
-          padding: "1.5rem 2rem 1.5rem 1rem",
+          padding: "1.5em 2em 1.5em 1em",
           transition: "top 0.15s ease",
           pointerEvents: "none",
         }}
@@ -1608,9 +1618,9 @@ function ExplanationPage({ showExplanation, userLevel }) {
         <div
           style={{
             background: "#fff",
-            border: `1px solid ${"var(--border)"}`,
+            border: `1px solid ${"#E8E6F5"}`,
             borderRadius: "18px",
-            padding: "1.1rem",
+            padding: "1.1em",
             boxShadow: `0 4px 28px ${T.light}CC`,
             pointerEvents: "auto",
           }}
@@ -1621,17 +1631,17 @@ function ExplanationPage({ showExplanation, userLevel }) {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              marginBottom: "0.9rem",
+              marginBottom: "0.9em",
             }}
           >
             <div>
               <p
                 style={{
-                  fontSize: "0.67rem",
+                  fontSize: "0.67em",
                   fontWeight: 500,
                   letterSpacing: "0.07em",
                   textTransform: "uppercase",
-                  color: "var(--text-muted)",
+                  color: "#7B78A8",
                   marginBottom: "2px",
                 }}
               >
@@ -1640,8 +1650,8 @@ function ExplanationPage({ showExplanation, userLevel }) {
               <p
                 style={{
                   fontFamily: "var(--font-body)",
-                  fontSize: "1rem",
-                  color: "var(--text)",
+                  fontSize: "1em",
+                  color: "#26215C",
                   letterSpacing: "-0.01em",
                 }}
               >
@@ -1682,7 +1692,7 @@ function ExplanationPage({ showExplanation, userLevel }) {
               justifyContent: "center",
               gap: "6px",
               opacity: 0.5,
-              marginTop: "0.6rem",
+              marginTop: "0.6em",
               pointerEvents: "auto",
             }}
           >
@@ -1693,18 +1703,18 @@ function ExplanationPage({ showExplanation, userLevel }) {
                 width="3"
                 height="7"
                 rx="1.5"
-                stroke={"var(--text-muted)"}
+                stroke={"#7B78A8"}
                 strokeWidth="1.2"
               />
               <path
                 d="M2 7l3 4 3-4"
-                stroke={"var(--text-muted)"}
+                stroke={"#7B78A8"}
                 strokeWidth="1.2"
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
             </svg>
-            <span style={{ fontSize: "0.72rem", color: "var(--text-muted)" }}>
+            <span style={{ fontSize: "0.72em", color: "#7B78A8" }}>
               Scroll through each step — the viz updates
             </span>
           </div>
@@ -1900,12 +1910,12 @@ function TryItOutPage() {
 
   const fld = {
     width: "100%",
-    padding: "0.5rem 0.65rem",
-    border: `1px solid ${"var(--border)"}`,
+    padding: "0.5em 0.65em",
+    border: `1px solid ${"#E8E6F5"}`,
     borderRadius: "8px",
     fontFamily: "'JetBrains Mono','Fira Code',monospace",
-    fontSize: "0.88rem",
-    color: "var(--text)",
+    fontSize: "0.88em",
+    color: "#26215C",
     background: "#fff",
     outline: "none",
     transition: "border-color 0.2s,box-shadow 0.2s",
@@ -1913,20 +1923,20 @@ function TryItOutPage() {
   };
   const lbl = {
     display: "block",
-    fontSize: "0.7rem",
+    fontSize: "0.7em",
     fontWeight: 500,
     letterSpacing: "0.06em",
     textTransform: "uppercase",
-    color: "var(--text-muted)",
+    color: "#7B78A8",
     marginBottom: "5px",
   };
   const sh = {
-    fontSize: "0.68rem",
+    fontSize: "0.68em",
     fontWeight: 500,
     letterSpacing: "0.08em",
     textTransform: "uppercase",
-    color: "var(--text-muted)",
-    marginBottom: "0.65rem",
+    color: "#7B78A8",
+    marginBottom: "0.65em",
     display: "flex",
     alignItems: "center",
     gap: "6px",
@@ -1936,7 +1946,7 @@ function TryItOutPage() {
     e.target.style.boxShadow = `0 0 0 3px ${c}28`;
   };
   const bl = (e) => {
-    e.target.style.borderColor = "var(--border)";
+    e.target.style.borderColor = "#E8E6F5";
     e.target.style.boxShadow = "none";
   };
 
@@ -1946,9 +1956,9 @@ function TryItOutPage() {
     GRAPH_NODES.some((n) => n.label === targetNode.toUpperCase());
 
   return (
-    <div style={{ display: "flex", flexDirection: "column", gap: "1.5rem" }}>
+    <div style={{ display: "flex", flexDirection: "column", gap: "1.5em" }}>
       {/* Main row */}
-      <div style={{ display: "flex", gap: "2rem", alignItems: "flex-start" }}>
+      <div style={{ display: "flex", gap: "2em", alignItems: "flex-start" }}>
         {/* LEFT — inputs */}
         <div
           style={{
@@ -1956,15 +1966,15 @@ function TryItOutPage() {
             minWidth: 0,
             display: "flex",
             flexDirection: "column",
-            gap: "1rem",
+            gap: "1em",
           }}
         >
           <div
             style={{
               background: "#fff",
-              border: `1px solid ${"var(--border)"}`,
+              border: `1px solid ${"#E8E6F5"}`,
               borderRadius: "14px",
-              padding: "1.25rem 1.4rem",
+              padding: "1.25em 1.4em",
               boxShadow: `0 1px 6px ${T.light}80`,
             }}
           >
@@ -1980,7 +1990,7 @@ function TryItOutPage() {
               />
               Choose nodes
             </p>
-            <div style={{ marginBottom: "0.75rem" }}>
+            <div style={{ marginBottom: "0.75em" }}>
               <label style={lbl}>Start node (A – I)</label>
               <input
                 style={fld}
@@ -1993,7 +2003,7 @@ function TryItOutPage() {
                 onBlur={bl}
               />
             </div>
-            <div style={{ marginBottom: "0.75rem" }}>
+            <div style={{ marginBottom: "0.75em" }}>
               <label style={lbl}>Target node (A – I)</label>
               <input
                 style={fld}
@@ -2009,9 +2019,9 @@ function TryItOutPage() {
             {!valid && (
               <p
                 style={{
-                  fontSize: "0.72rem",
+                  fontSize: "0.72em",
                   color: "#E53535",
-                  marginTop: "-0.25rem",
+                  marginTop: "-0.25em",
                 }}
               >
                 Enter valid node labels: A B C D E F G H I
@@ -2023,9 +2033,9 @@ function TryItOutPage() {
           <div
             style={{
               background: "#fff",
-              border: `1px solid ${"var(--border)"}`,
+              border: `1px solid ${"#E8E6F5"}`,
               borderRadius: "14px",
-              padding: "1.25rem 1.4rem",
+              padding: "1.25em 1.4em",
               boxShadow: `0 1px 6px ${T.light}80`,
             }}
           >
@@ -2044,8 +2054,8 @@ function TryItOutPage() {
             <pre
               style={{
                 fontFamily: "'JetBrains Mono',monospace",
-                fontSize: "0.72rem",
-                color: "var(--text-muted)",
+                fontSize: "0.72em",
+                color: "#7B78A8",
                 lineHeight: 1.7,
                 margin: 0,
               }}
@@ -2067,15 +2077,15 @@ I: F`}
             disabled={!valid}
             style={{
               width: "100%",
-              padding: "0.8rem",
+              padding: "0.8em",
               background: valid
                 ? `linear-gradient(135deg,${T.accent},#1D9E75)`
-                : "var(--border)",
-              color: valid ? "#fff" : "var(--text-muted)",
+                : "#E8E6F5",
+              color: valid ? "#fff" : "#7B78A8",
               border: "none",
               borderRadius: "10px",
               fontFamily: "var(--font-body)",
-              fontSize: "0.9rem",
+              fontSize: "0.9em",
               fontWeight: 500,
               cursor: valid ? "pointer" : "default",
               display: "flex",
@@ -2093,7 +2103,7 @@ I: F`}
             <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
               <polygon
                 points="3,2 12,7 3,12"
-                fill={valid ? "#fff" : "var(--text-muted)"}
+                fill={valid ? "#fff" : "#7B78A8"}
               />
             </svg>
             Run BFS
@@ -2106,19 +2116,19 @@ I: F`}
             flex: "1 1 0",
             minWidth: 0,
             background: "#fff",
-            border: `1px solid ${"var(--border)"}`,
+            border: `1px solid ${"#E8E6F5"}`,
             borderRadius: "16px",
-            padding: "1.25rem",
+            padding: "1.25em",
             boxShadow: `0 2px 16px ${T.light}`,
           }}
         >
           <p
             style={{
-              fontSize: "0.72rem",
+              fontSize: "0.72em",
               fontWeight: 500,
               letterSpacing: "0.07em",
               textTransform: "uppercase",
-              color: "var(--text-muted)",
+              color: "#7B78A8",
               marginBottom: "2px",
             }}
           >
@@ -2126,9 +2136,9 @@ I: F`}
           </p>
           <p
             style={{
-              fontSize: "0.8rem",
-              color: "var(--text-muted)",
-              marginBottom: "0.85rem",
+              fontSize: "0.8em",
+              color: "#7B78A8",
+              marginBottom: "0.85em",
             }}
           >
             {submitted
@@ -2147,10 +2157,10 @@ I: F`}
           {submitted && animFrame < totalFrames - 1 && (
             <div
               style={{
-                marginTop: "0.5rem",
+                marginTop: "0.5em",
                 height: "4px",
                 borderRadius: "2px",
-                background: "var(--border)",
+                background: "#E8E6F5",
                 overflow: "hidden",
               }}
             >
@@ -2173,7 +2183,7 @@ I: F`}
           style={{
             display: "grid",
             gridTemplateColumns: "1fr 1fr 1fr",
-            gap: "0.75rem",
+            gap: "0.75em",
             animation: "fadeUp 0.3s ease",
           }}
         >
@@ -2182,17 +2192,17 @@ I: F`}
               background: T.light,
               border: `1px solid ${T.mid}60`,
               borderRadius: "12px",
-              padding: "0.9rem 1rem",
+              padding: "0.9em 1em",
             }}
           >
             <p
               style={{
-                fontSize: "0.68rem",
+                fontSize: "0.68em",
                 fontWeight: 500,
                 letterSpacing: "0.07em",
                 textTransform: "uppercase",
-                color: "var(--text-muted)",
-                marginBottom: "0.35rem",
+                color: "#7B78A8",
+                marginBottom: "0.35em",
               }}
             >
               Verdict
@@ -2200,7 +2210,7 @@ I: F`}
             <p
               style={{
                 fontFamily: "var(--font-body)",
-                fontSize: "2.2rem",
+                fontSize: "2.2em",
                 lineHeight: 1,
               }}
             >
@@ -2208,7 +2218,7 @@ I: F`}
             </p>
             <p
               style={{
-                fontSize: "0.82rem",
+                fontSize: "0.82em",
                 color: T.dark,
                 marginTop: "5px",
                 fontWeight: 500,
@@ -2220,19 +2230,19 @@ I: F`}
           <div
             style={{
               background: "#fff",
-              border: `1px solid ${"var(--border)"}`,
+              border: `1px solid ${"#E8E6F5"}`,
               borderRadius: "12px",
-              padding: "0.9rem 1rem",
+              padding: "0.9em 1em",
             }}
           >
             <p
               style={{
-                fontSize: "0.68rem",
+                fontSize: "0.68em",
                 fontWeight: 500,
                 letterSpacing: "0.07em",
                 textTransform: "uppercase",
-                color: "var(--text-muted)",
-                marginBottom: "0.35rem",
+                color: "#7B78A8",
+                marginBottom: "0.35em",
               }}
             >
               Shortest distance
@@ -2240,20 +2250,20 @@ I: F`}
             <p
               style={{
                 fontFamily: "var(--font-body)",
-                fontSize: "1.6rem",
-                color: "var(--text)",
+                fontSize: "1.6em",
+                color: "#26215C",
                 lineHeight: 1,
               }}
             >
               {hops}
-              <span style={{ fontSize: "1rem", color: T.mid }}> hops</span>
+              <span style={{ fontSize: "1em", color: T.mid }}> hops</span>
             </p>
             <div
               style={{
                 marginTop: "6px",
                 height: "4px",
                 borderRadius: "2px",
-                background: "var(--border)",
+                background: "#E8E6F5",
                 overflow: "hidden",
               }}
             >
@@ -2269,8 +2279,8 @@ I: F`}
             </div>
             <p
               style={{
-                fontSize: "0.7rem",
-                color: "var(--text-muted)",
+                fontSize: "0.7em",
+                color: "#7B78A8",
                 marginTop: "4px",
               }}
             >
@@ -2280,19 +2290,19 @@ I: F`}
           <div
             style={{
               background: "#fff",
-              border: `1px solid ${"var(--border)"}`,
+              border: `1px solid ${"#E8E6F5"}`,
               borderRadius: "12px",
-              padding: "0.9rem 1rem",
+              padding: "0.9em 1em",
             }}
           >
             <p
               style={{
-                fontSize: "0.68rem",
+                fontSize: "0.68em",
                 fontWeight: 500,
                 letterSpacing: "0.07em",
                 textTransform: "uppercase",
-                color: "var(--text-muted)",
-                marginBottom: "0.35rem",
+                color: "#7B78A8",
+                marginBottom: "0.35em",
               }}
             >
               Nodes visited
@@ -2300,20 +2310,20 @@ I: F`}
             <p
               style={{
                 fontFamily: "var(--font-body)",
-                fontSize: "1.6rem",
-                color: "var(--text)",
+                fontSize: "1.6em",
+                color: "#26215C",
                 lineHeight: 1,
               }}
             >
               {visitedSet.size}
-              <span style={{ fontSize: "1rem", color: T.mid }}>
+              <span style={{ fontSize: "1em", color: T.mid }}>
                 /{GRAPH_NODES.length}
               </span>
             </p>
             <p
               style={{
-                fontSize: "0.7rem",
-                color: "var(--text-muted)",
+                fontSize: "0.7em",
+                color: "#7B78A8",
                 marginTop: "4px",
               }}
             >
@@ -2325,17 +2335,17 @@ I: F`}
               gridColumn: "1/-1",
               background: "#0D1F1A",
               borderRadius: "12px",
-              padding: "0.9rem 1.1rem",
+              padding: "0.9em 1.1em",
             }}
           >
             <p
               style={{
-                fontSize: "0.68rem",
+                fontSize: "0.68em",
                 fontWeight: 500,
                 letterSpacing: "0.07em",
                 textTransform: "uppercase",
                 color: "rgba(93,202,165,0.6)",
-                marginBottom: "0.5rem",
+                marginBottom: "0.5em",
               }}
             >
               Path trace
@@ -2345,7 +2355,7 @@ I: F`}
                 margin: 0,
                 fontFamily:
                   "'JetBrains Mono','Fira Code','Courier New',monospace",
-                fontSize: "0.78rem",
+                fontSize: "0.78em",
                 color: "rgba(200,240,220,0.85)",
                 lineHeight: 1.85,
               }}
@@ -2519,7 +2529,7 @@ function AIPage({ userLevel }) {
     <div
       style={{
         display: "flex",
-        gap: "1.5rem",
+        gap: "1.5em",
         alignItems: "flex-start",
         width: "100%",
         height: "calc(100vh - 260px)",
@@ -2534,7 +2544,7 @@ function AIPage({ userLevel }) {
           display: "flex",
           flexDirection: "column",
           background: "#fff",
-          border: `1px solid ${"var(--border)"}`,
+          border: `1px solid ${"#E8E6F5"}`,
           borderRadius: "18px",
           overflow: "hidden",
           boxShadow: `0 4px 24px ${T.light}CC`,
@@ -2546,9 +2556,9 @@ function AIPage({ userLevel }) {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "0.75rem",
-            padding: "1rem 1.25rem",
-            borderBottom: `1px solid ${"var(--border)"}`,
+            gap: "0.75em",
+            padding: "1em 1.25em",
+            borderBottom: `1px solid ${"#E8E6F5"}`,
             background: "var(--bg)",
             flexShrink: 0,
           }}
@@ -2588,15 +2598,15 @@ function AIPage({ userLevel }) {
           <div>
             <p
               style={{
-                fontSize: "0.85rem",
+                fontSize: "0.85em",
                 fontWeight: 500,
-                color: "var(--text)",
+                color: "#26215C",
                 lineHeight: 1.2,
               }}
             >
               AI Assistant
             </p>
-            <p style={{ fontSize: "0.7rem", color: "var(--text-muted)" }}>
+            <p style={{ fontSize: "0.7em", color: "#7B78A8" }}>
               Breadth-First Search ·{" "}
               {level === "beginner" ? "🌱 Beginner" : "⚡ Technical"}
             </p>
@@ -2617,9 +2627,7 @@ function AIPage({ userLevel }) {
                 background: "#3B6D11",
               }}
             />
-            <span style={{ fontSize: "0.7rem", color: "var(--text-muted)" }}>
-              Online
-            </span>
+            <span style={{ fontSize: "0.7em", color: "#7B78A8" }}>Online</span>
           </div>
         </div>
 
@@ -2628,10 +2636,10 @@ function AIPage({ userLevel }) {
           style={{
             flex: 1,
             overflowY: "auto",
-            padding: "1.25rem",
+            padding: "1.25em",
             display: "flex",
             flexDirection: "column",
-            gap: "1rem",
+            gap: "1em",
           }}
         >
           {messages.map((msg, i) => (
@@ -2640,7 +2648,7 @@ function AIPage({ userLevel }) {
               style={{
                 display: "flex",
                 justifyContent: msg.role === "user" ? "flex-end" : "flex-start",
-                gap: "0.6rem",
+                gap: "0.6em",
                 alignItems: "flex-end",
                 animation: "fadeUp 0.22s ease",
               }}
@@ -2675,7 +2683,7 @@ function AIPage({ userLevel }) {
               <div
                 style={{
                   maxWidth: "75%",
-                  padding: "0.7rem 0.95rem",
+                  padding: "0.7em 0.95em",
                   borderRadius:
                     msg.role === "user"
                       ? "14px 14px 4px 14px"
@@ -2685,8 +2693,8 @@ function AIPage({ userLevel }) {
                       ? `linear-gradient(135deg,${T.accent},#1D9E75)`
                       : T.light,
                   border: msg.role === "user" ? "none" : `1px solid ${T.mid}40`,
-                  color: msg.role === "user" ? "#fff" : "var(--text)",
-                  fontSize: "0.88rem",
+                  color: msg.role === "user" ? "#fff" : "#26215C",
+                  fontSize: "0.88em",
                   lineHeight: 1.68,
                 }}
               >
@@ -2699,7 +2707,7 @@ function AIPage({ userLevel }) {
               style={{
                 display: "flex",
                 alignItems: "flex-end",
-                gap: "0.6rem",
+                gap: "0.6em",
                 animation: "fadeUp 0.2s ease",
               }}
             >
@@ -2729,7 +2737,7 @@ function AIPage({ userLevel }) {
               </div>
               <div
                 style={{
-                  padding: "0.7rem 1rem",
+                  padding: "0.7em 1em",
                   borderRadius: "14px 14px 14px 4px",
                   background: T.light,
                   border: `1px solid ${T.mid}40`,
@@ -2759,8 +2767,8 @@ function AIPage({ userLevel }) {
         {/* Input */}
         <div
           style={{
-            padding: "0.85rem 1.1rem",
-            borderTop: `1px solid ${"var(--border)"}`,
+            padding: "0.85em 1.1em",
+            borderTop: `1px solid ${"#E8E6F5"}`,
             background: "var(--bg)",
             flexShrink: 0,
           }}
@@ -2768,12 +2776,12 @@ function AIPage({ userLevel }) {
           <div
             style={{
               display: "flex",
-              gap: "0.6rem",
+              gap: "0.6em",
               alignItems: "flex-end",
               background: "#fff",
-              border: `1px solid ${"var(--border)"}`,
+              border: `1px solid ${"#E8E6F5"}`,
               borderRadius: "12px",
-              padding: "0.5rem 0.5rem 0.5rem 0.9rem",
+              padding: "0.5em 0.5em 0.5em 0.9em",
               transition: "border-color 0.2s, box-shadow 0.2s",
             }}
           >
@@ -2789,8 +2797,8 @@ function AIPage({ userLevel }) {
                 border: "none",
                 outline: "none",
                 fontFamily: "var(--font-body)",
-                fontSize: "0.88rem",
-                color: "var(--text)",
+                fontSize: "0.88em",
+                color: "#26215C",
                 background: "transparent",
                 resize: "none",
                 lineHeight: 1.5,
@@ -2816,7 +2824,7 @@ function AIPage({ userLevel }) {
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none">
                 <path
                   d="M12 7H2M8 3l4 4-4 4"
-                  stroke={input.trim() ? "#fff" : "var(--text-muted)"}
+                  stroke={input.trim() ? "#fff" : "#7B78A8"}
                   strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -2834,7 +2842,7 @@ function AIPage({ userLevel }) {
           minWidth: 0,
           display: "flex",
           flexDirection: "column",
-          gap: "0.75rem",
+          gap: "0.75em",
           height: "100%",
         }}
       >
@@ -2843,9 +2851,9 @@ function AIPage({ userLevel }) {
           style={{
             display: "flex",
             alignItems: "center",
-            gap: "0.6rem",
+            gap: "0.6em",
             background: "#fff",
-            border: `1px solid ${"var(--border)"}`,
+            border: `1px solid ${"#E8E6F5"}`,
             borderRadius: "100px",
             padding: "5px 6px 5px 14px",
             boxShadow: `0 2px 10px ${T.light}80`,
@@ -2856,9 +2864,9 @@ function AIPage({ userLevel }) {
         >
           <span
             style={{
-              fontSize: "0.78rem",
+              fontSize: "0.78em",
               fontWeight: 500,
-              color: "var(--text-muted)",
+              color: "#7B78A8",
               whiteSpace: "nowrap",
               flexShrink: 0,
             }}
@@ -2878,20 +2886,20 @@ function AIPage({ userLevel }) {
                 alignItems: "center",
                 justifyContent: "center",
                 gap: "6px",
-                padding: "0.4rem 0.75rem",
+                padding: "0.4em 0.75em",
                 borderRadius: "100px",
                 border: "none",
                 background: level === opt.key ? "var(--accent)" : "transparent",
                 color: level === opt.key ? "#fff" : "var(--text-muted)",
                 fontFamily: "var(--font-body)",
-                fontSize: "0.82rem",
+                fontSize: "0.82em",
                 fontWeight: level === opt.key ? 500 : 400,
                 cursor: "pointer",
                 transition: "background 0.18s, color 0.18s",
                 whiteSpace: "nowrap",
               }}
             >
-              <span style={{ fontSize: "0.9rem" }}>{opt.icon}</span>
+              <span style={{ fontSize: "0.9em" }}>{opt.icon}</span>
               {opt.label}
             </button>
           ))}
@@ -2901,7 +2909,7 @@ function AIPage({ userLevel }) {
         <div
           style={{
             background: "#fff",
-            border: `1px solid ${"var(--border)"}`,
+            border: `1px solid ${"#E8E6F5"}`,
             borderRadius: "14px",
             overflow: "hidden",
             boxShadow: `0 2px 12px ${T.light}80`,
@@ -2913,25 +2921,25 @@ function AIPage({ userLevel }) {
         >
           <div
             style={{
-              padding: "0.85rem 1rem",
-              borderBottom: `1px solid ${"var(--border)"}`,
+              padding: "0.85em 1em",
+              borderBottom: `1px solid ${"#E8E6F5"}`,
               background: "var(--bg)",
               flexShrink: 0,
             }}
           >
             <p
               style={{
-                fontSize: "0.7rem",
+                fontSize: "0.7em",
                 fontWeight: 500,
                 letterSpacing: "0.07em",
                 textTransform: "uppercase",
-                color: "var(--text-muted)",
+                color: "#7B78A8",
               }}
             >
               Suggested questions
             </p>
           </div>
-          <div style={{ padding: "0.6rem", flex: 1, overflowY: "auto" }}>
+          <div style={{ padding: "0.6em", flex: 1, overflowY: "auto" }}>
             {suggestions.map((q) => (
               <button
                 key={q}
@@ -2939,13 +2947,13 @@ function AIPage({ userLevel }) {
                 style={{
                   width: "100%",
                   textAlign: "left",
-                  padding: "0.65rem 0.75rem",
+                  padding: "0.65em 0.75em",
                   background: "transparent",
                   border: "none",
                   borderRadius: "8px",
                   fontFamily: "var(--font-body)",
-                  fontSize: "0.8rem",
-                  color: "var(--text)",
+                  fontSize: "0.8em",
+                  color: "#26215C",
                   cursor: "pointer",
                   lineHeight: 1.5,
                   transition: "background 0.15s, color 0.15s",
@@ -2957,7 +2965,7 @@ function AIPage({ userLevel }) {
                 }}
                 onMouseLeave={(e) => {
                   e.currentTarget.style.background = "transparent";
-                  e.currentTarget.style.color = "var(--text)";
+                  e.currentTarget.style.color = "#26215C";
                 }}
               >
                 {q}
@@ -3032,18 +3040,6 @@ export default function BFSTopicPage() {
           fontFamily: "var(--font-body)",
           fontSize: "var(--font-size-base)",
           background: focusMode ? "var(--surface)" : "var(--bg)",
-          "--bg": themeCfg.bg,
-          "--surface": themeCfg.panel,
-          "--text": themeCfg.text,
-          "--text-muted": themeCfg.subtext,
-          "--accent": themeCfg.accent,
-          "--border": themeCfg.border,
-          "--accent-light": themeCfg.cardBg,
-          "--accent-mid": T.mid,
-          "--green": T.green,
-          "--green-light": T.greenLt,
-          "--font-body": fontCfg.family,
-          "--font-size-base": fontSizeCfg.size,
         }}
       >
         {/* Navbar */}
@@ -3053,22 +3049,26 @@ export default function BFSTopicPage() {
               display: "flex",
               alignItems: "center",
               justifyContent: "space-between",
-              padding: "0 2rem",
+              padding: "0 2em",
               height: "56px",
-              background: "rgba(240,251,246,0.92)",
-              backdropFilter: "blur(14px)",
+
               borderBottom: `1px solid ${T.light}`,
               position: "sticky",
               top: 0,
-              zIndex: 100,
+              zIndex: 1000,
+              background:
+                theme === "light" || theme === "cb-light"
+                  ? "#ffffff"
+                  : "#121211",
+              boxShadow: "0 2px 10px var(--shadow)",
             }}
           >
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
-                gap: "0.5rem",
-                fontSize: "0.82rem",
+                gap: "0.5em",
+                fontSize: "0.82em",
               }}
             >
               <button
@@ -3079,7 +3079,7 @@ export default function BFSTopicPage() {
                   cursor: "pointer",
                   color: "var(--text-muted)",
                   fontFamily: "var(--font-body)",
-                  fontSize: "0.82rem",
+                  fontSize: "0.82em",
                 }}
               >
                 Dashboard
@@ -3093,7 +3093,7 @@ export default function BFSTopicPage() {
                   cursor: "pointer",
                   color: "var(--text-muted)",
                   fontFamily: "var(--font-body)",
-                  fontSize: "0.82rem",
+                  fontSize: "0.82em",
                 }}
               >
                 {meta.subject}
@@ -3104,18 +3104,18 @@ export default function BFSTopicPage() {
               </span>
             </div>
             <div
-              style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}
+              style={{ display: "flex", alignItems: "center", gap: "0.75em" }}
             >
               {subPage === "explanation" && (
                 <div
                   style={{
                     display: "flex",
                     alignItems: "center",
-                    gap: "0.5rem",
+                    gap: "0.5em",
                   }}
                 >
                   <span
-                    style={{ fontSize: "0.75rem", color: "var(--text-muted)" }}
+                    style={{ fontSize: "0.75em", color: "var(--text-muted)" }}
                   >
                     Explanation
                   </span>
@@ -3156,11 +3156,11 @@ export default function BFSTopicPage() {
                   display: "flex",
                   alignItems: "center",
                   gap: "5px",
-                  background: "rgba(255,255,255,0.7)",
+                  background: `${T.warm}e6`,
                   border: `1px solid ${"var(--border)"}`,
                   borderRadius: "100px",
                   padding: "4px 12px",
-                  fontSize: "0.75rem",
+                  fontSize: "0.75em",
                   color: "var(--accent)",
                   cursor: "pointer",
                   fontFamily: "var(--font-body)",
@@ -3210,9 +3210,9 @@ export default function BFSTopicPage() {
         {/* Page header */}
         <div
           style={{
-            background: `linear-gradient(150deg, ${T.light} 0%, #D8F5ED 100%)`,
+            background: `linear-gradient(150deg, ${themeCfg.panel} 0%, ${themeCfg.bg} 100%)`,
             borderBottom: `1px solid ${T.border}`,
-            padding: focusMode ? "1.5rem 2rem 1.25rem" : "2rem 2rem 1.5rem",
+            padding: focusMode ? "1.5em 2em 1.25em" : "2em 2em 1.5em",
             position: "relative",
             overflow: "hidden",
           }}
@@ -3265,13 +3265,13 @@ export default function BFSTopicPage() {
                 alignItems: "flex-end",
                 justifyContent: "space-between",
                 flexWrap: "wrap",
-                gap: "1rem",
+                gap: "1em",
               }}
             >
               <div style={{ maxWidth: "620px" }}>
                 <p
                   style={{
-                    fontSize: "0.68rem",
+                    fontSize: "0.68em",
                     fontWeight: 500,
                     letterSpacing: "0.09em",
                     textTransform: "uppercase",
@@ -3284,19 +3284,19 @@ export default function BFSTopicPage() {
                 <h1
                   style={{
                     fontFamily: "var(--font-body)",
-                    fontSize: "clamp(1.4rem,3vw,1.9rem)",
+                    fontSize: "clamp(1.4em,3vw,1.9em)",
                     color: "var(--text)",
                     letterSpacing: "-0.02em",
                     lineHeight: 1.1,
-                    marginBottom: "0.65rem",
+                    marginBottom: "0.65em",
                   }}
                 >
                   Breadth-First Search{" "}
-                  <span style={{ fontSize: "1.5rem" }}>🔍🌊</span>
+                  <span style={{ fontSize: "1.5em" }}>🔍🌊</span>
                 </h1>
                 <p
                   style={{
-                    fontSize: "0.87rem",
+                    fontSize: "0.87em",
                     color: "var(--text-muted)",
                     lineHeight: 1.7,
                   }}
@@ -3325,13 +3325,13 @@ export default function BFSTopicPage() {
                     key={key}
                     onClick={() => setSubPage(key)}
                     style={{
-                      padding: "0.45rem 1.1rem",
+                      padding: "0.45em 1.1em",
                       borderRadius: "9px",
                       border: "none",
                       background: subPage === key ? "var(--accent)" : "#fff",
-                      color: subPage === key ? "#fff" : "var(--text-muted)",
+                      color: subPage === key ? "#fff" : "black",
                       fontFamily: "var(--font-body)",
-                      fontSize: "0.85rem",
+                      fontSize: "0.85em",
                       fontWeight: 500,
                       cursor: "pointer",
                       transition: "background 0.2s, color 0.2s",
@@ -3349,7 +3349,7 @@ export default function BFSTopicPage() {
         <div
           style={{
             width: "100%",
-            padding: "2rem 2rem 4rem 2rem",
+            padding: "2em 2em 4em 2em",
             boxSizing: "border-box",
           }}
         >

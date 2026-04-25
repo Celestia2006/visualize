@@ -332,6 +332,85 @@ const SUBJECTS = {
   },
 };
 
+const THEME_CONFIGS = {
+  light: {
+    label: "Light",
+    bg: "#F9F8F6",
+    panel: "#FFFFFF",
+    text: "#1A1917",
+    subtext: "#6B6963",
+    accent: "#3C3489", // Deep Purple
+    border: "#E4E2DC",
+    cardBg: "#EEEDFE",
+  },
+  dark: {
+    label: "Dark",
+    bg: "#121211", // Slightly deeper black
+    panel: "#1E1E1C", // Subtle elevation
+    text: "#777777", // Soft off-white for readability
+    subtext: "#aba156", // Muted grey-gold
+    accent: "#5d50ed", // Lavender (easier on eyes than hot pink)
+    border: "#33322E",
+    cardBg: "#252429",
+  },
+  "cb-light": {
+    label: "CB Light",
+    bg: "#FFF9E8",
+    panel: "#FFFFFF",
+    text: "#1A1400",
+    subtext: "#5A5030",
+    accent: "#005AB5", // Changed to "Blue" (Safe for most colorblindness)
+    border: "#DBCBA0",
+    cardBg: "#FFF0C0",
+  },
+  "cb-dark": {
+    label: "CB Dark",
+    bg: "#00121F",
+    panel: "#001E33",
+    text: "#FFFFFF", // Pure white for max contrast
+    subtext: "#B8C9D6",
+    accent: "#FFC20A", // High-contrast Yellow
+    border: "#1A3040",
+    cardBg: "#002A47",
+  },
+};
+
+const FONT_CONFIGS = [
+  {
+    key: "neutral",
+    label: "Neutral",
+    desc: "Clean, modern, easy to read",
+    sample: "The quick brown fox",
+    family: "'DM Sans', sans-serif",
+  },
+  {
+    key: "academic",
+    label: "Academic",
+    desc: "Scholarly serif — classic feel",
+    sample: "The quick brown fox",
+    family: "'Lora', serif",
+  },
+  {
+    key: "dyslexic",
+    label: "Accessible",
+    desc: "High-legibility typeface",
+    sample: "The quick brown fox",
+    family: "'Atkinson Hyperlegible', sans-serif",
+  },
+];
+
+const FONT_SIZE_CONFIGS = [
+  { key: "sm", label: "Small", size: "0.82rem", desc: "More content visible" },
+  { key: "md", label: "Default", size: "0.95rem", desc: "Balanced" },
+  { key: "lg", label: "Large", size: "1.08rem", desc: "Easier to read" },
+  {
+    key: "xl",
+    label: "Extra large",
+    size: "1.2rem",
+    desc: "Maximum readability",
+  },
+];
+
 // ─── Mini visual previews ─────────────────────────────────────────────────────
 
 function MiniPreview({ type, accent, light, mid }) {
@@ -620,7 +699,7 @@ function DifficultyBadge({ level, accent, light, mid }) {
   return (
     <span
       style={{
-        fontSize: "0.68rem",
+        fontSize: "0.72em",
         fontWeight: 500,
         letterSpacing: "0.06em",
         textTransform: "uppercase",
@@ -753,7 +832,7 @@ function TopicRow({ topic, subject, index, onClick }) {
           ) : (
             <span
               style={{
-                fontSize: "0.8rem",
+                fontSize: "0.84em",
                 fontWeight: 600,
                 color: expanded ? "#fff" : accent,
                 fontFamily: "var(--font-body)",
@@ -781,7 +860,7 @@ function TopicRow({ topic, subject, index, onClick }) {
             <h3
               style={{
                 fontFamily: "var(--font-body)",
-                fontSize: "1.05rem",
+                fontSize: "1.1em",
                 fontWeight: 400,
                 color: "var(--text)",
                 letterSpacing: "-0.01em",
@@ -798,7 +877,7 @@ function TopicRow({ topic, subject, index, onClick }) {
           </div>
           <p
             style={{
-              fontSize: "0.82rem",
+              fontSize: "0.86em",
               color: "var(--text-muted)",
               lineHeight: 1.5,
               marginBottom: "0.4rem",
@@ -836,7 +915,7 @@ function TopicRow({ topic, subject, index, onClick }) {
                 />
               </div>
               <span
-                style={{ fontSize: "0.7rem", color: accent, fontWeight: 500 }}
+                style={{ fontSize: "0.74em", color: accent, fontWeight: 500 }}
               >
                 {topic.progress}%
               </span>
@@ -858,7 +937,7 @@ function TopicRow({ topic, subject, index, onClick }) {
         >
           <span
             style={{
-              fontSize: "0.72rem",
+              fontSize: "0.76em",
               fontWeight: 500,
               color: statusColor,
               background: statusBg,
@@ -869,7 +948,7 @@ function TopicRow({ topic, subject, index, onClick }) {
           >
             {statusLabel}
           </span>
-          <span style={{ fontSize: "0.72rem", color: "var(--text-faint)" }}>
+          <span style={{ fontSize: "0.76em", color: "var(--text-faint)" }}>
             {topic.duration}
           </span>
         </div>
@@ -926,7 +1005,7 @@ function TopicRow({ topic, subject, index, onClick }) {
             <div style={{ flex: 1, minWidth: "200px" }}>
               <p
                 style={{
-                  fontSize: "0.7rem",
+                  fontSize: "0.74em",
                   fontWeight: 500,
                   letterSpacing: "0.07em",
                   textTransform: "uppercase",
@@ -964,7 +1043,7 @@ function TopicRow({ topic, subject, index, onClick }) {
                     />
                     <span
                       style={{
-                        fontSize: "0.82rem",
+                        fontSize: "0.86em",
                         color: "var(--text)",
                         lineHeight: 1.55,
                       }}
@@ -1013,8 +1092,8 @@ function TopicRow({ topic, subject, index, onClick }) {
                       background: "var(--surface)",
                       border: `1px solid ${mid}`,
                       borderRadius: "9px",
-                      fontFamily: "'DM Sans',sans-serif",
-                      fontSize: "0.82rem",
+                      fontFamily: "var(--font-body)",
+                      fontSize: "0.86em",
                       fontWeight: 500,
                       color: accent,
                       cursor: "pointer",
@@ -1033,8 +1112,8 @@ function TopicRow({ topic, subject, index, onClick }) {
                     background: accent,
                     border: "none",
                     borderRadius: "9px",
-                    fontFamily: "'DM Sans',sans-serif",
-                    fontSize: "0.82rem",
+                    fontFamily: "var(--font-body)",
+                    fontSize: "0.86em",
                     fontWeight: 500,
                     color: "#fff",
                     cursor: "pointer",
@@ -1073,6 +1152,7 @@ export default function SubjectPage() {
   const { subjectKey } = useParams();
   const navigate = useNavigate();
   const { user, logout } = useUserStore();
+  const theme = user?.theme ?? "light";
 
   const subject = SUBJECTS[subjectKey];
 
@@ -1093,7 +1173,7 @@ export default function SubjectPage() {
           <p
             style={{
               fontFamily: "var(--font-body)",
-              fontSize: "2rem",
+              fontSize: "2.1em",
               color: "var(--text)",
               marginBottom: "0.5rem",
             }}
@@ -1170,7 +1250,8 @@ export default function SubjectPage() {
         style={{
           minHeight: "100vh",
           fontFamily: "var(--font-body)",
-          background: "var(--bg)",
+          fontSize: "var(--font-size-base)",
+          background: "subject.headerBg,",
         }}
       >
         {/* ── Navbar ── */}
@@ -1181,14 +1262,23 @@ export default function SubjectPage() {
             justifyContent: "space-between",
             padding: "0 2.5rem",
             height: "60px",
-            background: "var(--nav-bg)",
-            backdropFilter: "blur(14px)",
+            isolation: "isolate",
+            backdropFilter: "none",
             borderBottom: `1px solid ${subject.lightColor}80`,
             position: "sticky",
+            background:
+              theme === "light" || theme === "cb-light" ? "#ffffff" : "#121211",
             top: 0,
-            zIndex: 100,
+            zIndex: 1000,
+            background:
+              theme === "light" || theme === "cb-light" ? "#ffffff" : "#1E1E1C",
+            boxShadow:
+              theme === "light" || theme === "cb-light"
+                ? "0 2px 10px rgba(0,0,0,0.06)"
+                : "0 2px 10px rgba(0,0,0,0.4)",
           }}
         >
+
           <div style={{ display: "flex", alignItems: "center", gap: "1rem" }}>
             <button
               onClick={() => navigate("/landing")}
@@ -1200,7 +1290,7 @@ export default function SubjectPage() {
                 border: "none",
                 cursor: "pointer",
                 color: "var(--text-muted)",
-                fontSize: "0.82rem",
+                fontSize: "0.86em",
                 fontFamily: "var(--font-body)",
               }}
             >
@@ -1245,7 +1335,7 @@ export default function SubjectPage() {
               <span
                 style={{
                   fontFamily: "var(--font-body)",
-                  fontSize: "0.95rem",
+                  fontSize: "1em",
                   color: "var(--text)",
                 }}
               >
@@ -1253,7 +1343,6 @@ export default function SubjectPage() {
               </span>
             </div>
           </div>
-
           <div
             style={{ display: "flex", alignItems: "center", gap: "1.25rem" }}
           >
@@ -1269,7 +1358,7 @@ export default function SubjectPage() {
                 border: `1px solid ${subject.lightColor}`,
                 borderRadius: "100px",
                 padding: "5px 12px",
-                fontSize: "0.78rem",
+                fontSize: "0.82em",
                 color: focusMode ? "#fff" : subject.accentColor,
                 cursor: "pointer",
                 fontFamily: "var(--font-body)",
@@ -1334,7 +1423,7 @@ export default function SubjectPage() {
                 background: "none",
                 border: "none",
                 cursor: "pointer",
-                fontSize: "0.78rem",
+                fontSize: "0.82em",
                 color: "var(--text-faint)",
                 fontFamily: "var(--font-body)",
               }}
@@ -1449,7 +1538,7 @@ export default function SubjectPage() {
                   <div>
                     <p
                       style={{
-                        fontSize: "0.68rem",
+                        fontSize: "0.72em",
                         fontWeight: 500,
                         letterSpacing: "0.09em",
                         textTransform: "uppercase",
@@ -1477,7 +1566,7 @@ export default function SubjectPage() {
                 <p
                   style={{
                     fontFamily: "var(--font-body)",
-                    fontSize: "1rem",
+                    fontSize: "1.05em",
                     fontStyle: "italic",
                     color: subject.accentColor,
                     opacity: 0.75,
@@ -1490,7 +1579,7 @@ export default function SubjectPage() {
 
                 <p
                   style={{
-                    fontSize: "0.88rem",
+                    fontSize: "0.93em",
                     color: subject.darkColor,
                     opacity: 0.75,
                     lineHeight: 1.7,
@@ -1519,12 +1608,12 @@ export default function SubjectPage() {
                   },
                   {
                     label: "In progress",
-                    value: inProgress,
+                    value: 1,
                     sub: inProgress === 1 ? "topic" : "topics",
                   },
                   {
                     label: "Total time",
-                    value: `~${totalMins} min`,
+                    value: `~${600} min`,
                     sub: "to complete all",
                   },
                 ].map((stat) => (
@@ -1541,7 +1630,7 @@ export default function SubjectPage() {
                   >
                     <p
                       style={{
-                        fontSize: "0.65rem",
+                        fontSize: "0.68em",
                         color: subject.accentColor,
                         fontWeight: 500,
                         letterSpacing: "0.07em",
@@ -1555,7 +1644,7 @@ export default function SubjectPage() {
                     <p
                       style={{
                         fontFamily: "var(--font-body)",
-                        fontSize: "1.3rem",
+                        fontSize: "1.37em",
                         color: subject.darkColor,
                         lineHeight: 1,
                       }}
@@ -1564,7 +1653,7 @@ export default function SubjectPage() {
                     </p>
                     <p
                       style={{
-                        fontSize: "0.7rem",
+                        fontSize: "0.74em",
                         color: subject.darkColor,
                         opacity: 0.55,
                         marginTop: "2px",
@@ -1595,7 +1684,7 @@ export default function SubjectPage() {
                   >
                     <p
                       style={{
-                        fontSize: "0.65rem",
+                        fontSize: "0.68em",
                         color: subject.accentColor,
                         fontWeight: 500,
                         letterSpacing: "0.07em",
@@ -1607,7 +1696,7 @@ export default function SubjectPage() {
                     </p>
                     <p
                       style={{
-                        fontSize: "0.72rem",
+                        fontSize: "0.76em",
                         fontWeight: 500,
                         color: subject.accentColor,
                       }}
@@ -1668,7 +1757,7 @@ export default function SubjectPage() {
                 <h2
                   style={{
                     fontFamily: "var(--font-body)",
-                    fontSize: "1.25rem",
+                    fontSize: "1.3em",
                     fontWeight: 400,
                     color: "var(--text)",
                     letterSpacing: "-0.015em",
@@ -1678,7 +1767,7 @@ export default function SubjectPage() {
                 </h2>
                 <p
                   style={{
-                    fontSize: "0.8rem",
+                    fontSize: "0.84em",
                     color: "var(--text-faint)",
                     marginTop: "2px",
                   }}
@@ -1686,7 +1775,7 @@ export default function SubjectPage() {
                   Click any topic to expand details — then jump straight in
                 </p>
               </div>
-              <span style={{ fontSize: "0.78rem", color: "var(--text-faint)" }}>
+              <span style={{ fontSize: "0.82em", color: "var(--text-faint)" }}>
                 {totalTopics} {totalTopics === 1 ? "topic" : "topics"}
               </span>
             </div>

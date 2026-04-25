@@ -196,21 +196,21 @@ const FONTS = [
     label: "Neutral",
     desc: "Clean, modern, easy to read",
     sample: "The quick brown fox",
-    family: "selectedFont.family",
+    family: "'DM Sans', sans-serif",
   },
   {
     key: "academic",
     label: "Academic",
     desc: "Scholarly serif — classic feel",
     sample: "The quick brown fox",
-    family: "'DM Serif Display', Georgia, serif",
+    family: "'Lora', serif",
   },
   {
     key: "dyslexic",
-    label: "Dyslexic-friendly",
-    desc: "Optimised letter spacing",
+    label: "Accessible",
+    desc: "High-legibility typeface",
     sample: "The quick brown fox",
-    family: "'Comic Sans MS', 'Chalkboard SE', cursive",
+    family: "OpenDyslexic, 'Comic Sans MS', sans-serif",
   },
 ];
 
@@ -233,19 +233,19 @@ const THEME_CONFIGS = {
     panel: "#FFFFFF",
     text: "#1A1917",
     subtext: "#6B6963",
-    accent: "#3C3489",
+    accent: "#3C3489", // Deep Purple
     border: "#E4E2DC",
     cardBg: "#EEEDFE",
   },
   dark: {
     label: "Dark",
-    bg: "#1A1917",
-    panel: "#252321",
-    text: "#088d55",
-    subtext: "#79cfe4",
-    accent: "#c91678",
-    border: "#333333",
-    cardBg: "#2D2A3E",
+    bg: "#121211", // Slightly deeper black
+    panel: "#1E1E1C", // Subtle elevation
+    text: "#E4E4E1", // Soft off-white for readability
+    subtext: "#A09F98", // Muted grey-gold
+    accent: "#AFA9EC", // Lavender (easier on eyes than hot pink)
+    border: "#33322E",
+    cardBg: "#252429",
   },
   "cb-light": {
     label: "CB Light",
@@ -253,19 +253,19 @@ const THEME_CONFIGS = {
     panel: "#FFFFFF",
     text: "#1A1400",
     subtext: "#5A5030",
-    accent: "#C0720A",
-    border: "#E8D890",
+    accent: "#005AB5", // Changed to "Blue" (Safe for most colorblindness)
+    border: "#DBCBA0",
     cardBg: "#FFF0C0",
   },
   "cb-dark": {
     label: "CB Dark",
-    bg: "#001020",
-    panel: "#0A1928",
-    text: "#cb942c",
-    subtext: "#9bb3c0",
-    accent: "#1cbabc",
+    bg: "#00121F",
+    panel: "#001E33",
+    text: "#FFFFFF", // Pure white for max contrast
+    subtext: "#B8C9D6",
+    accent: "#FFC20A", // High-contrast Yellow
     border: "#1A3040",
-    cardBg: "#0A2840",
+    cardBg: "#002A47",
   },
 };
 
@@ -306,7 +306,8 @@ function AvatarImage({ avatar, size, style: extraStyle = {} }) {
 
 // ─── Avatar picker modal — hero + thumbnail grid, mirrors onboarding ──────────
 
-function AvatarPickerModal({ T, initialIdx, onSelect, onClose }) {
+// Updated component definition to include selectedFont prop
+function AvatarPickerModal({ T, initialIdx, onSelect, onClose, selectedFont }) {
   const [hovered, setHovered] = useState(initialIdx);
   const current = AVATARS[hovered] ?? AVATARS[0];
 
@@ -318,7 +319,7 @@ function AvatarPickerModal({ T, initialIdx, onSelect, onClose }) {
       style={{
         position: "fixed",
         inset: 0,
-        background: "rgba(0,0,0,0.5)",
+        background: "rgba(0,0,0,0.7)", // Darkened for better focus
         zIndex: 200,
         display: "flex",
         alignItems: "center",
@@ -329,173 +330,122 @@ function AvatarPickerModal({ T, initialIdx, onSelect, onClose }) {
       <div
         style={{
           background: T.warm,
-          borderRadius: "20px",
-          padding: "2rem",
+          borderRadius: "24px",
+          padding: "2.5rem",
           width: "100%",
-          maxWidth: "500px",
-          maxHeight: "88vh",
+          maxWidth: "550px",
+          maxHeight: "90vh",
           overflowY: "auto",
-          boxShadow: "0 24px 60px rgba(0,0,0,0.28)",
+          boxShadow: "0 24px 60px rgba(0,0,0,0.4)",
           animation: "fadeUp 0.22s ease",
           display: "flex",
           flexDirection: "column",
-          gap: "1.25rem",
+          gap: "1.5rem",
         }}
       >
         {/* Header */}
-        <div
-          style={{
-            display: "flex",
-            alignItems: "flex-start",
-            justifyContent: "space-between",
-          }}
-        >
+        <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between" }}>
           <div>
             <h2
               style={{
-                fontFamily: "'DM Serif Display',serif",
-                fontSize: "1.2rem",
+                fontFamily: selectedFont.family, // Fixed variable name
+                fontSize: "1.4rem",
                 color: T.dark,
                 letterSpacing: "-0.01em",
               }}
             >
               Choose your avatar
             </h2>
-            <p
-              style={{ fontSize: "0.78rem", color: T.muted, marginTop: "2px" }}
-            >
+            <p style={{ fontSize: "0.85rem", color: T.muted, marginTop: "4px" }}>
               Pick the learner that feels like you.
             </p>
           </div>
-          <button
-            onClick={onClose}
-            style={{
-              width: "28px",
-              height: "28px",
-              borderRadius: "50%",
-              border: `1px solid ${T.border}`,
-              background: "transparent",
-              color: T.muted,
-              cursor: "pointer",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              fontSize: "1rem",
-              flexShrink: 0,
-            }}
-          >
-            ×
-          </button>
+          <button onClick={onClose} style={{ background: "none", border: "none", color: T.muted, cursor: "pointer", fontSize: "1.5rem" }}>×</button>
         </div>
 
-        {/* Hero — selected avatar large display */}
-        <div style={{ textAlign: "center" }}>
+        {/* Hero Display — Image is now bigger (140px) */}
+        <div style={{ textAlign: "center", padding: "1rem 0" }}>
           <div
             style={{
-              width: "80px",
-              height: "80px",
+              width: "140px", 
+              height: "140px",
               borderRadius: "50%",
               background: T.light,
-              border: `3px solid ${T.accent}`,
+              border: `4px solid ${T.accent}`,
               display: "inline-flex",
               alignItems: "center",
               justifyContent: "center",
-              margin: "0 auto 0.55rem",
-              boxShadow: `0 0 0 6px ${T.accentLight ?? T.light}`,
-              transition: "all 0.25s ease",
+              margin: "0 auto 1rem",
+              boxShadow: `0 8px 30px ${T.accent}33`,
+              transition: "all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1)",
               overflow: "hidden",
             }}
           >
-            <AvatarImage avatar={current} size={74} />
+            <AvatarImage avatar={current} size={140} />
           </div>
-          <p style={{ fontSize: "1rem", fontWeight: 700, color: T.dark }}>
+          <p style={{ 
+            fontFamily: selectedFont.family, 
+            fontSize: "1.25rem", 
+            fontWeight: 700, 
+            color: T.dark 
+          }}>
             {current.name}
           </p>
-          <p
-            style={{
-              fontSize: "0.82rem",
-              fontWeight: 500,
-              color: T.accent,
-              marginTop: "2px",
-            }}
-          >
+          <p style={{ fontSize: "0.9rem", fontWeight: 500, color: T.accent, marginTop: "4px" }}>
             {current.title}
           </p>
-          <p
-            style={{
-              fontSize: "0.78rem",
-              color: T.muted,
-              marginTop: "0.5rem",
-              lineHeight: 1.55,
-              maxWidth: "300px",
-              margin: "0.5rem auto 0",
-            }}
-          >
+          <p style={{
+            fontSize: "0.85rem",
+            color: T.muted,
+            marginTop: "0.75rem",
+            lineHeight: 1.6,
+            maxWidth: "380px",
+            margin: "0.75rem auto 0",
+            fontFamily: selectedFont.family // Applied preference to description too
+          }}>
             {current.description}
           </p>
         </div>
 
         {/* Thumbnail grid */}
-        <div
-          style={{
-            display: "flex",
-            flexWrap: "wrap",
-            justifyContent: "center",
-            gap: "0.55rem",
-          }}
-        >
+        <div style={{ display: "flex", flexWrap: "wrap", justifyContent: "center", gap: "0.6rem" }}>
           {AVATARS.map((a, i) => (
             <div
               key={a.name}
               onClick={() => setHovered(i)}
-              role="button"
-              tabIndex={0}
-              onKeyDown={(e) => e.key === "Enter" && setHovered(i)}
-              title={`${a.name} — ${a.title}`}
               style={{
-                width: "52px",
-                height: "52px",
+                width: "50px",
+                height: "50px",
                 borderRadius: "50%",
                 border: `2px solid ${hovered === i ? T.accent : "transparent"}`,
-                background:
-                  hovered === i ? T.light : (T.surfaceAlt ?? "#F4F2EE"),
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
                 cursor: "pointer",
                 overflow: "hidden",
-                transition:
-                  "border-color 0.2s, background 0.2s, transform 0.15s",
-                transform: hovered === i ? "scale(1.18)" : "scale(1)",
-                boxShadow:
-                  hovered === i
-                    ? `0 0 0 4px ${T.accentLight ?? T.light}`
-                    : "none",
+                transition: "transform 0.2s",
+                transform: hovered === i ? "scale(1.15)" : "scale(1)",
+                background: hovered === i ? T.light : (T.bg),
               }}
             >
-              <AvatarImage avatar={a} size={52} />
+              <AvatarImage avatar={a} size={50} />
             </div>
           ))}
         </div>
 
-        {/* Confirm button */}
         <button
           onClick={() => onSelect(current.name)}
           style={{
             width: "100%",
-            padding: "0.68rem",
+            padding: "0.8rem",
             background: T.accent,
             color: "#fff",
             border: "none",
-            borderRadius: "9px",
-            fontFamily: "'DM Sans',sans-serif",
-            fontSize: "0.9rem",
+            borderRadius: "12px",
+            fontFamily: selectedFont.family, 
+            fontSize: "1rem",
             fontWeight: 500,
             cursor: "pointer",
-            transition: "opacity 0.2s",
           }}
         >
-          Choose {current.name} →
+          Choose {current.name}
         </button>
       </div>
     </div>
@@ -646,10 +596,15 @@ export default function SettingsPage() {
       {avatarPickerOpen && (
         <AvatarPickerModal
           T={T}
+          selectedFont={selectedFont} // Pass the font preference here
           initialIdx={Math.max(
             0,
             AVATARS.findIndex(
-              (a) => a.name === draft.avatar || a.emoji === draft.avatar,
+              (a) =>
+                a.name ===
+                (typeof draft.avatar === "object"
+                  ? draft.avatar.name
+                  : draft.avatar),
             ),
           )}
           onSelect={(name) => {
@@ -662,21 +617,20 @@ export default function SettingsPage() {
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        @import url('https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400;1,700&family=DM+Sans:ital,wght@0,400;0,500;0,700;1,400&family=Lora:ital,wght@0,400;0,500;0,600;0,700;1,400&display=swap');
         @keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
         @keyframes pulse  { 0%,100%{opacity:1} 50%{opacity:0.4} }
         @keyframes drift  { 0%,100%{transform:translateY(0)} 50%{transform:translateY(-10px)} }
         ::-webkit-scrollbar { width: 5px; }
         ::-webkit-scrollbar-thumb { background: #D3D1C7; border-radius: 3px; }
         input[type=text], input[type=email] {
-          width: 100%; padding: 0.58rem 0.8rem;
-          border: 1px solid ${T.border}; border-radius: 9px;
-          font-family: selectedFont.family;
-          font-size: 0.9rem; color: ${T.dark}; background: ${T.warm};
-          outline: none; transition: border-color 0.2s, box-shadow 0.2s;
-        }
-        input[type=text]:focus, input[type=email]:focus {
-          border-color: ${T.mid}; box-shadow: 0 0 0 3px ${T.light};
-        }
+    width: 100%; padding: 0.58rem 0.8rem;
+    border: 1px solid ${T.border}; border-radius: 9px;
+    font-family: ${selectedFont.family}; /* Use template literal variable */
+    font-size: 0.9rem; 
+    color: ${T.dark}; 
+    background: ${T.bg}; /* Use T.bg instead of T.warm for inputs in dark mode */
+    outline: none; transition: border-color 0.2s, box-shadow 0.2s;
       `}</style>
 
       <div
@@ -694,12 +648,12 @@ export default function SettingsPage() {
             justifyContent: "space-between",
             padding: "0 2.5rem",
             height: "60px",
-            background: "rgba(246,245,255,0.9)",
             backdropFilter: "blur(14px)",
             borderBottom: `1px solid ${T.light}80`,
             position: "sticky",
+            background: T.bg,
             top: 0,
-            zIndex: 100,
+            zIndex: 1000,
           }}
         >
           <div
@@ -861,7 +815,7 @@ export default function SettingsPage() {
         {/* ── Header ── */}
         <div
           style={{
-            background: `linear-gradient(150deg, ${T.light} 0%, #EAF3DE 100%)`,
+            background: `linear-gradient(150deg, ${T.warm} 0%, ${T.bg} 100%)`,
             borderBottom: `1px solid ${T.mid}40`,
             padding: "2rem 2.5rem 1.75rem",
             position: "relative",
@@ -1052,7 +1006,7 @@ export default function SettingsPage() {
                           color: T.accent,
                           fontSize: "0.75rem",
                           fontWeight: 500,
-                          fontFamily: "'DM Sans',sans-serif",
+                          fontFamily: selectedFont,
                           cursor: "pointer",
                           transition: "background 0.15s",
                           marginTop: "2px",
@@ -1251,7 +1205,7 @@ export default function SettingsPage() {
                     {/* Label */}
                     <div
                       style={{
-                        background: "#fff",
+                        background: T.bg,
                         padding: "0.6rem 0.85rem",
                         textAlign: "left",
                       }}
@@ -1337,7 +1291,7 @@ export default function SettingsPage() {
                       alignItems: "center",
                       gap: "1rem",
                       padding: "0.9rem 1.1rem",
-                      background: selected ? T.light : "#fff",
+                      background: selected ? T.light : T.bg,
                       border: `1px solid ${selected ? T.accent : T.border}`,
                       borderRadius: "12px",
                       cursor: "pointer",
@@ -1431,7 +1385,7 @@ export default function SettingsPage() {
                     onClick={() => set("fontSize", fs.key)}
                     style={{
                       padding: "0.85rem 0.5rem",
-                      background: selected ? T.light : "#fff",
+                      background: selected ? T.light : T.bg,
                       border: `1px solid ${selected ? T.accent : T.border}`,
                       borderRadius: "12px",
                       cursor: "pointer",
@@ -1541,7 +1495,7 @@ export default function SettingsPage() {
                     onClick={() => set("skill", opt.key)}
                     style={{
                       padding: "1.1rem 1.15rem",
-                      background: selected ? T.light : "#fff",
+                      background: selected ? T.light : T.bg,
                       border: `2px solid ${selected ? T.accent : T.border}`,
                       borderRadius: "13px",
                       cursor: "pointer",
@@ -1638,8 +1592,8 @@ export default function SettingsPage() {
                     key={stat.label}
                     style={{
                       flex: 1,
-                      background: "#F9F8F6",
-                      border: "1px solid #EDE9E0",
+                      background: T.bg,
+                      border: `1px solid ${T.border}`,
                       borderRadius: "10px",
                       padding: "0.75rem 0.9rem",
                     }}
@@ -1733,7 +1687,7 @@ export default function SettingsPage() {
                       style={{
                         padding: "0.5rem 1rem",
                         background: T.danger,
-                        color: "#fff",
+                        color: T.bg,
                         border: "none",
                         borderRadius: "8px",
                         fontFamily: "selectedFont.family",
@@ -1748,7 +1702,7 @@ export default function SettingsPage() {
                       onClick={() => setConfirmReset(false)}
                       style={{
                         padding: "0.5rem 1rem",
-                        background: "#fff",
+                        background: T.bg,
                         color: T.dark,
                         border: "1px solid #E4E2DC",
                         borderRadius: "8px",
@@ -1799,7 +1753,7 @@ export default function SettingsPage() {
             ) : (
               <div
                 style={{
-                  background: "#fff",
+                  background: T.bg,
                   border: `1px solid ${T.border}`,
                   borderRadius: "10px",
                   padding: "1rem 1.15rem",
@@ -1820,7 +1774,7 @@ export default function SettingsPage() {
                     style={{
                       padding: "0.45rem 0.9rem",
                       background: T.dark,
-                      color: "#fff",
+                      color: T.bg,
                       border: "none",
                       borderRadius: "8px",
                       fontFamily: "selectedFont.family",

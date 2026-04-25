@@ -1,6 +1,9 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { useUserStore } from "../../store/userStore";
+import logo1 from "../../assets/logo1.jpg";
+import logo2 from "../../assets/logo2.jpg";
+import logo3 from "../../assets/logo3.jpg";
 
 // ─── Static data ──────────────────────────────────────────────────────────────
 
@@ -20,6 +23,14 @@ const QUOTES = [
   },
   { text: "Simplicity is the soul of efficiency.", author: "Austin Freeman" },
 ];
+
+const FONTS = [
+  "'Workbench', cursive",
+  "'Great Vibes', cursive",
+  "'Agbalumo', cursive",
+];
+
+const LOGOS = [logo1, logo2, logo3];
 
 const SUBJECTS = [
   {
@@ -222,19 +233,20 @@ function ActivitySparkline() {
       style={{
         display: "flex",
         alignItems: "flex-end",
-        gap: "3px",
-        height: "28px",
+        gap: "4px",
+        height: "40px",
+        width: "100%",
       }}
     >
       {bars.map((v, i) => (
         <div
           key={i}
           style={{
-            width: "6px",
+            flex: 1,
             height: `${(v / max) * 100}%`,
-            background:
-              i === bars.length - 1 ? "var(--accent)" : "var(--accent-mid)",
-            borderRadius: "2px",
+            background: i === bars.length - 1 ? "#7F77DD" : "#AFA9EC",
+            borderRadius: "3px",
+            transformOrigin: "bottom",
             animation: `growUp 0.5s ease ${i * 0.07}s both`,
           }}
         />
@@ -441,13 +453,13 @@ function StatCard({ label, value, unit, sub, children }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered ? "var(--card-bg-hover)" : "var(--card-bg)",
+        background: hovered ? "var(--card-bg)" : "var(--card-bg)",
         backdropFilter: "blur(10px)",
         border: `1px solid ${hovered ? "var(--accent-mid)" : "var(--border)"}`,
         borderRadius: "14px",
         padding: "1.1rem 1.2rem",
         boxShadow: hovered
-          ? "0 6px 20px var(--shadow)"
+          ? "0 0 0 2px var(--accent-mid), 0 6px 24px rgba(127,119,221,0.2)"
           : "0 2px 12px var(--shadow)",
         transform: hovered ? "translateY(-2px)" : "translateY(0)",
         transition:
@@ -511,7 +523,7 @@ function QuoteCard({ quote }) {
       onMouseEnter={() => setHovered(true)}
       onMouseLeave={() => setHovered(false)}
       style={{
-        background: hovered ? "var(--card-bg-hover)" : "var(--card-bg)",
+        background: hovered ? "var(--card-bg)" : "var(--card-bg)",
         backdropFilter: "blur(10px)",
         border: `1px solid ${hovered ? "var(--accent-mid)" : "var(--border)"}`,
         borderRadius: "14px",
@@ -519,8 +531,8 @@ function QuoteCard({ quote }) {
         maxWidth: "280px",
         flexShrink: 0,
         boxShadow: hovered
-          ? "0 6px 20px var(--shadow)"
-          : "0 2px 16px var(--shadow)",
+          ? "0 0 0 2px var(--accent-mid), 0 6px 24px rgba(127,119,221,0.2)"
+          : "0 2px 12px var(--shadow)",
         transform: hovered ? "translateY(-2px)" : "translateY(0)",
         transition:
           "background 0.2s, border-color 0.2s, box-shadow 0.2s, transform 0.2s",
@@ -528,7 +540,7 @@ function QuoteCard({ quote }) {
     >
       <p
         style={{
-          fontSize: "0.78em",
+          fontSize: "0.92em",
           color: "var(--text-muted)",
           lineHeight: 1.65,
           fontStyle: "italic",
@@ -611,10 +623,24 @@ export default function LandingPage() {
   const greeting = getGreeting(displayName);
   const quote = QUOTES[new Date().getDay() % QUOTES.length];
   const stats = user?.stats ?? { completed: 0, total: 6, minutesSpent: 0 };
-  const lastTopic = user?.lastTopic ?? null;
+  const lastTopic = user?.lastTopic ?? {
+    subject: "Machine Learning",
+    topic: "Binary Classification",
+    path: "/subject/ml/classification",
+    progress: 60,
+  };
   const theme = user?.theme ?? "light";
   const font = user?.font ?? "neutral";
   const skill = user?.skill ?? "beginner";
+
+  const [fontIndex, setFontIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setFontIndex((prev) => (prev + 1) % FONTS.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
 
   function handleLogout() {
     logout();
@@ -626,11 +652,13 @@ export default function LandingPage() {
       <style>{`
         *, *::before, *::after { box-sizing:border-box; margin:0; padding:0; }
         @keyframes fadeUp  { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
-        @keyframes growUp  { from { transform:scaleY(0); }                  to { transform:scaleY(1); } }
+        @keyframes growUp  { from { transform:scaleY(0); transform-origin:bottom; } to { transform:scaleY(1); transform-origin:bottom; } }
         @keyframes pulse   { 0%,100% { opacity:1; } 50% { opacity:0.45; } }
         @keyframes drift   { 0%,100% { transform:translateY(0) scale(1); } 50% { transform:translateY(-14px) scale(1.03); } }
         ::-webkit-scrollbar { width:6px; }
         ::-webkit-scrollbar-thumb { background:#D3D1C7; border-radius:3px; }
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Space+Grotesk:wght@600&family=DM+Serif+Display&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Work+Sans:wght@600&family=Coiny&family=Russo+One&family=Workbench&display=swap');
       `}</style>
 
       <div
@@ -657,38 +685,30 @@ export default function LandingPage() {
             zIndex: 100,
           }}
         >
-          <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
-            <div
-              style={{
-                width: "28px",
-                height: "28px",
-                borderRadius: "7px",
-                background: "var(--accent)",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-              }}
-            >
-              <svg
-                width="14"
-                height="14"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#fff"
-                strokeWidth="2.2"
-                strokeLinecap="round"
-              >
-                <polygon points="12 2 2 7 12 12 22 7" />
-                <polyline points="2 17 12 22 22 17" />
-                <polyline points="2 12 12 17 22 12" />
-              </svg>
-            </div>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              alignItems: "center",
+              gap: "10px",
+            }}
+          >
+            <img
+              src={LOGOS[fontIndex]}
+              alt="logo"
+              style={{ width: "48px", height: "48px", borderRadius: "7px" }}
+            />
             <span
               style={{
-                fontFamily: "var(--font-body)",
-                fontSize: "1.05em",
+                fontFamily: FONTS[fontIndex],
+                fontSize: FONTS[fontIndex].includes("Great Vibes")
+                  ? "2em"
+                  : "1.5em",
+                fontWeight: 600,
                 color: "var(--text)",
-                letterSpacing: "-0.01em",
+                letterSpacing: FONTS[fontIndex].includes("Great Vibes")
+                  ? "0.08em"
+                  : "-0.01em",
               }}
             >
               Visualize
@@ -762,8 +782,14 @@ export default function LandingPage() {
                 <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z" />
               </svg>
             </button>
-
-            <div style={{ display: "flex", alignItems: "center", gap: "8px" }}>
+            <div
+              style={{
+                display: "flex",
+                flexDirection: "row",
+                alignItems: "center",
+                gap: "8px",
+              }}
+            >
               <AvatarNavBubble user={user} />
               <button
                 onClick={handleLogout}
@@ -900,21 +926,21 @@ export default function LandingPage() {
             <section
               style={{
                 display: "grid",
-                gridTemplateColumns: `1fr 1fr 1fr ${lastTopic ? "1.6fr" : ""}`,
+                gridTemplateColumns: "1fr 1fr 1fr 1.6fr",
                 gap: "0.8rem",
                 animation: "fadeUp 0.5s ease 0.08s both",
               }}
             >
               <StatCard
                 label="Completed"
-                value={stats.completed}
+                value={4}
                 unit={`/${stats.total}`}
                 sub="topics done"
               />
 
               <StatCard
                 label="Time spent"
-                value={stats.minutesSpent}
+                value={375}
                 unit="m"
                 sub="this week"
               />
@@ -931,7 +957,7 @@ export default function LandingPage() {
                   onClick={() => navigate(lastTopic.path)}
                   style={{
                     background: bookmarkHovered
-                      ? "var(--card-bg-hover)"
+                      ? "var(--card-bg)"
                       : "var(--card-bg)",
                     backdropFilter: "blur(8px)",
                     border: `1px solid ${bookmarkHovered ? "var(--accent-mid)" : "var(--border)"}`,
@@ -948,18 +974,6 @@ export default function LandingPage() {
                     overflow: "hidden",
                   }}
                 >
-                  <div
-                    style={{
-                      position: "absolute",
-                      bottom: 0,
-                      left: 0,
-                      height: "3px",
-                      width: `${lastTopic.progress}%`,
-                      background: "linear-gradient(90deg,#7F77DD,#5DCAA5)",
-                      borderRadius: "0 2px 0 0",
-                      transition: "width 0.4s ease",
-                    }}
-                  />
                   <div
                     style={{
                       display: "flex",
@@ -1001,9 +1015,33 @@ export default function LandingPage() {
                   >
                     {lastTopic.subject} — {lastTopic.topic}
                   </p>
-                  <p style={{ fontSize: "0.72em", color: "var(--text-muted)" }}>
-                    {lastTopic.progress}% through
-                  </p>
+                  <div style={{ marginTop: "0.4rem" }}>
+                    <div
+                      style={{
+                        height: "5px",
+                        borderRadius: "3px",
+                        background: "var(--border)",
+                        overflow: "hidden",
+                        marginBottom: "4px",
+                      }}
+                    >
+                      <div
+                        style={{
+                          height: "100%",
+                          width: `${lastTopic.progress}%`,
+                          background:
+                            "linear-gradient(90deg, #7F77DD, #5DCAA5)",
+                          borderRadius: "3px",
+                          transition: "width 0.4s ease",
+                        }}
+                      />
+                    </div>
+                    <p
+                      style={{ fontSize: "0.72em", color: "var(--text-muted)" }}
+                    >
+                      {lastTopic.progress}% through
+                    </p>
+                  </div>
                   <div
                     style={{
                       display: "flex",
